@@ -1,21 +1,34 @@
-import { Download, RotateCcw, Upload } from "lucide-react";
+import { ArrowLeft, Download, RotateCcw, Upload } from "lucide-react";
 
 export function Settings({
   importText,
   setImportText,
+  onBack,
   exportToClipboard,
   applyImport,
   resetAll
 }: {
   importText: string;
   setImportText: (text: string) => void;
+  onBack: () => void;
   exportToClipboard: () => void;
   applyImport: () => void;
   resetAll: () => void;
 }) {
   return (
     <div className="rounded-lg border border-white/10 bg-cockpit-panel/90 p-5">
-      <h2 className="text-3xl font-semibold">Settings</h2>
+      <div className="flex items-center gap-3">
+        <button
+          className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-md border border-white/10 px-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white sm:px-3"
+          onClick={onBack}
+          type="button"
+          aria-label="Voltar"
+        >
+          <ArrowLeft size={18} />
+          <span className="hidden sm:inline">Voltar</span>
+        </button>
+        <h2 className="text-3xl font-semibold">Settings</h2>
+      </div>
       <div className="mt-5 grid gap-3 md:grid-cols-3">
         <button className="flex items-center justify-center gap-2 rounded-md bg-cockpit-glow px-4 py-3 font-semibold text-cockpit-ink" onClick={exportToClipboard} type="button">
           <Download size={18} /> Exportar

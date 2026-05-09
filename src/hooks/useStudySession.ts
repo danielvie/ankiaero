@@ -19,7 +19,7 @@ export function useStudySession() {
   const [importText, setImportText] = useState("");
   const [markedCardIds, setMarkedCardIds] = useState(() => loadMarkedCards());
   const [showMarkedOnly, setShowMarkedOnly] = useState(false);
-  const reviewHistoryPushed = useRef(false);
+  const navigationHistoryPushed = useRef(false);
 
   useEffect(() => {
     saveProgress(progress);
@@ -31,8 +31,8 @@ export function useStudySession() {
 
   useEffect(() => {
     const handlePopState = () => {
-      if (!reviewHistoryPushed.current) return;
-      reviewHistoryPushed.current = false;
+      if (!navigationHistoryPushed.current) return;
+      navigationHistoryPushed.current = false;
       restorePreviousView();
     };
 
@@ -66,16 +66,16 @@ export function useStudySession() {
     setView(previousView === "review" ? "dashboard" : previousView);
   };
 
-  const pushReviewHistory = () => {
-    if (reviewHistoryPushed.current) return;
-    window.history.pushState({ ankiAeroView: "review" }, "", window.location.href);
-    reviewHistoryPushed.current = true;
+  const pushNavigationHistory = (nextView: View) => {
+    if (nextView === "dashboard" || navigationHistoryPushed.current) return;
+    window.history.pushState({ ankiAeroView: nextView }, "", window.location.href);
+    navigationHistoryPushed.current = true;
   };
 
   const changeView = (nextView: View) => {
-    if (nextView === "review" && view !== "review") {
+    if (nextView !== view) {
       setPreviousView(view);
-      pushReviewHistory();
+      pushNavigationHistory(nextView);
     }
     setView(nextView);
   };
@@ -95,7 +95,7 @@ export function useStudySession() {
   const reviewSpecificCard = (card: Card) => {
     if (view !== "review") {
       setPreviousView(view);
-      pushReviewHistory();
+      pushNavigationHistory("review");
     }
     setActiveCardId(card.id);
     setSelectedAnswer(null);
@@ -106,7 +106,7 @@ export function useStudySession() {
   const startReview = (nextSubject: SubjectFilter = subject) => {
     if (view !== "review") {
       setPreviousView(view);
-      pushReviewHistory();
+      pushNavigationHistory("review");
     }
     setSubject(nextSubject);
     setActiveCardId(null);
@@ -115,8 +115,8 @@ export function useStudySession() {
     setView("review");
   };
 
-  const returnFromReview = () => {
-    if (reviewHistoryPushed.current) {
+  const returnToPreviousView = () => {
+    if (navigationHistoryPushed.current) {
       window.history.back();
       return;
     }
@@ -180,7 +180,7 @@ export function useStudySession() {
     chooseAnswer,
     gradeAnswer,
     startReview,
-    returnFromReview,
+    returnToPreviousView,
     reviewSpecificCard,
     resetCard,
     toggleMarkedCard,

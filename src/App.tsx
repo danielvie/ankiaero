@@ -40,7 +40,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
             isMarked={study.markedCardIds.has(study.activeCard.id)}
             selectedAnswer={study.selectedAnswer}
             revealed={study.revealed}
-            onBack={study.returnFromReview}
+            onBack={study.returnToPreviousView}
             chooseAnswer={study.chooseAnswer}
             gradeAnswer={study.gradeAnswer}
             toggleMarked={() => study.toggleMarkedCard(study.activeCard!.id)}
@@ -55,6 +55,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
             setShowMarkedOnly={study.setShowMarkedOnly}
             query={study.query}
             setQuery={study.setQuery}
+            onBack={study.returnToPreviousView}
             reviewCard={study.reviewSpecificCard}
             resetCard={study.resetCard}
             toggleMarked={study.toggleMarkedCard}
@@ -64,6 +65,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
           <Settings
             importText={study.importText}
             setImportText={study.setImportText}
+            onBack={study.returnToPreviousView}
             exportToClipboard={study.exportToClipboard}
             applyImport={study.applyImport}
             resetAll={study.resetAll}
