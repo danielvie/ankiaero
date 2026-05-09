@@ -22,3 +22,4 @@
 - [x] Add marked-card list
 - [x] Add build-time patch version system
 - [x] Show app version on dashboard
+- [x] Add marked-card shortcut button to stats panel

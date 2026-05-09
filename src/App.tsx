@@ -18,7 +18,18 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
 
   return (
     <>
-      <AppShell view={study.view} onViewChange={study.setView} subject={study.subject} onSubjectChange={study.setSubject} stats={study.stats}>
+      <AppShell
+        view={study.view}
+        onViewChange={study.setView}
+        subject={study.subject}
+        onSubjectChange={study.setSubject}
+        stats={study.stats}
+        markedCount={study.markedCardIds.size}
+        onOpenMarked={() => {
+          study.setShowMarkedOnly(true);
+          study.setView("browse");
+        }}
+      >
         {study.view === "dashboard" && (
           <DashboardView progress={study.progress} subject={study.subject} startReview={() => study.setView("review")} />
         )}

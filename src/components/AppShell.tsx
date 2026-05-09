@@ -1,4 +1,4 @@
-import { BarChart3, BookOpen, Search, Settings } from "lucide-react";
+import { BarChart3, BookOpen, Search, Settings, Star } from "lucide-react";
 import { subjects } from "../cards";
 import type { SubjectFilter, View } from "../appTypes";
 import type { StudyStats } from "../studyStats";
@@ -9,10 +9,12 @@ type AppShellProps = {
   subject: SubjectFilter;
   onSubjectChange: (subject: SubjectFilter) => void;
   stats: StudyStats;
+  markedCount: number;
+  onOpenMarked: () => void;
   children: React.ReactNode;
 };
 
-export function AppShell({ view, onViewChange, subject, onSubjectChange, stats, children }: AppShellProps) {
+export function AppShell({ view, onViewChange, subject, onSubjectChange, stats, markedCount, onOpenMarked, children }: AppShellProps) {
   const isReviewing = view === "review";
 
   return (
@@ -54,6 +56,14 @@ export function AppShell({ view, onViewChange, subject, onSubjectChange, stats, 
               <Stat label="Done" value={stats.reviewed} tone="text-cockpit-green" />
               <Stat label="Hit" value={`${stats.accuracy}%`} tone="text-white" />
             </div>
+            <button
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded-md border border-cockpit-amber/50 bg-cockpit-amber/10 px-3 py-3 text-sm font-semibold text-cockpit-amber hover:bg-cockpit-amber/15"
+              onClick={onOpenMarked}
+              type="button"
+            >
+              <Star size={17} fill={markedCount > 0 ? "currentColor" : "none"} />
+              Marked ({markedCount})
+            </button>
           </aside>
         )}
 
