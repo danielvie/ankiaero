@@ -16,3 +16,5 @@
 - [x] Add GitHub Pages deployment
 - [x] Fix GitHub Pages asset base path
 - [x] Add PWA update confirmation popup
+- [x] Split `App.tsx` into deep modules
+- [x] Apply page feedback for review focus and mobile header
