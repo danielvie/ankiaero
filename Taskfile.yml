@@ -1,0 +1,31 @@
+version: "3"
+
+tasks:
+  default:
+    desc: List available tasks
+    cmds:
+      - task --list
+  install:
+    desc: Install project dependencies
+    cmds:
+      - bun install
+  run:
+    desc: Start local Vite development server
+    cmds:
+      - bun run dev
+  build:
+    desc: Build production PWA
+    cmds:
+      - bun run build
+  check:
+    desc: Type-check TypeScript project
+    cmds:
+      - bun run check
+  preview:
+    desc: Preview production build locally
+    cmds:
+      - bun run preview
+  clean:
+    desc: Remove generated build output and dependencies
+    cmds:
+      - powershell -NoProfile -Command "Remove-Item -Recurse -Force dist,node_modules -ErrorAction SilentlyContinue"

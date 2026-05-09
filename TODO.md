@@ -1,0 +1,15 @@
+- [x] Inspect `SIMULADO_ANAC_Rev06m.html` structure and repo state
+- [x] Grill app design one decision at a time
+  - [x] D1: Generate typed TS data from HTML; preserve original HTML
+  - [x] D2: Quiz-first card flow; answer option, reveal correct answer, then self-grade for scheduling
+  - [x] D3: Local-only SM-2-lite scheduler in localStorage; no login/backend
+  - [x] D4: Fresh Vite React TS app in root with Tailwind, PWA, and Taskfile
+- [x] Record accepted decisions before implementation
+- [x] Implement React + TypeScript + Tailwind + PWA app after decisions
+  - [x] Scaffold Vite React TS project with Tailwind and PWA files
+  - [x] Extract questions into typed app data
+  - [x] Build local quiz scheduler and study UI
+  - [x] Add Taskfile tasks
+- [x] Verify build and study flow
+- [x] Add Taskfile default list task and task descriptions
+- [x] Create `.gitignore` for app build artifacts and local files

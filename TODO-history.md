@@ -1,0 +1,2 @@
+- Removed stale duplicate TODO item: `- [ ] Record accepted decisions before implementation`
+- Removed stale duplicate TODO item: `- [ ] Scaffold Vite React TS project with Tailwind and PWA files`
