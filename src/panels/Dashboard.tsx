@@ -18,7 +18,7 @@ export function Dashboard({
     <div className="rounded-lg border border-white/10 bg-cockpit-panel/90 p-5">
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-cockpit-amber">spaced repetition</p>
+          <p className="font-mono text-xs uppercase tracking-[0.25em] text-cockpit-amber">repetição espaçada</p>
           <h2 className="mt-2 text-3xl font-semibold">Dashboard</h2>
         </div>
         <button className="rounded-md bg-cockpit-amber px-4 py-3 font-semibold text-cockpit-ink hover:brightness-110" onClick={startReview} type="button">
@@ -33,7 +33,7 @@ export function Dashboard({
               <div className="flex items-center justify-between gap-4">
                 <div className="font-semibold">{row.subject}</div>
                 <div className="font-mono text-sm text-slate-300">
-                  {row.due} due / {row.total}
+                  {row.due} pendentes / {row.total}
                 </div>
               </div>
               <div className="mt-3 h-2 overflow-hidden rounded bg-cockpit-ink">

@@ -61,7 +61,7 @@ export function scheduleCard(
 
 export function formatDueTime(dueAt: number, now = Date.now()) {
   const delta = dueAt - now;
-  if (delta <= 0) return "due";
+  if (delta <= 0) return "agora";
   const minutes = Math.ceil(delta / 60000);
   if (minutes < 60) return `${minutes}m`;
   const hours = Math.ceil(minutes / 60);

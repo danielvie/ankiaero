@@ -24,3 +24,4 @@
 - [x] Show app version on dashboard
 - [x] Add marked-card shortcut button to stats panel
 - [x] Rename visible panels and modules around panel names
+- [x] Translate visible non-module English text to pt-BR

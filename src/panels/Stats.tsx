@@ -33,17 +33,17 @@ export function Stats({
         ))}
       </select>
       <div className="mt-5 grid grid-cols-2 gap-3">
-        <Stat label="Due" value={stats.due} tone="text-cockpit-amber" />
+        <Stat label="Pend." value={stats.due} tone="text-cockpit-amber" />
         <Stat label="Total" value={stats.total} tone="text-cockpit-glow" />
-        <Stat label="Done" value={stats.reviewed} tone="text-cockpit-green" />
-        <Stat label="Hit" value={`${stats.accuracy}%`} tone="text-white" />
+        <Stat label="Feitas" value={stats.reviewed} tone="text-cockpit-green" />
+        <Stat label="Acerto" value={`${stats.accuracy}%`} tone="text-white" />
       </div>
       <button
         className="mt-3 flex w-full items-center justify-center gap-2 rounded-md border border-cockpit-amber/50 bg-cockpit-amber/10 px-3 py-3 text-sm font-semibold text-cockpit-amber hover:bg-cockpit-amber/15"
         onClick={onOpenMarked}
         type="button"
       >
-        <Star size={17} fill={markedCount > 0 ? "currentColor" : "none"} /> ({markedCount})
+        <Star size={17} fill={markedCount > 0 ? "currentColor" : "none"} />({markedCount})
       </button>
     </aside>
   );

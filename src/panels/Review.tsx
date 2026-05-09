@@ -3,10 +3,10 @@ import { formatDueTime } from "../scheduler";
 import type { Card, CardProgress, Grade } from "../types";
 
 const gradeLabels: Record<Grade, string> = {
-  again: "Again",
-  hard: "Hard",
-  good: "Good",
-  easy: "Easy"
+  again: "De novo",
+  hard: "Difícil",
+  good: "Bom",
+  easy: "Fácil"
 };
 
 function optionLetter(option: string) {
@@ -40,7 +40,7 @@ export function Review({
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.22em] text-cockpit-glow">{card.subject}</p>
           <h2 className="mt-1 text-3xl font-semibold text-white">Review</h2>
-          <p className="mt-1 text-sm text-slate-400">Next: {formatDueTime(progress.dueAt)}</p>
+          <p className="mt-1 text-sm text-slate-400">Próxima: {formatDueTime(progress.dueAt)}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <button
@@ -53,7 +53,7 @@ export function Review({
             <Star size={17} fill={isMarked ? "currentColor" : "none"} />
           </button>
           <div className="rounded-md border border-white/10 px-3 py-2 font-mono text-sm text-slate-300">
-            {progress.attempts} tries · {progress.intervalDays}d interval
+            {progress.attempts} tentativas · intervalo {progress.intervalDays}d
           </div>
         </div>
       </div>

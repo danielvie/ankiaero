@@ -48,7 +48,7 @@ export function Browse({
           type="button"
         >
           <Star size={17} fill={showMarkedOnly ? "currentColor" : "none"} />
-          Marked ({markedCardIds.size})
+          Marcadas ({markedCardIds.size})
         </button>
       </div>
       <div className="mt-4 max-h-[68vh] space-y-3 overflow-auto pr-1">
@@ -58,7 +58,7 @@ export function Browse({
               <div>
                 <p className="font-mono text-xs text-cockpit-amber">{card.subject}</p>
                 <p className="mt-1 text-sm text-slate-100">{card.question}</p>
-                <p className="mt-2 text-xs text-slate-400">Due: {formatDueTime(progress[card.id].dueAt)}</p>
+                <p className="mt-2 text-xs text-slate-400">Próxima: {formatDueTime(progress[card.id].dueAt)}</p>
               </div>
               <div className="flex gap-2">
                 <button
@@ -71,10 +71,10 @@ export function Browse({
                   <Star size={16} fill={markedCardIds.has(card.id) ? "currentColor" : "none"} />
                 </button>
                 <button className="rounded bg-cockpit-glow px-3 py-2 text-sm font-semibold text-cockpit-ink" onClick={() => reviewCard(card)} type="button">
-                  Study
+                  Estudar
                 </button>
                 <button className="rounded border border-white/10 px-3 py-2 text-sm text-slate-200" onClick={() => resetCard(card.id)} type="button">
-                  Reset
+                  Resetar
                 </button>
               </div>
             </div>
