@@ -25,9 +25,6 @@ export function Dashboard({
           Revisar agora
         </button>
       </div>
-      <div className="mt-4 rounded-md border border-white/10 bg-white/[0.04] px-4 py-3 font-mono text-xs text-slate-300">
-        App v{appVersion} · build {appBuiltAt}
-      </div>
       <div className="mt-6 grid gap-3">
         {rows
           .filter((row) => subject === "ALL" || row.subject === subject)
@@ -44,6 +41,9 @@ export function Dashboard({
               </div>
             </div>
           ))}
+      </div>
+      <div className="mt-4 rounded-md border border-white/10 bg-white/[0.04] px-4 py-3 font-mono text-xs text-slate-300">
+        App v{appVersion} · build {appBuiltAt}
       </div>
     </div>
   );

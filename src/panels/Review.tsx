@@ -51,7 +51,6 @@ export function Review({
             type="button"
           >
             <Star size={17} fill={isMarked ? "currentColor" : "none"} />
-            Mark
           </button>
           <div className="rounded-md border border-white/10 px-3 py-2 font-mono text-sm text-slate-300">
             {progress.attempts} tries · {progress.intervalDays}d interval

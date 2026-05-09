@@ -18,7 +18,7 @@ export function Stats({
 }) {
   return (
     <aside className="rounded-lg border border-white/10 bg-cockpit-panel/90 p-4 shadow-2xl shadow-black/20">
-      <h2 className="text-lg font-semibold text-white">Stats</h2>
+      <h2 className="text-lg font-semibold text-white">STATS</h2>
       <label className="mt-4 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Matéria</label>
       <select
         className="mt-2 w-full rounded-md border border-cockpit-line bg-cockpit-ink px-3 py-2 text-sm text-white"
@@ -43,8 +43,7 @@ export function Stats({
         onClick={onOpenMarked}
         type="button"
       >
-        <Star size={17} fill={markedCount > 0 ? "currentColor" : "none"} />
-        Marked ({markedCount})
+        <Star size={17} fill={markedCount > 0 ? "currentColor" : "none"} /> ({markedCount})
       </button>
     </aside>
   );
