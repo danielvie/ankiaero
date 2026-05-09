@@ -2,8 +2,8 @@ import { Agentation } from "agentation";
 import { AppShell } from "./components/AppShell";
 import { useStudySession } from "./hooks/useStudySession";
 import { Browse } from "./panels/Browse";
+import { Card } from "./panels/Card";
 import { Dashboard } from "./panels/Dashboard";
-import { Review } from "./panels/Review";
 import { Settings } from "./panels/Settings";
 import { Update } from "./panels/Update";
 
@@ -34,7 +34,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
           <Dashboard progress={study.progress} startReview={study.startReview} />
         )}
         {study.view === "review" && study.activeCard && (
-          <Review
+          <Card
             card={study.activeCard}
             progress={study.progress[study.activeCard.id]}
             isMarked={study.markedCardIds.has(study.activeCard.id)}

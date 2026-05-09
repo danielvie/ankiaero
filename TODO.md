@@ -29,3 +29,4 @@
 - [x] Preserve previous view when entering review
 - [x] Add review back button for desktop and mobile
 - [x] Keep dashboard showing all areas after focused review
+- [x] Rename visible study item label from Review to Card

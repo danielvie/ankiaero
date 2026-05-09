@@ -13,7 +13,7 @@ function optionLetter(option: string) {
   return option.match(/^[A-D]\)/)?.[0] ?? "";
 }
 
-export function Review({
+export function Card({
   card,
   progress,
   isMarked,
@@ -51,7 +51,6 @@ export function Review({
           </button>
           <div className="min-w-0">
             <p className="font-mono text-xs uppercase tracking-[0.22em] text-cockpit-glow">{card.subject}</p>
-            <h2 className="mt-1 text-3xl font-semibold text-white">Review</h2>
             <p className="mt-1 text-sm text-slate-400">Próxima: {formatDueTime(progress.dueAt)}</p>
           </div>
         </div>
