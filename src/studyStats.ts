@@ -1,6 +1,6 @@
 import { cards, subjects } from "./cards";
 import type { SubjectFilter } from "./appTypes";
-import type { Card, CardProgress } from "./types";
+import type { Card, CardProgress, SubjectName } from "./types";
 
 export type StudyStats = {
   total: number;
@@ -10,7 +10,7 @@ export type StudyStats = {
 };
 
 export type SubjectRow = {
-  subject: string;
+  subject: SubjectName;
   total: number;
   due: number;
   reviewed: number;

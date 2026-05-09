@@ -31,7 +31,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
         }}
       >
         {study.view === "dashboard" && (
-          <Dashboard progress={study.progress} subject={study.subject} startReview={() => study.setView("review")} />
+          <Dashboard progress={study.progress} startReview={study.startReview} />
         )}
         {study.view === "review" && study.activeCard && (
           <Review
@@ -40,6 +40,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
             isMarked={study.markedCardIds.has(study.activeCard.id)}
             selectedAnswer={study.selectedAnswer}
             revealed={study.revealed}
+            onBack={study.returnFromReview}
             chooseAnswer={study.chooseAnswer}
             gradeAnswer={study.gradeAnswer}
             toggleMarked={() => study.toggleMarkedCard(study.activeCard!.id)}

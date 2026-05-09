@@ -25,3 +25,7 @@
 - [x] Add marked-card shortcut button to stats panel
 - [x] Rename visible panels and modules around panel names
 - [x] Translate visible non-module English text to pt-BR
+- [x] Add per-area review buttons to dashboard subjects
+- [x] Preserve previous view when entering review
+- [x] Add review back button for desktop and mobile
+- [x] Keep dashboard showing all areas after focused review

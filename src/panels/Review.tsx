@@ -1,4 +1,4 @@
-import { CheckCircle2, Star, XCircle } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Star, XCircle } from "lucide-react";
 import { formatDueTime } from "../scheduler";
 import type { Card, CardProgress, Grade } from "../types";
 
@@ -19,6 +19,7 @@ export function Review({
   isMarked,
   selectedAnswer,
   revealed,
+  onBack,
   chooseAnswer,
   gradeAnswer,
   toggleMarked
@@ -28,6 +29,7 @@ export function Review({
   isMarked: boolean;
   selectedAnswer: string | null;
   revealed: boolean;
+  onBack: () => void;
   chooseAnswer: (answer: string) => void;
   gradeAnswer: (grade: Grade) => void;
   toggleMarked: () => void;
@@ -37,10 +39,21 @@ export function Review({
   return (
     <div className="answer-panel rounded-lg border border-white/10 p-5 shadow-2xl shadow-black/30">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
-        <div>
-          <p className="font-mono text-xs uppercase tracking-[0.22em] text-cockpit-glow">{card.subject}</p>
-          <h2 className="mt-1 text-3xl font-semibold text-white">Review</h2>
-          <p className="mt-1 text-sm text-slate-400">Próxima: {formatDueTime(progress.dueAt)}</p>
+        <div className="flex min-w-0 items-start gap-3">
+          <button
+            className="mt-1 flex h-9 shrink-0 items-center justify-center gap-2 rounded-md border border-white/10 px-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white sm:px-3"
+            onClick={onBack}
+            type="button"
+            aria-label="Voltar"
+          >
+            <ArrowLeft size={18} />
+            <span className="hidden sm:inline">Voltar</span>
+          </button>
+          <div className="min-w-0">
+            <p className="font-mono text-xs uppercase tracking-[0.22em] text-cockpit-glow">{card.subject}</p>
+            <h2 className="mt-1 text-3xl font-semibold text-white">Review</h2>
+            <p className="mt-1 text-sm text-slate-400">Próxima: {formatDueTime(progress.dueAt)}</p>
+          </div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <button
