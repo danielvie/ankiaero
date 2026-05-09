@@ -13,3 +13,4 @@
 - [x] Verify build and study flow
 - [x] Add Taskfile default list task and task descriptions
 - [x] Create `.gitignore` for app build artifacts and local files
+- [x] Add GitHub Pages deployment
