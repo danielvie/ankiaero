@@ -18,3 +18,5 @@
 - [x] Add PWA update confirmation popup
 - [x] Split `App.tsx` into deep modules
 - [x] Apply page feedback for review focus and mobile header
+- [x] Fix PWA update prompt detection
+- [x] Add marked-card list

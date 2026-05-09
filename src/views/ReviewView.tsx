@@ -1,4 +1,4 @@
-import { CheckCircle2, XCircle } from "lucide-react";
+import { CheckCircle2, Star, XCircle } from "lucide-react";
 import { formatDueTime } from "../scheduler";
 import type { Card, CardProgress, Grade } from "../types";
 
@@ -16,17 +16,21 @@ function optionLetter(option: string) {
 export function ReviewView({
   card,
   progress,
+  isMarked,
   selectedAnswer,
   revealed,
   chooseAnswer,
-  gradeAnswer
+  gradeAnswer,
+  toggleMarked
 }: {
   card: Card;
   progress: CardProgress;
+  isMarked: boolean;
   selectedAnswer: string | null;
   revealed: boolean;
   chooseAnswer: (answer: string) => void;
   gradeAnswer: (grade: Grade) => void;
+  toggleMarked: () => void;
 }) {
   const correct = selectedAnswer === card.answer;
 
@@ -37,8 +41,20 @@ export function ReviewView({
           <p className="font-mono text-xs uppercase tracking-[0.22em] text-cockpit-glow">{card.subject}</p>
           <p className="mt-1 text-sm text-slate-400">Next: {formatDueTime(progress.dueAt)}</p>
         </div>
-        <div className="rounded-md border border-white/10 px-3 py-2 font-mono text-sm text-slate-300">
-          {progress.attempts} tries · {progress.intervalDays}d interval
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            className={`flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-semibold ${
+              isMarked ? "border-cockpit-amber bg-cockpit-amber/15 text-cockpit-amber" : "border-white/10 text-slate-300 hover:bg-white/10"
+            }`}
+            onClick={toggleMarked}
+            type="button"
+          >
+            <Star size={17} fill={isMarked ? "currentColor" : "none"} />
+            Mark
+          </button>
+          <div className="rounded-md border border-white/10 px-3 py-2 font-mono text-sm text-slate-300">
+            {progress.attempts} tries · {progress.intervalDays}d interval
+          </div>
         </div>
       </div>
 

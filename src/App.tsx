@@ -26,20 +26,26 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
           <ReviewView
             card={study.activeCard}
             progress={study.progress[study.activeCard.id]}
+            isMarked={study.markedCardIds.has(study.activeCard.id)}
             selectedAnswer={study.selectedAnswer}
             revealed={study.revealed}
             chooseAnswer={study.chooseAnswer}
             gradeAnswer={study.gradeAnswer}
+            toggleMarked={() => study.toggleMarkedCard(study.activeCard!.id)}
           />
         )}
         {study.view === "browse" && (
           <BrowseView
             cards={study.filteredCards}
             progress={study.progress}
+            markedCardIds={study.markedCardIds}
+            showMarkedOnly={study.showMarkedOnly}
+            setShowMarkedOnly={study.setShowMarkedOnly}
             query={study.query}
             setQuery={study.setQuery}
             reviewCard={study.reviewSpecificCard}
             resetCard={study.resetCard}
+            toggleMarked={study.toggleMarkedCard}
           />
         )}
         {study.view === "settings" && (
