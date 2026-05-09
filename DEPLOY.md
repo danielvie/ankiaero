@@ -9,6 +9,8 @@ Setup in GitHub:
 3. Set `Build and deployment` source to `GitHub Actions`.
 4. Push to `main` or run `Deploy GitHub Pages` manually from Actions.
 
-The workflow builds with `BASE_PATH=/anki_aero/`, so the expected site path is:
+The app builds with relative asset paths, so it works under the repository's GitHub Pages path.
 
-`https://<user-or-org>.github.io/anki_aero/`
+Expected site path:
+
+`https://<user-or-org>.github.io/<repo-name>/`
