@@ -1,6 +1,6 @@
 import { Download, RotateCcw, Upload } from "lucide-react";
 
-export function SettingsView({
+export function Settings({
   importText,
   setImportText,
   exportToClipboard,
@@ -15,7 +15,7 @@ export function SettingsView({
 }) {
   return (
     <div className="rounded-lg border border-white/10 bg-cockpit-panel/90 p-5">
-      <h2 className="text-2xl font-semibold">Dados locais</h2>
+      <h2 className="text-3xl font-semibold">Settings</h2>
       <div className="mt-5 grid gap-3 md:grid-cols-3">
         <button className="flex items-center justify-center gap-2 rounded-md bg-cockpit-glow px-4 py-3 font-semibold text-cockpit-ink" onClick={exportToClipboard} type="button">
           <Download size={18} /> Exportar

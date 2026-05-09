@@ -3,7 +3,7 @@ import { appBuiltAt, appVersion } from "../version";
 import type { SubjectFilter } from "../appTypes";
 import type { CardProgress } from "../types";
 
-export function DashboardView({
+export function Dashboard({
   progress,
   subject,
   startReview
@@ -19,7 +19,7 @@ export function DashboardView({
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-cockpit-amber">spaced repetition</p>
-          <h2 className="mt-2 text-3xl font-semibold">Fila de estudo</h2>
+          <h2 className="mt-2 text-3xl font-semibold">Dashboard</h2>
         </div>
         <button className="rounded-md bg-cockpit-amber px-4 py-3 font-semibold text-cockpit-ink hover:brightness-110" onClick={startReview} type="button">
           Revisar agora

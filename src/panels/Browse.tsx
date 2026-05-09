@@ -4,7 +4,7 @@ import type { Card, CardProgress } from "../types";
 
 const maxBrowseCards = 200;
 
-export function BrowseView({
+export function Browse({
   cards,
   progress,
   markedCardIds,
@@ -29,6 +29,7 @@ export function BrowseView({
 }) {
   return (
     <div className="rounded-lg border border-white/10 bg-cockpit-panel/90 p-5">
+      <h2 className="mb-4 text-3xl font-semibold">Browse</h2>
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
           <Search className="pointer-events-none absolute left-3 top-3 text-slate-500" size={18} />

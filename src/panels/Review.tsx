@@ -13,7 +13,7 @@ function optionLetter(option: string) {
   return option.match(/^[A-D]\)/)?.[0] ?? "";
 }
 
-export function ReviewView({
+export function Review({
   card,
   progress,
   isMarked,
@@ -39,6 +39,7 @@ export function ReviewView({
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.22em] text-cockpit-glow">{card.subject}</p>
+          <h2 className="mt-1 text-3xl font-semibold text-white">Review</h2>
           <p className="mt-1 text-sm text-slate-400">Next: {formatDueTime(progress.dueAt)}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -58,7 +59,7 @@ export function ReviewView({
         </div>
       </div>
 
-      <h2 className="mt-5 text-balance text-2xl font-semibold leading-snug text-white">{card.question}</h2>
+      <h3 className="mt-5 text-balance text-2xl font-semibold leading-snug text-white">{card.question}</h3>
       <div className="mt-6 grid gap-3">
         {card.options.map((option) => {
           const isSelected = selectedAnswer === option;

@@ -23,3 +23,4 @@
 - [x] Add build-time patch version system
 - [x] Show app version on dashboard
 - [x] Add marked-card shortcut button to stats panel
+- [x] Rename visible panels and modules around panel names

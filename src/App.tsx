@@ -1,11 +1,11 @@
 import { Agentation } from "agentation";
 import { AppShell } from "./components/AppShell";
-import { UpdatePrompt } from "./components/UpdatePrompt";
 import { useStudySession } from "./hooks/useStudySession";
-import { BrowseView } from "./views/BrowseView";
-import { DashboardView } from "./views/DashboardView";
-import { ReviewView } from "./views/ReviewView";
-import { SettingsView } from "./views/SettingsView";
+import { Browse } from "./panels/Browse";
+import { Dashboard } from "./panels/Dashboard";
+import { Review } from "./panels/Review";
+import { Settings } from "./panels/Settings";
+import { Update } from "./panels/Update";
 
 type AppProps = {
   updateReady: boolean;
@@ -31,10 +31,10 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
         }}
       >
         {study.view === "dashboard" && (
-          <DashboardView progress={study.progress} subject={study.subject} startReview={() => study.setView("review")} />
+          <Dashboard progress={study.progress} subject={study.subject} startReview={() => study.setView("review")} />
         )}
         {study.view === "review" && study.activeCard && (
-          <ReviewView
+          <Review
             card={study.activeCard}
             progress={study.progress[study.activeCard.id]}
             isMarked={study.markedCardIds.has(study.activeCard.id)}
@@ -46,7 +46,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
           />
         )}
         {study.view === "browse" && (
-          <BrowseView
+          <Browse
             cards={study.filteredCards}
             progress={study.progress}
             markedCardIds={study.markedCardIds}
@@ -60,7 +60,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
           />
         )}
         {study.view === "settings" && (
-          <SettingsView
+          <Settings
             importText={study.importText}
             setImportText={study.setImportText}
             exportToClipboard={study.exportToClipboard}
@@ -69,7 +69,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
           />
         )}
       </AppShell>
-      {updateReady && <UpdatePrompt onConfirm={onConfirmUpdate} onDismiss={onDismissUpdate} />}
+      {updateReady && <Update onConfirm={onConfirmUpdate} onDismiss={onDismissUpdate} />}
       {import.meta.env.DEV && <Agentation />}
     </>
   );
