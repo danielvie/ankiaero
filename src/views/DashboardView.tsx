@@ -1,4 +1,5 @@
 import { getSubjectRows } from "../studyStats";
+import { appBuiltAt, appVersion } from "../version";
 import type { SubjectFilter } from "../appTypes";
 import type { CardProgress } from "../types";
 
@@ -23,6 +24,9 @@ export function DashboardView({
         <button className="rounded-md bg-cockpit-amber px-4 py-3 font-semibold text-cockpit-ink hover:brightness-110" onClick={startReview} type="button">
           Revisar agora
         </button>
+      </div>
+      <div className="mt-4 rounded-md border border-white/10 bg-white/[0.04] px-4 py-3 font-mono text-xs text-slate-300">
+        App v{appVersion} · build {appBuiltAt}
       </div>
       <div className="mt-6 grid gap-3">
         {rows

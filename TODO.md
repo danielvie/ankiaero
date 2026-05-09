@@ -20,3 +20,5 @@
 - [x] Apply page feedback for review focus and mobile header
 - [x] Fix PWA update prompt detection
 - [x] Add marked-card list
+- [x] Add build-time patch version system
+- [x] Show app version on dashboard

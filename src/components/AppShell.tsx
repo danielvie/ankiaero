@@ -21,7 +21,7 @@ export function AppShell({ view, onViewChange, subject, onSubjectChange, stats, 
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-3 sm:px-4 md:py-4">
           <div className="min-w-0">
             <p className="hidden font-mono text-xs uppercase tracking-[0.35em] text-cockpit-glow sm:block">ANAC deck</p>
-            <h1 className="truncate text-base font-semibold text-white sm:text-2xl">Anki Aero</h1>
+            <h1 className="truncate text-base font-semibold text-white sm:text-2xl">Anki Aero...</h1>
           </div>
           <nav className="grid shrink-0 grid-cols-4 gap-1 rounded-md border border-white/10 bg-white/5 p-1 sm:gap-2">
             <NavButton active={view === "dashboard"} icon={<BarChart3 size={18} />} label="Painel" onClick={() => onViewChange("dashboard")} />
