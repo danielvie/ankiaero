@@ -45,3 +45,5 @@
 - [x] Refactor `scheduleCard` to switch directly on grade
 - [x] Clarify remembered-card scheduling flow and comments
 - [x] Comment grade scheduling timing rules
+- [x] Allow remembered hard cards to use sub-day intervals
+- [x] Round sub-day intervals to hours without rounding day intervals
