@@ -1,6 +1,9 @@
 import type { CardProgress, Grade } from "./types";
 
 const dayMs = 24 * 60 * 60 * 1000;
+// "Again" means the answer was correct but not remembered well enough: review it again in 10 minutes.
+const retryDelayMs = 10 * 60 * 1000;
+const minEase = 1.3;
 
 export function createProgress(cardId: string, now = Date.now()): CardProgress {
   return {
@@ -21,53 +24,122 @@ export function scheduleCard(
   answeredCorrectly: boolean,
   now = Date.now()
 ): CardProgress {
-  const attempts = current.attempts + 1;
-  const correctAttempts = current.correctAttempts + (answeredCorrectly ? 1 : 0);
-  const next: CardProgress = {
-    ...current,
-    attempts,
-    correctAttempts,
-    lastGrade: grade,
-    lastAnsweredAt: now
-  };
+  const reviewed = recordReview(current, grade, answeredCorrectly, now);
 
   if (!answeredCorrectly) {
-    return {
-      ...next,
-      dueAt: now,
-      intervalDays: 0,
-      ease: Math.max(1.3, current.ease - 0.2),
-      repetitions: 0,
-      lapses: current.lapses + 1
-    };
+    return scheduleMissedAnswer(reviewed, current, now);
   }
 
-  if (grade === "again") {
-    return {
-      ...next,
-      dueAt: now + 10 * 60 * 1000,
-      intervalDays: 0,
-      ease: Math.max(1.3, current.ease - 0.2),
-      repetitions: 0,
-      lapses: current.lapses + 1
-    };
+  switch (grade) {
+    case "again":
+      return scheduleRetrySoon(reviewed, current, now);
+    case "hard":
+      return scheduleRememberedCard(reviewed, current, "hard", now);
+    case "good":
+      return scheduleRememberedCard(reviewed, current, "good", now);
+    case "easy":
+      return scheduleRememberedCard(reviewed, current, "easy", now);
   }
+}
 
-  const easeDelta = grade === "hard" ? -0.15 : grade === "easy" ? 0.15 : 0;
-  const ease = Math.max(1.3, current.ease + easeDelta);
-  const repetitions = current.repetitions + 1;
-  const baseInterval =
-    repetitions === 1 ? 1 : repetitions === 2 ? 3 : Math.max(1, Math.round(current.intervalDays * ease));
-  const multiplier = grade === "hard" ? 0.6 : grade === "easy" ? 1.7 : 1;
-  const intervalDays = Math.max(1, Math.round(baseInterval * multiplier));
+function recordReview(
+  current: CardProgress,
+  grade: Grade,
+  answeredCorrectly: boolean,
+  answeredAt: number
+): CardProgress {
+  return {
+    ...current,
+    attempts: current.attempts + 1,
+    correctAttempts: current.correctAttempts + (answeredCorrectly ? 1 : 0),
+    lastGrade: grade,
+    lastAnsweredAt: answeredAt
+  };
+}
+
+function scheduleMissedAnswer(reviewed: CardProgress, previous: CardProgress, now: number): CardProgress {
+  return scheduleLapse(reviewed, previous, now);
+}
+
+function scheduleRetrySoon(reviewed: CardProgress, previous: CardProgress, now: number): CardProgress {
+  return scheduleLapse(reviewed, previous, now + retryDelayMs);
+}
+
+function scheduleLapse(reviewed: CardProgress, previous: CardProgress, dueAt: number): CardProgress {
+  return {
+    ...reviewed,
+    dueAt,
+    intervalDays: 0,
+    ease: reduceEase(previous.ease),
+    repetitions: 0,
+    lapses: previous.lapses + 1
+  };
+}
+
+function scheduleRememberedCard(
+  reviewed: CardProgress,
+  previous: CardProgress,
+  grade: Exclude<Grade, "again">,
+  now: number
+): CardProgress {
+  const repetitions = previous.repetitions + 1;
+  const ease = applyGradeToEase(previous.ease, grade);
+  const baseIntervalDays = chooseBaseIntervalDays(previous.intervalDays, ease, repetitions);
+  const intervalDays = applyGradeToInterval(baseIntervalDays, grade);
 
   return {
-    ...next,
+    ...reviewed,
+    // Remembered cards are scheduled by whole days: now + the computed interval.
     dueAt: now + intervalDays * dayMs,
     intervalDays,
     ease,
     repetitions
   };
+}
+
+function chooseBaseIntervalDays(previousIntervalDays: number, ease: number, repetitions: number): number {
+  // First success is scheduled for tomorrow.
+  if (repetitions === 1) {
+    return 1;
+  }
+
+  // Second success is scheduled for 3 days later.
+  if (repetitions === 2) {
+    return 3;
+  }
+
+  // Later successes grow from the previous interval multiplied by the card's ease.
+  return Math.max(1, Math.round(previousIntervalDays * ease));
+}
+
+function applyGradeToEase(ease: number, grade: Exclude<Grade, "again">): number {
+  // Hard answers reduce future growth; easy answers increase it.
+  switch (grade) {
+    case "hard":
+      return Math.max(minEase, ease - 0.15);
+    case "good":
+      return ease;
+    case "easy":
+      return Math.max(minEase, ease + 0.15);
+  }
+}
+
+function applyGradeToInterval(baseIntervalDays: number, grade: Exclude<Grade, "again">): number {
+  switch (grade) {
+    case "hard":
+      // Hard keeps the card sooner: 60% of the base interval, minimum 1 day.
+      return Math.max(1, Math.round(baseIntervalDays * 0.6));
+    case "good":
+      // Good uses the base interval as-is.
+      return baseIntervalDays;
+    case "easy":
+      // Easy pushes the card farther out: 170% of the base interval, minimum 1 day.
+      return Math.max(1, Math.round(baseIntervalDays * 1.7));
+  }
+}
+
+function reduceEase(ease: number): number {
+  return Math.max(minEase, ease - 0.2);
 }
 
 export function previewSchedule(

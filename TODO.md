@@ -40,3 +40,8 @@
 - [x] Verify build/check after due count change
 - [x] Add Resetar button for visible Browse items
 - [x] Verify build/check after visible reset change
+- [x] Rewrite `scheduleCard` for clearer steps and flow decisions
+- [x] Make `scheduleCard` grade-to-schedule flow explicit
+- [x] Refactor `scheduleCard` to switch directly on grade
+- [x] Clarify remembered-card scheduling flow and comments
+- [x] Comment grade scheduling timing rules
