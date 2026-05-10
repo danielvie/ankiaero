@@ -40,6 +40,8 @@
 - [x] Verify build/check after due count change
 - [x] Add Resetar button for visible Browse items
 - [x] Verify build/check after visible reset change
+- [x] Replace wrong-answer grade buttons with one OK action
+- [x] Verify build/check after wrong-answer OK change
 - [x] Rewrite `scheduleCard` for clearer steps and flow decisions
 - [x] Make `scheduleCard` grade-to-schedule flow explicit
 - [x] Refactor `scheduleCard` to switch directly on grade

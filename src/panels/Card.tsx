@@ -105,15 +105,15 @@ export function Card({
             {correct ? "Correto" : "Incorreto"}
           </div>
           <p className="mt-2 text-slate-200">Resposta: {card.answer}</p>
-          <div className="mt-4 grid grid-cols-2 gap-2 md:grid-cols-4">
-            {(Object.keys(gradeLabels) as Grade[]).map((grade) => (
+          <div className={`mt-4 grid gap-2 ${correct ? "grid-cols-2 md:grid-cols-4" : "grid-cols-1"}`}>
+            {(correct ? (Object.keys(gradeLabels) as Grade[]) : (["again"] as Grade[])).map((grade) => (
               <button
                 key={grade}
                 className="rounded-md border border-white/10 bg-white/10 px-3 py-3 text-white hover:bg-white/15"
                 onClick={() => gradeAnswer(grade)}
                 type="button"
               >
-                <span className="block font-semibold">{gradeLabels[grade]}</span>
+                <span className="block font-semibold">{correct ? gradeLabels[grade] : "OK"}</span>
                 <span className="mt-1 block font-mono text-xs text-slate-300">
                   {previewSchedule(progress, grade, correct, now)}
                 </span>
