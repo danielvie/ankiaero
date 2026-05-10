@@ -42,6 +42,12 @@
 - [x] Verify build/check after visible reset change
 - [x] Replace wrong-answer grade buttons with one OK action
 - [x] Verify build/check after wrong-answer OK change
+- [x] Add per-card notes storage
+- [x] Add pencil notes button beside card star
+- [x] Add notes popup for the active card
+- [x] Verify build/check after notes change
+- [x] Add delete-note button to notes popup
+- [x] Verify build/check after delete-note change
 - [x] Rewrite `scheduleCard` for clearer steps and flow decisions
 - [x] Make `scheduleCard` grade-to-schedule flow explicit
 - [x] Refactor `scheduleCard` to switch directly on grade

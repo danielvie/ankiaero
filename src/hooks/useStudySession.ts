@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cards } from "../cards";
+import { loadCardNotes, saveCardNotes } from "../cardNotes";
 import type { SubjectFilter, View } from "../appTypes";
 import { exportProgress, importProgress, loadProgress, saveProgress } from "../storage";
 import { loadMarkedCards, saveMarkedCards } from "../markedCards";
@@ -18,6 +19,7 @@ export function useStudySession() {
   const [query, setQuery] = useState("");
   const [importText, setImportText] = useState("");
   const [markedCardIds, setMarkedCardIds] = useState(() => loadMarkedCards());
+  const [cardNotes, setCardNotes] = useState(() => loadCardNotes());
   const [showMarkedOnly, setShowMarkedOnly] = useState(false);
   const navigationHistoryPushed = useRef(false);
 
@@ -28,6 +30,10 @@ export function useStudySession() {
   useEffect(() => {
     saveMarkedCards(markedCardIds);
   }, [markedCardIds]);
+
+  useEffect(() => {
+    saveCardNotes(cardNotes);
+  }, [cardNotes]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -153,6 +159,19 @@ export function useStudySession() {
     });
   };
 
+  const saveCardNote = (cardId: string, note: string) => {
+    setCardNotes((current) => {
+      const next = { ...current };
+      const trimmed = note.trim();
+      if (trimmed) {
+        next[cardId] = trimmed;
+      } else {
+        delete next[cardId];
+      }
+      return next;
+    });
+  };
+
   const resetAll = () => {
     const fresh = loadProgress();
     for (const card of cards) {
@@ -183,6 +202,7 @@ export function useStudySession() {
     query,
     setQuery,
     markedCardIds,
+    cardNotes,
     showMarkedOnly,
     setShowMarkedOnly,
     importText,
@@ -195,6 +215,7 @@ export function useStudySession() {
     reviewSpecificCard,
     resetCard,
     resetCards,
+    saveCardNote,
     toggleMarkedCard,
     resetAll,
     exportToClipboard,

@@ -1,4 +1,5 @@
-import { ArrowLeft, CheckCircle2, Star, XCircle } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Pencil, Star, X, XCircle } from "lucide-react";
+import { useState } from "react";
 import { formatDueTime, previewSchedule } from "../scheduler";
 import type { Card, CardProgress, Grade } from "../types";
 
@@ -18,26 +19,54 @@ export function Card({
   progress,
   dueCount,
   isMarked,
+  note,
   selectedAnswer,
   revealed,
   onBack,
   chooseAnswer,
   gradeAnswer,
+  saveNote,
   toggleMarked
 }: {
   card: Card;
   progress: CardProgress;
   dueCount: number;
   isMarked: boolean;
+  note: string;
   selectedAnswer: string | null;
   revealed: boolean;
   onBack: () => void;
   chooseAnswer: (answer: string) => void;
   gradeAnswer: (grade: Grade) => void;
+  saveNote: (note: string) => void;
   toggleMarked: () => void;
 }) {
   const correct = selectedAnswer === card.answer;
+  const [noteDraft, setNoteDraft] = useState(note);
+  const [notesOpen, setNotesOpen] = useState(false);
   const now = Date.now();
+  const hasNote = note.trim().length > 0;
+
+  const openNotes = () => {
+    setNoteDraft(note);
+    setNotesOpen(true);
+  };
+
+  const closeNotes = () => {
+    setNoteDraft(note);
+    setNotesOpen(false);
+  };
+
+  const submitNote = () => {
+    saveNote(noteDraft);
+    setNotesOpen(false);
+  };
+
+  const deleteNote = () => {
+    saveNote("");
+    setNoteDraft("");
+    setNotesOpen(false);
+  };
 
   return (
     <div className="answer-panel rounded-lg border border-white/10 p-5 shadow-2xl shadow-black/30">
@@ -68,6 +97,16 @@ export function Card({
             type="button"
           >
             <Star size={17} fill={isMarked ? "currentColor" : "none"} />
+          </button>
+          <button
+            className={`flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-semibold ${
+              hasNote ? "border-cockpit-glow bg-cockpit-glow/10 text-cockpit-glow" : "border-white/10 text-slate-300 hover:bg-white/10"
+            }`}
+            onClick={openNotes}
+            type="button"
+            aria-label="Notas"
+          >
+            <Pencil size={17} />
           </button>
           <div className="rounded-md border border-white/10 px-3 py-2 font-mono text-sm text-slate-300">
             {progress.attempts} tentativas · intervalo {progress.intervalDays}d
@@ -119,6 +158,50 @@ export function Card({
                 </span>
               </button>
             ))}
+          </div>
+        </div>
+      )}
+      {notesOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="w-full max-w-lg rounded-lg border border-white/10 bg-cockpit-panel p-5 shadow-2xl shadow-black/60">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="font-mono text-xs uppercase tracking-[0.22em] text-cockpit-glow">{card.subject}</p>
+                <h3 className="mt-1 text-xl font-semibold text-white">Notas do card</h3>
+              </div>
+              <button
+                className="rounded-md border border-white/10 p-2 text-slate-300 hover:bg-white/10 hover:text-white"
+                onClick={closeNotes}
+                type="button"
+                aria-label="Fechar notas"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <textarea
+              className="mt-4 min-h-40 w-full resize-y rounded-md border border-cockpit-line bg-cockpit-ink p-3 text-sm text-white outline-none focus:border-cockpit-glow"
+              placeholder="Adicionar nota"
+              value={noteDraft}
+              onChange={(event) => setNoteDraft(event.target.value)}
+            />
+            <div className="mt-4 flex flex-wrap justify-between gap-2">
+              <button
+                className="rounded-md border border-cockpit-red/40 px-4 py-2 text-sm font-semibold text-cockpit-red hover:bg-cockpit-red/10 disabled:cursor-not-allowed disabled:opacity-50"
+                disabled={!noteDraft.trim() && !hasNote}
+                onClick={deleteNote}
+                type="button"
+              >
+                Deletar
+              </button>
+              <div className="flex gap-2">
+                <button className="rounded-md border border-white/10 px-4 py-2 text-sm text-slate-300 hover:bg-white/10" onClick={closeNotes} type="button">
+                  Cancelar
+                </button>
+                <button className="rounded-md bg-cockpit-glow px-4 py-2 text-sm font-semibold text-cockpit-ink" onClick={submitNote} type="button">
+                  Salvar
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}

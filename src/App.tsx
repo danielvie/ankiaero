@@ -39,11 +39,13 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
             progress={study.progress[study.activeCard.id]}
             dueCount={study.stats.due}
             isMarked={study.markedCardIds.has(study.activeCard.id)}
+            note={study.cardNotes[study.activeCard.id] ?? ""}
             selectedAnswer={study.selectedAnswer}
             revealed={study.revealed}
             onBack={study.returnToPreviousView}
             chooseAnswer={study.chooseAnswer}
             gradeAnswer={study.gradeAnswer}
+            saveNote={(note) => study.saveCardNote(study.activeCard!.id, note)}
             toggleMarked={() => study.toggleMarkedCard(study.activeCard!.id)}
           />
         )}
