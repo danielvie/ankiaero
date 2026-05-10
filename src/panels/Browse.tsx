@@ -15,6 +15,7 @@ export function Browse({
   onBack,
   reviewCard,
   resetCard,
+  resetCards,
   toggleMarked
 }: {
   cards: Card[];
@@ -27,8 +28,11 @@ export function Browse({
   onBack: () => void;
   reviewCard: (card: Card) => void;
   resetCard: (cardId: string) => void;
+  resetCards: (cardIds: string[]) => void;
   toggleMarked: (cardId: string) => void;
 }) {
+  const visibleCards = cards.slice(0, maxBrowseCards);
+
   return (
     <div className="rounded-lg border border-white/10 bg-cockpit-panel/90 p-5">
       <div className="mb-4 flex items-center gap-3">
@@ -63,9 +67,17 @@ export function Browse({
           <Star size={17} fill={showMarkedOnly ? "currentColor" : "none"} />
           Marcadas ({markedCardIds.size})
         </button>
+        <button
+          className="rounded-md border border-white/10 px-4 py-3 text-sm font-semibold text-slate-200 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
+          disabled={visibleCards.length === 0}
+          onClick={() => resetCards(visibleCards.map((card) => card.id))}
+          type="button"
+        >
+          Resetar
+        </button>
       </div>
       <div className="mt-4 max-h-[68vh] space-y-3 overflow-auto pr-1">
-        {cards.slice(0, maxBrowseCards).map((card) => (
+        {visibleCards.map((card) => (
           <div key={card.id} className="rounded-md border border-white/10 bg-white/[0.04] p-4">
             <div className="flex flex-col justify-between gap-3 md:flex-row md:items-start">
               <div>

@@ -31,3 +31,12 @@
 - [x] Keep dashboard showing all areas after focused review
 - [x] Rename visible study item label from Review to Card
 - [x] Add back action to Buscar and Dados
+- [x] Inspect current scheduler, review session, and grading UI
+- [x] Show the next-card time classifier for each review option
+- [x] Hide cards scheduled for the future from review
+- [x] Reclassify missed cards to now
+- [x] Verify build/check
+- [x] Show count of currently due visible review items
+- [x] Verify build/check after due count change
+- [x] Add Resetar button for visible Browse items
+- [x] Verify build/check after visible reset change

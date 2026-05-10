@@ -37,6 +37,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
           <Card
             card={study.activeCard}
             progress={study.progress[study.activeCard.id]}
+            dueCount={study.stats.due}
             isMarked={study.markedCardIds.has(study.activeCard.id)}
             selectedAnswer={study.selectedAnswer}
             revealed={study.revealed}
@@ -45,6 +46,19 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
             gradeAnswer={study.gradeAnswer}
             toggleMarked={() => study.toggleMarkedCard(study.activeCard!.id)}
           />
+        )}
+        {study.view === "review" && !study.activeCard && (
+          <div className="answer-panel rounded-lg border border-white/10 p-6 shadow-2xl shadow-black/30">
+            <button
+              className="flex h-9 items-center justify-center rounded-md border border-white/10 px-3 text-sm text-slate-300 hover:bg-white/10 hover:text-white"
+              onClick={study.returnToPreviousView}
+              type="button"
+            >
+              Voltar
+            </button>
+            <h3 className="mt-5 text-2xl font-semibold text-white">Nenhum card para revisar agora</h3>
+            <p className="mt-2 text-slate-300">Cards marcados para o futuro não aparecem na revisão até vencerem.</p>
+          </div>
         )}
         {study.view === "browse" && (
           <Browse
@@ -58,6 +72,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
             onBack={study.returnToPreviousView}
             reviewCard={study.reviewSpecificCard}
             resetCard={study.resetCard}
+            resetCards={study.resetCards}
             toggleMarked={study.toggleMarkedCard}
           />
         )}

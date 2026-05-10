@@ -130,6 +130,17 @@ export function useStudySession() {
     }));
   };
 
+  const resetCards = (cardIds: string[]) => {
+    const now = Date.now();
+    setProgress((current) => {
+      const next = { ...current };
+      for (const cardId of cardIds) {
+        next[cardId] = { ...next[cardId], dueAt: now, intervalDays: 0, repetitions: 0 };
+      }
+      return next;
+    });
+  };
+
   const toggleMarkedCard = (cardId: string) => {
     setMarkedCardIds((current) => {
       const next = new Set(current);
@@ -183,6 +194,7 @@ export function useStudySession() {
     returnToPreviousView,
     reviewSpecificCard,
     resetCard,
+    resetCards,
     toggleMarkedCard,
     resetAll,
     exportToClipboard,

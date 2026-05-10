@@ -20,9 +20,10 @@ export function pickNextCard(progress: Record<string, CardProgress>, subject: Su
   const pool = cards
     .filter((card) => subject === "ALL" || card.subject === subject)
     .map((card) => ({ card, progress: progress[card.id] }))
+    .filter((item) => item.progress.dueAt <= nowMs)
     .sort((a, b) => a.progress.dueAt - b.progress.dueAt || a.card.id.localeCompare(b.card.id));
 
-  return pool.find((item) => item.progress.dueAt <= nowMs)?.card ?? pool[0]?.card ?? null;
+  return pool[0]?.card ?? null;
 }
 
 export function getStudyStats(progress: Record<string, CardProgress>, subject: SubjectFilter, nowMs = Date.now()): StudyStats {

@@ -1,5 +1,5 @@
 import { ArrowLeft, CheckCircle2, Star, XCircle } from "lucide-react";
-import { formatDueTime } from "../scheduler";
+import { formatDueTime, previewSchedule } from "../scheduler";
 import type { Card, CardProgress, Grade } from "../types";
 
 const gradeLabels: Record<Grade, string> = {
@@ -16,6 +16,7 @@ function optionLetter(option: string) {
 export function Card({
   card,
   progress,
+  dueCount,
   isMarked,
   selectedAnswer,
   revealed,
@@ -26,6 +27,7 @@ export function Card({
 }: {
   card: Card;
   progress: CardProgress;
+  dueCount: number;
   isMarked: boolean;
   selectedAnswer: string | null;
   revealed: boolean;
@@ -35,6 +37,7 @@ export function Card({
   toggleMarked: () => void;
 }) {
   const correct = selectedAnswer === card.answer;
+  const now = Date.now();
 
   return (
     <div className="answer-panel rounded-lg border border-white/10 p-5 shadow-2xl shadow-black/30">
@@ -51,7 +54,9 @@ export function Card({
           </button>
           <div className="min-w-0">
             <p className="font-mono text-xs uppercase tracking-[0.22em] text-cockpit-glow">{card.subject}</p>
-            <p className="mt-1 text-sm text-slate-400">Próxima: {formatDueTime(progress.dueAt)}</p>
+            <p className="mt-1 text-sm text-slate-400">
+              Próxima: {formatDueTime(progress.dueAt)} · Agora: {dueCount} {dueCount === 1 ? "item" : "itens"}
+            </p>
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -104,11 +109,14 @@ export function Card({
             {(Object.keys(gradeLabels) as Grade[]).map((grade) => (
               <button
                 key={grade}
-                className="rounded-md border border-white/10 bg-white/10 px-3 py-3 font-semibold text-white hover:bg-white/15"
+                className="rounded-md border border-white/10 bg-white/10 px-3 py-3 text-white hover:bg-white/15"
                 onClick={() => gradeAnswer(grade)}
                 type="button"
               >
-                {gradeLabels[grade]}
+                <span className="block font-semibold">{gradeLabels[grade]}</span>
+                <span className="mt-1 block font-mono text-xs text-slate-300">
+                  {previewSchedule(progress, grade, correct, now)}
+                </span>
               </button>
             ))}
           </div>

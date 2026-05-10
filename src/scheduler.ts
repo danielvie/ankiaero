@@ -31,6 +31,17 @@ export function scheduleCard(
     lastAnsweredAt: now
   };
 
+  if (!answeredCorrectly) {
+    return {
+      ...next,
+      dueAt: now,
+      intervalDays: 0,
+      ease: Math.max(1.3, current.ease - 0.2),
+      repetitions: 0,
+      lapses: current.lapses + 1
+    };
+  }
+
   if (grade === "again") {
     return {
       ...next,
@@ -57,6 +68,15 @@ export function scheduleCard(
     ease,
     repetitions
   };
+}
+
+export function previewSchedule(
+  current: CardProgress,
+  grade: Grade,
+  answeredCorrectly: boolean,
+  now = Date.now()
+) {
+  return formatDueTime(scheduleCard(current, grade, answeredCorrectly, now).dueAt, now);
 }
 
 export function formatDueTime(dueAt: number, now = Date.now()) {

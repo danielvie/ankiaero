@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "version": "0.1.5",
+  "version": "0.1.8",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "bump-version": "node scripts/bump-version.mjs",
