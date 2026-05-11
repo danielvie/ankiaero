@@ -55,3 +55,7 @@
 - [x] Comment grade scheduling timing rules
 - [x] Allow remembered hard cards to use sub-day intervals
 - [x] Round sub-day intervals to hours without rounding day intervals
+- [x] Inspect header, app view routing, and study card render flow
+- [x] Add persisted card history in most-recent order
+- [x] Add History button and history panel
+- [x] Verify build/check

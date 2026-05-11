@@ -4,6 +4,7 @@ import { useStudySession } from "./hooks/useStudySession";
 import { Browse } from "./panels/Browse";
 import { Card } from "./panels/Card";
 import { Dashboard } from "./panels/Dashboard";
+import { History } from "./panels/History";
 import { Settings } from "./panels/Settings";
 import { Update } from "./panels/Update";
 
@@ -77,6 +78,9 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
             resetCards={study.resetCards}
             toggleMarked={study.toggleMarkedCard}
           />
+        )}
+        {study.view === "history" && (
+          <History cards={study.historyCards} onBack={study.returnToPreviousView} reviewCard={study.reviewSpecificCard} />
         )}
         {study.view === "settings" && (
           <Settings

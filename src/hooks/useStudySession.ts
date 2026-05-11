@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cards } from "../cards";
+import { addCardToHistory, loadCardHistory, saveCardHistory } from "../cardHistory";
 import { loadCardNotes, saveCardNotes } from "../cardNotes";
 import type { SubjectFilter, View } from "../appTypes";
 import { exportProgress, importProgress, loadProgress, saveProgress } from "../storage";
@@ -20,6 +21,7 @@ export function useStudySession() {
   const [importText, setImportText] = useState("");
   const [markedCardIds, setMarkedCardIds] = useState(() => loadMarkedCards());
   const [cardNotes, setCardNotes] = useState(() => loadCardNotes());
+  const [cardHistoryIds, setCardHistoryIds] = useState(() => loadCardHistory());
   const [showMarkedOnly, setShowMarkedOnly] = useState(false);
   const navigationHistoryPushed = useRef(false);
 
@@ -34,6 +36,10 @@ export function useStudySession() {
   useEffect(() => {
     saveCardNotes(cardNotes);
   }, [cardNotes]);
+
+  useEffect(() => {
+    saveCardHistory(cardHistoryIds);
+  }, [cardHistoryIds]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -53,11 +59,21 @@ export function useStudySession() {
     return pickNextCard(progress, subject);
   }, [activeCardId, progress, subject]);
 
+  useEffect(() => {
+    if (view !== "review" || !activeCard) return;
+    setCardHistoryIds((current) => addCardToHistory(current, activeCard.id));
+  }, [activeCard?.id, view]);
+
   const filteredCards = useMemo(() => {
     const searchResult = searchCards(query, subject);
     if (!showMarkedOnly) return searchResult;
     return searchResult.filter((card) => markedCardIds.has(card.id));
   }, [markedCardIds, query, showMarkedOnly, subject]);
+
+  const historyCards = useMemo(
+    () => cardHistoryIds.map((cardId) => cards.find((card) => card.id === cardId)).filter((card): card is Card => Boolean(card)),
+    [cardHistoryIds]
+  );
 
   const chooseAnswer = (answer: string) => {
     if (revealed) return;
@@ -208,6 +224,7 @@ export function useStudySession() {
     importText,
     setImportText,
     filteredCards,
+    historyCards,
     chooseAnswer,
     gradeAnswer,
     startReview,
