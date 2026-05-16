@@ -71,3 +71,8 @@
 - [x] Verify check after marked shortcut toggle change
 - [x] Add Browse filter button for items with notes
 - [x] Verify check after notes filter change
+- [x] Move Browse bulk reset button next to title
+- [x] Require two clicks to confirm Browse bulk reset
+- [x] Verify check after Browse reset button change
+- [x] Replace Browse reset confirm text with confirm/cancel icon buttons
+- [x] Verify check after Browse reset confirm controls change

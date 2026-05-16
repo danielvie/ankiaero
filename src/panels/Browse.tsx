@@ -1,5 +1,5 @@
-import { ArrowLeft, MessageSquareText, Search, Star, X } from "lucide-react";
-import { useState } from "react";
+import { ArrowLeft, Check, MessageSquareText, Search, Star, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import { formatDueTime } from "../scheduler";
 import type { Card, CardProgress } from "../types";
 
@@ -44,6 +44,11 @@ export function Browse({
   const notedCount = Object.values(cardNotes).filter((note) => note.trim()).length;
   const [noteCard, setNoteCard] = useState<Card | null>(null);
   const [noteDraft, setNoteDraft] = useState("");
+  const [confirmReset, setConfirmReset] = useState(false);
+
+  useEffect(() => {
+    setConfirmReset(false);
+  }, [query, showMarkedOnly, showNotedOnly, visibleCards.length]);
 
   const openNote = (card: Card) => {
     setNoteCard(card);
@@ -67,9 +72,14 @@ export function Browse({
     closeNote();
   };
 
+  const resetVisibleCards = () => {
+    resetCards(visibleCards.map((card) => card.id));
+    setConfirmReset(false);
+  };
+
   return (
     <div className="rounded-lg border border-white/10 bg-cockpit-panel/90 p-5">
-      <div className="mb-4 flex items-center gap-3">
+      <div className="mb-4 flex flex-wrap items-center gap-3">
         <button
           className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-md border border-white/10 px-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white sm:px-3"
           onClick={onBack}
@@ -80,6 +90,37 @@ export function Browse({
           <span className="hidden sm:inline">Voltar</span>
         </button>
         <h2 className="text-3xl font-semibold">Buscar</h2>
+        <div className="ml-auto flex">
+          {confirmReset ? (
+            <>
+              <button
+                className="flex h-9 w-10 items-center justify-center rounded-l-md border border-cockpit-red/60 bg-cockpit-red/10 text-cockpit-red hover:bg-cockpit-red/15"
+                onClick={() => setConfirmReset(false)}
+                type="button"
+                aria-label="Cancelar reset"
+              >
+                <X size={17} />
+              </button>
+              <button
+                className="flex h-9 w-10 items-center justify-center rounded-r-md border border-l-0 border-white/10 text-slate-300 hover:bg-white/10 hover:text-white"
+                onClick={resetVisibleCards}
+                type="button"
+                aria-label="Confirmar reset"
+              >
+                <Check size={17} />
+              </button>
+            </>
+          ) : (
+            <button
+              className="h-9 rounded-md border border-white/10 px-3 text-sm font-semibold text-slate-200 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={visibleCards.length === 0}
+              onClick={() => setConfirmReset(true)}
+              type="button"
+            >
+              Resetar Tempo
+            </button>
+          )}
+        </div>
       </div>
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
@@ -113,14 +154,6 @@ export function Browse({
             ({notedCount})
           </button>
         </div>
-        <button
-          className="rounded-md border border-white/10 px-4 py-3 text-sm font-semibold text-slate-200 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
-          disabled={visibleCards.length === 0}
-          onClick={() => resetCards(visibleCards.map((card) => card.id))}
-          type="button"
-        >
-          Resetar
-        </button>
       </div>
       <div className="mt-4 max-h-[68vh] space-y-3 overflow-auto pr-1">
         {visibleCards.map((card) => {
