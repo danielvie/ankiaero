@@ -76,3 +76,5 @@
 - [x] Verify check after Browse reset button change
 - [x] Replace Browse reset confirm text with confirm/cancel icon buttons
 - [x] Verify check after Browse reset confirm controls change
+- [x] Add clear button to Browse search input
+- [x] Verify check after Browse search clear button change

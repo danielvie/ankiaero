@@ -126,11 +126,21 @@ export function Browse({
         <div className="relative flex-1">
           <Search className="pointer-events-none absolute left-3 top-3 text-slate-500" size={18} />
           <input
-            className="w-full rounded-md border border-cockpit-line bg-cockpit-ink py-3 pl-10 pr-3 text-white"
+            className="w-full rounded-md border border-cockpit-line bg-cockpit-ink py-3 pl-10 pr-10 text-white"
             placeholder="Buscar pergunta ou alternativa"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
           />
+          {query && (
+            <button
+              className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-md text-slate-400 hover:bg-white/10 hover:text-white"
+              onClick={() => setQuery("")}
+              type="button"
+              aria-label="Limpar busca"
+            >
+              <X size={16} />
+            </button>
+          )}
         </div>
         <div className="flex gap-3">
           <button
