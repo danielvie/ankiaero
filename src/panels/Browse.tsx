@@ -12,6 +12,8 @@ export function Browse({
   cardNotes,
   showMarkedOnly,
   setShowMarkedOnly,
+  showNotedOnly,
+  setShowNotedOnly,
   query,
   setQuery,
   onBack,
@@ -27,6 +29,8 @@ export function Browse({
   cardNotes: Record<string, string>;
   showMarkedOnly: boolean;
   setShowMarkedOnly: (showMarkedOnly: boolean) => void;
+  showNotedOnly: boolean;
+  setShowNotedOnly: (showNotedOnly: boolean) => void;
   query: string;
   setQuery: (query: string) => void;
   onBack: () => void;
@@ -37,6 +41,7 @@ export function Browse({
   toggleMarked: (cardId: string) => void;
 }) {
   const visibleCards = cards.slice(0, maxBrowseCards);
+  const notedCount = Object.values(cardNotes).filter((note) => note.trim()).length;
   const [noteCard, setNoteCard] = useState<Card | null>(null);
   const [noteDraft, setNoteDraft] = useState("");
 
@@ -94,7 +99,17 @@ export function Browse({
           type="button"
         >
           <Star size={17} fill={showMarkedOnly ? "currentColor" : "none"} />
-          Marcadas ({markedCardIds.size})
+          ({markedCardIds.size})
+        </button>
+        <button
+          className={`flex items-center justify-center gap-2 rounded-md border px-4 py-3 text-sm font-semibold ${
+            showNotedOnly ? "border-cockpit-glow bg-cockpit-glow/10 text-cockpit-glow" : "border-white/10 text-slate-200 hover:bg-white/10"
+          }`}
+          onClick={() => setShowNotedOnly(!showNotedOnly)}
+          type="button"
+        >
+          <MessageSquareText size={17} fill={showNotedOnly ? "currentColor" : "none"} />
+          ({notedCount})
         </button>
         <button
           className="rounded-md border border-white/10 px-4 py-3 text-sm font-semibold text-slate-200 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"

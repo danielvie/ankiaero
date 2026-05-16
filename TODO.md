@@ -69,3 +69,5 @@
 - [x] Verify check after marked shortcut navigation change
 - [x] Toggle marked shortcut back to Painel when already showing marked Browse
 - [x] Verify check after marked shortcut toggle change
+- [x] Add Browse filter button for items with notes
+- [x] Verify check after notes filter change

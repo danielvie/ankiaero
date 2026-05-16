@@ -23,6 +23,7 @@ export function useStudySession() {
   const [cardNotes, setCardNotes] = useState(() => loadCardNotes());
   const [cardHistoryIds, setCardHistoryIds] = useState(() => loadCardHistory());
   const [showMarkedOnly, setShowMarkedOnly] = useState(false);
+  const [showNotedOnly, setShowNotedOnly] = useState(false);
   const navigationHistoryPushed = useRef(false);
 
   useEffect(() => {
@@ -66,9 +67,12 @@ export function useStudySession() {
 
   const filteredCards = useMemo(() => {
     const searchResult = searchCards(query, subject, cardNotes);
-    if (!showMarkedOnly) return searchResult;
-    return searchResult.filter((card) => markedCardIds.has(card.id));
-  }, [cardNotes, markedCardIds, query, showMarkedOnly, subject]);
+    return searchResult.filter((card) => {
+      if (showMarkedOnly && !markedCardIds.has(card.id)) return false;
+      if (showNotedOnly && !(cardNotes[card.id] ?? "").trim()) return false;
+      return true;
+    });
+  }, [cardNotes, markedCardIds, query, showMarkedOnly, showNotedOnly, subject]);
 
   const historyCards = useMemo(
     () => cardHistoryIds.map((cardId) => cards.find((card) => card.id === cardId)).filter((card): card is Card => Boolean(card)),
@@ -236,6 +240,8 @@ export function useStudySession() {
     cardNotes,
     showMarkedOnly,
     setShowMarkedOnly,
+    showNotedOnly,
+    setShowNotedOnly,
     importText,
     setImportText,
     filteredCards,

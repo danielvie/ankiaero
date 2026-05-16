@@ -68,6 +68,8 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
             cardNotes={study.cardNotes}
             showMarkedOnly={study.showMarkedOnly}
             setShowMarkedOnly={study.setShowMarkedOnly}
+            showNotedOnly={study.showNotedOnly}
+            setShowNotedOnly={study.setShowNotedOnly}
             query={study.query}
             setQuery={study.setQuery}
             onBack={study.returnToPreviousView}
