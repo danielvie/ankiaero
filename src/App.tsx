@@ -26,10 +26,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
         onSubjectChange={study.setSubject}
         stats={study.stats}
         markedCount={study.markedCardIds.size}
-        onOpenMarked={() => {
-          study.setShowMarkedOnly(true);
-          study.setView("browse");
-        }}
+        onOpenMarked={study.openMarkedCards}
       >
         {study.view === "dashboard" && (
           <Dashboard progress={study.progress} startReview={study.startReview} />

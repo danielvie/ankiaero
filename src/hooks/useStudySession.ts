@@ -102,6 +102,21 @@ export function useStudySession() {
     setView(nextView);
   };
 
+  const openMarkedCards = () => {
+    if (view === "browse" && showMarkedOnly) {
+      setShowMarkedOnly(false);
+      setPreviousView("dashboard");
+      navigationHistoryPushed.current = false;
+      setView("dashboard");
+      return;
+    }
+
+    setShowMarkedOnly(true);
+    setPreviousView("dashboard");
+    pushNavigationHistory("browse");
+    setView("browse");
+  };
+
   const gradeAnswer = (grade: Grade) => {
     if (!activeCard || !selectedAnswer) return;
     const answeredCorrectly = selectedAnswer === activeCard.answer;
@@ -228,6 +243,7 @@ export function useStudySession() {
     chooseAnswer,
     gradeAnswer,
     startReview,
+    openMarkedCards,
     returnToPreviousView,
     reviewSpecificCard,
     resetCard,

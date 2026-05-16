@@ -65,3 +65,7 @@
 - [x] Show note text in a discreet highlighted footer on Browse items
 - [x] Include note text in Browse search filtering
 - [x] Verify check/build after feedback changes
+- [x] Make marked shortcut from Buscar return to Painel
+- [x] Verify check after marked shortcut navigation change
+- [x] Toggle marked shortcut back to Painel when already showing marked Browse
+- [x] Verify check after marked shortcut toggle change
