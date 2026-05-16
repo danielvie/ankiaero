@@ -91,26 +91,28 @@ export function Browse({
             onChange={(event) => setQuery(event.target.value)}
           />
         </div>
-        <button
-          className={`flex items-center justify-center gap-2 rounded-md border px-4 py-3 text-sm font-semibold ${
-            showMarkedOnly ? "border-cockpit-amber bg-cockpit-amber/15 text-cockpit-amber" : "border-white/10 text-slate-200 hover:bg-white/10"
-          }`}
-          onClick={() => setShowMarkedOnly(!showMarkedOnly)}
-          type="button"
-        >
-          <Star size={17} fill={showMarkedOnly ? "currentColor" : "none"} />
-          ({markedCardIds.size})
-        </button>
-        <button
-          className={`flex items-center justify-center gap-2 rounded-md border px-4 py-3 text-sm font-semibold ${
-            showNotedOnly ? "border-cockpit-glow bg-cockpit-glow/10 text-cockpit-glow" : "border-white/10 text-slate-200 hover:bg-white/10"
-          }`}
-          onClick={() => setShowNotedOnly(!showNotedOnly)}
-          type="button"
-        >
-          <MessageSquareText size={17} fill={showNotedOnly ? "currentColor" : "none"} />
-          ({notedCount})
-        </button>
+        <div className="flex gap-3">
+          <button
+            className={`flex grow items-center justify-center gap-2 rounded-md border px-4 py-3 text-sm font-semibold ${
+              showMarkedOnly ? "border-cockpit-amber bg-cockpit-amber/15 text-cockpit-amber" : "border-white/10 text-slate-200 hover:bg-white/10"
+            }`}
+            onClick={() => setShowMarkedOnly(!showMarkedOnly)}
+            type="button"
+          >
+            <Star size={17} fill={showMarkedOnly ? "currentColor" : "none"} />
+            ({markedCardIds.size})
+          </button>
+          <button
+            className={`flex grow items-center justify-center gap-2 rounded-md border px-4 py-3 text-sm font-semibold ${
+              showNotedOnly ? "border-cockpit-glow bg-cockpit-glow/10 text-cockpit-glow" : "border-white/10 text-slate-200 hover:bg-white/10"
+            }`}
+            onClick={() => setShowNotedOnly(!showNotedOnly)}
+            type="button"
+          >
+            <MessageSquareText size={17} fill={showNotedOnly ? "currentColor" : "none"} />
+            ({notedCount})
+          </button>
+        </div>
         <button
           className="rounded-md border border-white/10 px-4 py-3 text-sm font-semibold text-slate-200 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
           disabled={visibleCards.length === 0}
