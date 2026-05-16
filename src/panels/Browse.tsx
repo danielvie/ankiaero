@@ -94,7 +94,7 @@ export function Browse({
           {confirmReset ? (
             <>
               <button
-                className="flex h-9 w-10 items-center justify-center rounded-l-md border border-cockpit-red/60 bg-cockpit-red/10 text-cockpit-red hover:bg-cockpit-red/15"
+                className="flex h-9 w-16 items-center justify-center rounded-l-md border border-cockpit-red/60 bg-cockpit-red/10 text-cockpit-red hover:bg-cockpit-red/15"
                 onClick={() => setConfirmReset(false)}
                 type="button"
                 aria-label="Cancelar reset"
@@ -102,7 +102,7 @@ export function Browse({
                 <X size={17} />
               </button>
               <button
-                className="flex h-9 w-10 items-center justify-center rounded-r-md border border-l-0 border-white/10 text-slate-300 hover:bg-white/10 hover:text-white"
+                className="flex h-9 w-16 items-center justify-center rounded-r-md border border-l-0 border-white/10 text-slate-300 hover:bg-white/10 hover:text-white"
                 onClick={resetVisibleCards}
                 type="button"
                 aria-label="Confirmar reset"
