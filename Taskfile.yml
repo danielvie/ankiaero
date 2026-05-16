@@ -6,10 +6,12 @@ tasks:
     cmds:
       - task --list
   install:
+    aliases: [i]
     desc: Install project dependencies
     cmds:
       - bun install
   run:
+    aliases: [r]
     desc: Start local Vite development server
     cmds:
       - bun run dev

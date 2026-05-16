@@ -59,3 +59,7 @@
 - [x] Add persisted card history in most-recent order
 - [x] Add History button and history panel
 - [x] Verify build/check
+- [x] Add per-subject accuracy percentage to Dashboard rows
+- [x] Show note/comment indicator in Browse items
+- [x] Open note/comment popup from Browse indicator
+- [ ] Verify check/build after feedback changes

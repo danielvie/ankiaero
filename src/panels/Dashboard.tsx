@@ -31,7 +31,7 @@ export function Dashboard({
               <div className="min-w-0">
                 <div className="font-semibold">{row.subject}</div>
                 <div className="mt-1 font-mono text-sm text-slate-300">
-                  {row.due} pendentes / {row.total}
+                  {row.due} pendentes / {row.total} · {row.accuracy}% acerto
                 </div>
               </div>
               <button

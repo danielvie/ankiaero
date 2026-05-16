@@ -68,6 +68,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
             cards={study.filteredCards}
             progress={study.progress}
             markedCardIds={study.markedCardIds}
+            cardNotes={study.cardNotes}
             showMarkedOnly={study.showMarkedOnly}
             setShowMarkedOnly={study.setShowMarkedOnly}
             query={study.query}
@@ -76,6 +77,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
             reviewCard={study.reviewSpecificCard}
             resetCard={study.resetCard}
             resetCards={study.resetCards}
+            saveNote={study.saveCardNote}
             toggleMarked={study.toggleMarkedCard}
           />
         )}

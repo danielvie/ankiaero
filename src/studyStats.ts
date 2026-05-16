@@ -14,6 +14,7 @@ export type SubjectRow = {
   total: number;
   due: number;
   reviewed: number;
+  accuracy: number;
 };
 
 export function pickNextCard(progress: Record<string, CardProgress>, subject: SubjectFilter, nowMs = Date.now()) {
@@ -46,7 +47,10 @@ export function getSubjectRows(progress: Record<string, CardProgress>, nowMs = D
     const subjectCards = cards.filter((card) => card.subject === subject);
     const due = subjectCards.filter((card) => progress[card.id].dueAt <= nowMs).length;
     const reviewed = subjectCards.filter((card) => progress[card.id].attempts > 0).length;
-    return { subject, total: subjectCards.length, due, reviewed };
+    const attempts = subjectCards.reduce((sum, card) => sum + progress[card.id].attempts, 0);
+    const correct = subjectCards.reduce((sum, card) => sum + progress[card.id].correctAttempts, 0);
+    const accuracy = attempts ? Math.round((correct / attempts) * 100) : 0;
+    return { subject, total: subjectCards.length, due, reviewed, accuracy };
   });
 }
 
