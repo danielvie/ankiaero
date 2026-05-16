@@ -65,10 +65,10 @@ export function useStudySession() {
   }, [activeCard?.id, view]);
 
   const filteredCards = useMemo(() => {
-    const searchResult = searchCards(query, subject);
+    const searchResult = searchCards(query, subject, cardNotes);
     if (!showMarkedOnly) return searchResult;
     return searchResult.filter((card) => markedCardIds.has(card.id));
-  }, [markedCardIds, query, showMarkedOnly, subject]);
+  }, [cardNotes, markedCardIds, query, showMarkedOnly, subject]);
 
   const historyCards = useMemo(
     () => cardHistoryIds.map((cardId) => cards.find((card) => card.id === cardId)).filter((card): card is Card => Boolean(card)),

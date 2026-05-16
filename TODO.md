@@ -62,4 +62,6 @@
 - [x] Add per-subject accuracy percentage to Dashboard rows
 - [x] Show note/comment indicator in Browse items
 - [x] Open note/comment popup from Browse indicator
-- [ ] Verify check/build after feedback changes
+- [x] Show note text in a discreet highlighted footer on Browse items
+- [x] Include note text in Browse search filtering
+- [x] Verify check/build after feedback changes

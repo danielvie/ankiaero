@@ -54,12 +54,12 @@ export function getSubjectRows(progress: Record<string, CardProgress>, nowMs = D
   });
 }
 
-export function searchCards(query: string, subject: SubjectFilter): Card[] {
+export function searchCards(query: string, subject: SubjectFilter, cardNotes: Record<string, string> = {}): Card[] {
   const normalized = query.trim().toLocaleLowerCase("pt-BR");
   return cards.filter((card) => {
     const inSubject = subject === "ALL" || card.subject === subject;
     if (!inSubject) return false;
     if (!normalized) return true;
-    return `${card.question} ${card.options.join(" ")}`.toLocaleLowerCase("pt-BR").includes(normalized);
+    return `${card.question} ${card.options.join(" ")} ${cardNotes[card.id] ?? ""}`.toLocaleLowerCase("pt-BR").includes(normalized);
   });
 }

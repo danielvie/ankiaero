@@ -107,7 +107,8 @@ export function Browse({
       </div>
       <div className="mt-4 max-h-[68vh] space-y-3 overflow-auto pr-1">
         {visibleCards.map((card) => {
-          const hasNote = (cardNotes[card.id] ?? "").trim().length > 0;
+          const note = (cardNotes[card.id] ?? "").trim();
+          const hasNote = note.length > 0;
           return (
             <div key={card.id} className="rounded-md border border-white/10 bg-white/[0.04] p-4">
               <div className="flex flex-col justify-between gap-3 md:flex-row md:items-start">
@@ -145,6 +146,19 @@ export function Browse({
                   </button>
                 </div>
               </div>
+              {hasNote && (
+                <button
+                  className="mt-3 w-full rounded-md border border-cockpit-glow/20 bg-cockpit-glow/5 px-3 py-2 text-left text-sm text-slate-200 hover:border-cockpit-glow/40 hover:bg-cockpit-glow/10"
+                  onClick={() => openNote(card)}
+                  type="button"
+                >
+                  <span className="mb-1 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-cockpit-glow">
+                    <MessageSquareText size={13} />
+                    Nota
+                  </span>
+                  <span className="line-clamp-3 whitespace-pre-line">{note}</span>
+                </button>
+              )}
             </div>
           );
         })}
