@@ -675,17 +675,6 @@ export const questionData = {
     },
     {
       "materia": "REGULAMENTOS",
-      "pergunta": "O SERVIÇO PRESTADO COM A FINALIDADE DE PROPORCIONAR AVISOS E INFORMAÇÕES ÚTEIS PARA A REALIZAÇÃO SEGURA E EFICIENTE DOS VÔOS, É O DE",
-      "respostas": [
-        "A) ASSESSORAMENTO",
-        "B) PREVENÇÃO DE ACIDENTES",
-        "C) INFORMAÇÃO DE VÔO",
-        "D) ALERTA"
-      ],
-      "resposta_correta": "C) INFORMAÇÃO DE VÔO"
-    },
-    {
-      "materia": "REGULAMENTOS",
       "pergunta": "DAS ALTERNATIVAS RELACIONADAS ABAIXO, INDIQUE A QUE CORRESPONDE À ÁREA PERIGOSA DE NÚMERO 14 DO 3º COMAR:",
       "respostas": [
         "A) SBP 341",
@@ -782,17 +771,6 @@ export const questionData = {
         "D) SRPV."
       ],
       "resposta_correta": "D) SRPV."
-    },
-    {
-      "materia": "REGULAMENTOS",
-      "pergunta": "QUANDO HOUVER UM AVIÃO ACIDENTADO NA RWY E ESTA FOR A ÚNICA DO AD, PODE-SE CONSIDERAR QUE O AD ESTARÁ",
-      "respostas": [
-        "A) FECHADO.",
-        "B) INTERDITADO.",
-        "C) IMPRATICÁVEL.",
-        "D) INUTILIZÁVEL."
-      ],
-      "resposta_correta": "C) IMPRATICÁVEL."
     },
     {
       "materia": "REGULAMENTOS",
@@ -1442,17 +1420,6 @@ export const questionData = {
         "D) 60 KM."
       ],
       "resposta_correta": "C) 50 KM."
-    },
-    {
-      "materia": "REGULAMENTOS",
-      "pergunta": "A PARTE DO AERÓDROMO DESTINADA AO POUSO DECOLAGEM E TÁXI DE AERONAVES, EXCLUÍDOS OS PÁTIOS, É CHAMADA ÁREA DE",
-      "respostas": [
-        "A) MOVIMENTO",
-        "B) OPERAÇÕES",
-        "C) MANOBRAS",
-        "D) CONTROLE"
-      ],
-      "resposta_correta": "C) MANOBRAS"
     },
     {
       "materia": "REGULAMENTOS",
@@ -2149,17 +2116,6 @@ export const questionData = {
     },
     {
       "materia": "REGULAMENTOS",
-      "pergunta": "A POSIÇÃO CRÍTICA NA QUAL O TRANSPONDER DA AERONAVE DEVE SER DESLIGADO É A DE NÚMERO",
-      "respostas": [
-        "A) 6.",
-        "B) 5.",
-        "C) 3.",
-        "D) 4."
-      ],
-      "resposta_correta": "B) 5."
-    },
-    {
-      "materia": "REGULAMENTOS",
       "pergunta": "QUALQUER ÁREA  DESTINADA A POUSO, DECOLAGEM E MOVIMENTAÇÃO DE AERONAVES DENOMINA-SE",
       "respostas": [
         "A) AERÓDINO.",
@@ -2190,17 +2146,6 @@ export const questionData = {
         "D) SÃO VÁLIDAS ATÉ OS 60 ANOS DE IDADE DOS TRIPULANTES."
       ],
       "resposta_correta": "B) TÊM CARÁTER PERMANENTE."
-    },
-    {
-      "materia": "REGULAMENTOS",
-      "pergunta": "EM UM CIRCUITO DE TRÁFEGO PADRÃO, A TRAJETÓRIA DE VOO, PERPENDICULAR À PISTA EM USO E COMPREENDIDA ENTRE A PERNA DO VENTO E A RETA FINAL, É DENOMINADA",
-      "respostas": [
-        "A) PERNA DE TRAVÉS.",
-        "B) PERNA BASE.",
-        "C) CURVA DE APROXIMAÇÃO.",
-        "D) CURVA BASE."
-      ],
-      "resposta_correta": "B) PERNA BASE."
     },
     {
       "materia": "REGULAMENTOS",
@@ -3128,17 +3073,6 @@ export const questionData = {
     },
     {
       "materia": "REGULAMENTOS",
-      "pergunta": "A DISTÂNCIA VERTICAL ENTRE UM NÍVEL, PONTO OU OBJETO CONSIDERADO COMO PONTO E O NÍVEL MÉDIO DO MAR É O CONCEITO DE",
-      "respostas": [
-        "A) PONTO.",
-        "B) NÍVEL DE VOO.",
-        "C) ALTITUDE.",
-        "D) ALTURA."
-      ],
-      "resposta_correta": "C) ALTITUDE."
-    },
-    {
-      "materia": "REGULAMENTOS",
       "pergunta": "UMA ÁREA DE CONTROLE, OU PARTE DELA, EM FORMA DE CORREDOR E BALIZADA COM AUXÍLIO PARA NAVEGAÇÃO É DENOMINADA",
       "respostas": [
         "A) ROTA.",
@@ -3348,17 +3282,6 @@ export const questionData = {
     },
     {
       "materia": "REGULAMENTOS",
-      "pergunta": "UM QUADRADO VERMELHO COM UMA DIAGONAL AMARELA, QUANDO COLOCADO NA ÁREA DE SINALIZAÇÃO DO AERÓDROMO, INDICA QUE:",
-      "respostas": [
-        "A) O POUSO É PROIBIDO",
-        "B) AS AERONAVES DEVEM DECOLAR E TAXIAR EXCLUSIVAMENTE DAS PISTAS COMPACTADAS",
-        "C) AS AERONAVES DEVEM POUSAR NAS PISTAS PAVIMENTADAS",
-        "D) HÁ NECESSIDADE DE PRECAUÇÃO ESPECIAL DURANTE A APROXIMAÇÃO E O POUSO"
-      ],
-      "resposta_correta": "D) HÁ NECESSIDADE DE PRECAUÇÃO ESPECIAL DURANTE A APROXIMAÇÃO E O POUSO"
-    },
-    {
-      "materia": "REGULAMENTOS",
       "pergunta": "A SIGLA QUE DEVE SER INTRODUZIDA NO ITEM 8 DO PLANO DE VOO - TIPO DE VOO -, PARA AS AERONAVES QUE FAZEM O TRANSPORTE  AÉREO REGULAR, É A",
       "respostas": [
         "A) R.",
@@ -3447,17 +3370,6 @@ export const questionData = {
     },
     {
       "materia": "REGULAMENTOS",
-      "pergunta": "CONSIDERADAS AS PRORROGAÇÕES POSSÍVEIS, A SUSPENSÃO DE UM CERTIFICADO DE HABILITAÇÃO TÉCNICA PODERÁ PERDURAR POR UM PRAZO TOTAL DE:",
-      "respostas": [
-        "A) 30 DIAS",
-        "B) 90 DIAS",
-        "C) 360 DIAS",
-        "D) 180 DIAS"
-      ],
-      "resposta_correta": "C) 360 DIAS"
-    },
-    {
-      "materia": "REGULAMENTOS",
       "pergunta": "OS LIMITES DE TEMPO DE VOO DO TRIPULANTE, EM AVIÕES CONVENCIONAIS, NÃO PODERÃO EXCEDER EM CADA MÊS OU ANO, RESPECTIVAMENTE:",
       "respostas": [
         "A) 100 - 960 HORAS.",
@@ -3499,17 +3411,6 @@ export const questionData = {
         "D) K0220."
       ],
       "resposta_correta": "D) K0220."
-    },
-    {
-      "materia": "REGULAMENTOS",
-      "pergunta": "O TEMPO MÁXIMO ESTABELECIDO PARA UMA AERONAVE INICIAR O TÁXI, APÓS TER RECEBIDO A AUTORIZAÇÃO PARA ACIONAR OS MOTORES, É DE",
-      "respostas": [
-        "A) 10 MIN.",
-        "B) 05 MIN.",
-        "C) 03 MIN.",
-        "D) 15 MIN."
-      ],
-      "resposta_correta": "B) 05 MIN."
     },
     {
       "materia": "REGULAMENTOS",
@@ -3642,17 +3543,6 @@ export const questionData = {
         "D) PRIVADO."
       ],
       "resposta_correta": "B) INTERNACIONAL."
-    },
-    {
-      "materia": "REGULAMENTOS",
-      "pergunta": "EM UMA MENSAGEM DE POSIÇÃO, TRANSMITIDA POR UMA AERONAVE AO ÓRGÃO ATS, ALÉM DA IDENTIFICAÇÃO DA ACFT, POSIÇÃO, HORA E FL OU ALTITUDE, O PILOTO DEVERÁ INFORMAR A",
-      "respostas": [
-        "A) PRÓXIMA POSIÇÃO E AS CONDIÇÕES DE VOO.",
-        "B) AUTONOMIA E A PRÓXIMA POSIÇÃO.",
-        "C) PRÓXIMA POSIÇÃO E A HORA DE SOBREVOO.",
-        "D) AUTONOMIA E AS CONDIÇÕES DE VOO."
-      ],
-      "resposta_correta": "C) PRÓXIMA POSIÇÃO E A HORA DE SOBREVOO."
     },
     {
       "materia": "REGULAMENTOS",
@@ -7576,17 +7466,6 @@ export const questionData = {
     },
     {
       "materia": "NAVEGAÇÃO",
-      "pergunta": "O ARCO DE MERIDIANO COMPREENDIDO ENTRE O EQUADOR E O PARALELO DE UM LUGAR É DENOMINADO",
-      "respostas": [
-        "A) DIFERENÇA DE LONGITUDE.",
-        "B) DIFERENÇA DE LATITUDE.",
-        "C) LATITUDE.",
-        "D) LONGITUDE."
-      ],
-      "resposta_correta": "C) LATITUDE."
-    },
-    {
-      "materia": "NAVEGAÇÃO",
       "pergunta": "A ALTITUDE PRESSÃO CORRIGIDA PARA A TEMPERATURA É CONHECIDA POR ALTITUDE",
       "respostas": [
         "A) DENSIDADE",
@@ -8156,17 +8035,6 @@ export const questionData = {
         "D) 90°"
       ],
       "resposta_correta": "C) 00°"
-    },
-    {
-      "materia": "NAVEGAÇÃO",
-      "pergunta": "A ABREVIATURA \"ENE\" PERTENCE AO GRUPO DE PONTOS",
-      "respostas": [
-        "A) SUBCOLATERAIS",
-        "B) CARDEAIS",
-        "C) LATERAIS",
-        "D) COLATERAIS"
-      ],
-      "resposta_correta": "A) SUBCOLATERAIS"
     }
   ],
   "TEORIA DE VÔO": [
@@ -8510,17 +8378,6 @@ export const questionData = {
         "D) AUMENTO DO ÂNGULO, ENTRE A TRAJETÓRIA E O HORIZONTE"
       ],
       "resposta_correta": "C) DIMINUIÇÃO DO ÂNGULO, ENTRE A TRAJETÓRIA E O HORIZONTE"
-    },
-    {
-      "materia": "TEORIA DE VÔO",
-      "pergunta": "A ESTABILIDADE LONGITUDINAL É CONSIDERADA EM RELAÇÃO AO",
-      "respostas": [
-        "A) CG",
-        "B) EIXO LATERAL",
-        "C) EIXO VERTICAL",
-        "D) EIXO LONGITUDINAL"
-      ],
-      "resposta_correta": "B) EIXO LATERAL"
     },
     {
       "materia": "TEORIA DE VÔO",
@@ -9646,17 +9503,6 @@ export const questionData = {
     },
     {
       "materia": "TEORIA DE VÔO",
-      "pergunta": "EM VÔO RETO E NIVELADO, COM VELOCIDADE CONSTANTE, PODE-SE AFIRMAR QUE",
-      "respostas": [
-        "A) A SUSTENTAÇÃO É MAIOR QUE O PESO.",
-        "B) AS QUATRO FORÇAS SE INTERAGEM AUMENTANDO A RESULTANTE AERODINÂMICA.",
-        "C) O ARRASTO É MENOR QUE A TRAÇÃO.",
-        "D) AS QUATRO FORÇAS SE ANULAM."
-      ],
-      "resposta_correta": "D) AS QUATRO FORÇAS SE ANULAM."
-    },
-    {
-      "materia": "TEORIA DE VÔO",
       "pergunta": "NO INÍCIO DA DECOLAGEM, A TRAÇÃO É",
       "respostas": [
         "A) IGUAL AO ARRASTO.",
@@ -9720,17 +9566,6 @@ export const questionData = {
         "D) SUSTENTAÇÃO."
       ],
       "resposta_correta": "C) TRAÇÃO."
-    },
-    {
-      "materia": "TEORIA DE VÔO",
-      "pergunta": "O FATOR DE CARGA É DEFINIDO COMO SENDO A RAZÃO EXISTENTE ENTRE O(A)",
-      "respostas": [
-        "A) TRAÇÃO E O ARRASTO",
-        "B) ARRASTO E O PESO",
-        "C) TRAÇÃO E A SUSTENTAÇÃO",
-        "D) SUSTENTAÇÃO E O PESO"
-      ],
-      "resposta_correta": "D) SUSTENTAÇÃO E O PESO"
     },
     {
       "materia": "TEORIA DE VÔO",
@@ -9965,17 +9800,6 @@ export const questionData = {
     },
     {
       "materia": "TEORIA DE VÔO",
-      "pergunta": "O ÂNGULO DE PLANEIO É O ÂNGULO FORMADO  ENTRE O(A)",
-      "respostas": [
-        "A) VENTO RELATIVO E A FUSELAGEM",
-        "B) TRAJETÓRIA DA AERONAVE E O VENTO RELATIVO",
-        "C) VENTO RELATIVO E O VETOR DO ARRASTO",
-        "D) TRAJETÓRIA DA AERONAVE E A LINHA DO HORIZONTE"
-      ],
-      "resposta_correta": "D) TRAJETÓRIA DA AERONAVE E A LINHA DO HORIZONTE"
-    },
-    {
-      "materia": "TEORIA DE VÔO",
       "pergunta": "CONSIDERANDO-SE UM VOO PLANADO, O PESO DA AERONAVE \"NÃO\" AFETARÁ NO(A)",
       "respostas": [
         "A) TEMPO DE DESCIDA.",
@@ -10185,17 +10009,6 @@ export const questionData = {
     },
     {
       "materia": "TEORIA DE VÔO",
-      "pergunta": "EM VOO RETO E  NIVELADO, PARA SE AUMENTAR A VELOCIDADE, A",
-      "respostas": [
-        "A) TRAÇÃO DEVE SER MAIOR QUE O ARRASTO.",
-        "B) TRAÇÃO DEVE SER IGUAL AO ARRASTO.",
-        "C) SUSTENTAÇÃO DEVE SER MENOR QUE O ARRASTO.",
-        "D) SUSTENTAÇÃO DEVE SER IGUAL AO ARRASTO."
-      ],
-      "resposta_correta": "A) TRAÇÃO DEVE SER MAIOR QUE O ARRASTO."
-    },
-    {
-      "materia": "TEORIA DE VÔO",
       "pergunta": "A PROXIMIDADE DO ESTOL, NA MAIORIA DOS AVIÕES, É CARACTERIZADA POR UMA TREPIDAÇÃO CAUSADA PELO TURBILHONAMENTO DO AR SOBRE AS ASAS. ESSA TREPIDAÇÃO É CHAMADA",
       "respostas": [
         "A) DUTCH ROLL.",
@@ -10358,17 +10171,6 @@ export const questionData = {
         "D) BORDOS E EXTRADORSO."
       ],
       "resposta_correta": "C) BORDOS E INTRADORSO."
-    },
-    {
-      "materia": "TEORIA DE VÔO",
-      "pergunta": "DENTRE AS ALTERNATIVAS ABAIXO,UMA DAS FINALIDADES DOS COMPENSADORES É",
-      "respostas": [
-        "A) ANULAR O EFEITO DO TORQUE DO MOTOR.",
-        "B) ATUAR COMO DISPOSITIVOS HIPERSUSTENTADORES.",
-        "C) TIRAR TENDÊNCIAS INDESEJÁVEIS DE VÔO.",
-        "D) ANULAR A FORÇA CENTRÍPETA NUMA CURVA."
-      ],
-      "resposta_correta": "C) TIRAR TENDÊNCIAS INDESEJÁVEIS DE VÔO."
     },
     {
       "materia": "TEORIA DE VÔO",
@@ -10636,17 +10438,6 @@ export const questionData = {
     },
     {
       "materia": "TEORIA DE VÔO",
-      "pergunta": "QUANTO À DENSIDADE DO AR, PODE-SE AFIRMAR QUE:",
-      "respostas": [
-        "A) AUMENTA, COM O AUMENTO DA ALTITUDE.",
-        "B) DIMINUI, COM O AUMENTO DA TEMPERATURA.",
-        "C) DIMINUI, COM A DIMINUIÇÃO DA ALTITUDE.",
-        "D) AUMENTA, COM O AUMENTO DA TEMPERATURA."
-      ],
-      "resposta_correta": "B) DIMINUI, COM O AUMENTO DA TEMPERATURA."
-    },
-    {
-      "materia": "TEORIA DE VÔO",
       "pergunta": "O COMPONENTE QUE AGE COMO FORÇA CENTRÍFUGA NA SUSTENTAÇÃO, ATUANDO SOBRE O AVIÃO, TENDENDO A TIRÁ-LO DA TRAJETÓRIA RETA E INDUZI-LO A EFETUAR UMA CURVA, É DENOMINADA COMPONENTE",
       "respostas": [
         "A) DE ARRASTO.",
@@ -10746,17 +10537,6 @@ export const questionData = {
     },
     {
       "materia": "TEORIA DE VÔO",
-      "pergunta": "ÂNGULO DE SUBIDA È O FORMADO ENTRE O(A)",
-      "respostas": [
-        "A) VENTO RELATIVO E A TRAJETÓRIA DESCENDENTE",
-        "B) LINHA DO HORIZONTE E A TRAJETÓRIA DESCENDENTE",
-        "C) VENTO RELATIVO E A TRAJETÓRIA ASCENDENTE",
-        "D) TRAJETÓRIA ASCENDENTE E A LINHA DO HORIZONTE"
-      ],
-      "resposta_correta": "D) TRAJETÓRIA ASCENDENTE E A LINHA DO HORIZONTE"
-    },
-    {
-      "materia": "TEORIA DE VÔO",
       "pergunta": "A MANOBRA DE APROXIMAÇÃO E POUSO COM OS FLAPES RECOLHIDOS, EM RELAÇÃO A MESMA MANOBRA, REALIZADA COM OS FLAPES ESTENDIDOS, PROPORCIONA UM(A)",
       "respostas": [
         "A) MAIOR ÂNGULO DE PITCH",
@@ -10768,17 +10548,6 @@ export const questionData = {
     },
     {
       "materia": "TEORIA DE VÔO",
-      "pergunta": "O ÂNGULO FORMADO ENTRE A CORDA DE UM AEROFÓLIO E A DIREÇÃO DO VENTO RELATIVO DENOMINA-SE ÂNGULO DE",
-      "respostas": [
-        "A) ENFLECHAMENTO.",
-        "B) ATAQUE.",
-        "C) INCIDÊNCIA.",
-        "D) DIEDRO."
-      ],
-      "resposta_correta": "B) ATAQUE."
-    },
-    {
-      "materia": "TEORIA DE VÔO",
       "pergunta": "AO SE DIMINUIR O ÂNGULO DE ATAQUE DE UM AEROFÓLIO DE PERFIL ASSIMÉTRICO, O CENTRO DE PRESSÃO",
       "respostas": [
         "A) PERMANECE INALTERADO.",
@@ -10787,17 +10556,6 @@ export const questionData = {
         "D) RECUA MAIS PARA TRÁS."
       ],
       "resposta_correta": "D) RECUA MAIS PARA TRÁS."
-    },
-    {
-      "materia": "TEORIA DE VÔO",
-      "pergunta": "EM UM VÔO HORIZONTAL COM VELOCIDADE CONSTANTE, A:",
-      "respostas": [
-        "A) SUSTENTAÇÃO É IGUAL AO PESO",
-        "B) TRAÇÃO É IGUAL A SUSTENTAÇÃO",
-        "C) TRAÇÃO É IGUAL AO PESO",
-        "D) SUSTENTAÇÃO É IGUAL AO ARRASTO"
-      ],
-      "resposta_correta": "A) SUSTENTAÇÃO É IGUAL AO PESO"
     },
     {
       "materia": "TEORIA DE VÔO",
@@ -10853,17 +10611,6 @@ export const questionData = {
         "D) SIMÉTRICO."
       ],
       "resposta_correta": "B) ASSIMÉTRICO."
-    },
-    {
-      "materia": "TEORIA DE VÔO",
-      "pergunta": "A TRAJETÓRIA, APÓS A DECOLAGEM, QUE VISA A ULTRAPASSAGEM DE OBSTÁCULOS CRÍTICOS É TECNICAMENTE CONHECIDA COMO DE",
-      "respostas": [
-        "A) MÁXIMO GRADIENTE",
-        "B) MÁXIMA RAZÃO DE SUBIDA",
-        "C) GRANDE ASCENDENTE",
-        "D) ALTO ALCANCE"
-      ],
-      "resposta_correta": "A) MÁXIMO GRADIENTE"
     },
     {
       "materia": "TEORIA DE VÔO",
@@ -10985,28 +10732,6 @@ export const questionData = {
         "D) PESO DE DECOLAGEM NO LIMITE"
       ],
       "resposta_correta": "B) VENTO NULO"
-    },
-    {
-      "materia": "TEORIA DE VÔO",
-      "pergunta": "A MANOBRA QUE É PROVOCADA POR UMA INCLINAÇÃO EXAGERADA DAS ASAS, LEVANDO O AVIÃO A ESCORREGAR PARA DENTRO DA CURVA, E A PERDER ALTITUDE, DENOMINA-SE",
-      "respostas": [
-        "A) GLISSADA",
-        "B) GUINADA",
-        "C) PLANEIO",
-        "D) DERRAPAGEM"
-      ],
-      "resposta_correta": "A) GLISSADA"
-    },
-    {
-      "materia": "TEORIA DE VÔO",
-      "pergunta": "A TENDÊNCIA QUE O AVIÃO TEM DE GIRAR NO SENTIDO OPOSTO AO DA ROTAÇÃO DA HÉLICE, É COMPENSADA PELO(A)",
-      "respostas": [
-        "A) RECOLHIMENTO DO FLAP.",
-        "B) INCLINAÇÃO DA DERIVA.",
-        "C) ABAIXAMENTO DO TREM DE POUSO.",
-        "D) COMANDO DO LEME PARA QUALQUER LADO."
-      ],
-      "resposta_correta": "B) INCLINAÇÃO DA DERIVA."
     },
     {
       "materia": "TEORIA DE VÔO",
@@ -11548,17 +11273,6 @@ export const questionData = {
         "D) DESLIGANDO-SE A BOMBA MECÂNICA"
       ],
       "resposta_correta": "C) CORTANDO-SE A ALIMENTAÇÃO DE GASOLINA"
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "NUMA AERONAVE MONOMOTORA, OCORRENDO A PARADA DO MOTOR, EM VÔO, OS DISPOSITIVOS ELÉTRICOS SERÃO ALIMENTADOS PELO(A)",
-      "respostas": [
-        "A) GERADOR.",
-        "B) ALTERNADOR.",
-        "C) INVERSOR.",
-        "D) BATERIA."
-      ],
-      "resposta_correta": "D) BATERIA."
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
@@ -12123,17 +11837,6 @@ export const questionData = {
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "O MOTOR EM QUE O PRÓPRIO CÁRTER SERVE COMO RESERVATÓRIO DE ÓLEO É O DO TIPO CÁRTER",
-      "respostas": [
-        "A) MISTO",
-        "B) ESPUMANTE",
-        "C) SECO",
-        "D) MOLHADO"
-      ],
-      "resposta_correta": "D) MOLHADO"
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
       "pergunta": "QUANTO AO SISTEMA DE PROTEÇÃO CONTRA FOGO, É CORRETO AFIRMAR QUE",
       "respostas": [
         "A) DETECTA SUPERAQUECIMENTO E EXTINGUE O FOGO",
@@ -12142,17 +11845,6 @@ export const questionData = {
         "D) SOMENTE DETECTA E EXTINGUE O FOGO"
       ],
       "resposta_correta": "A) DETECTA SUPERAQUECIMENTO E EXTINGUE O FOGO"
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "O TACÔMETRO ELÉTRICO, PARA O SEU FUNCIONAMENTO, RECEBE SINAL DE UM",
-      "respostas": [
-        "A) AMPERÍMETRO",
-        "B) CONTRA-PESO",
-        "C) GERADOR",
-        "D) SENSOR DE RPM"
-      ],
-      "resposta_correta": "C) GERADOR"
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
@@ -12219,17 +11911,6 @@ export const questionData = {
         "D) BOMBA DE GASOLINA."
       ],
       "resposta_correta": "B) FILTRO DE AR."
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "O COMPONENTE DO SISTEMA QUE É RESPONSÁVEL PELA ORDEM DE IGNIÇÃO DOS CILINDROS, DENOMINA-SE",
-      "respostas": [
-        "A) VELA.",
-        "B) DISTRIBUIDOR.",
-        "C) MAGNETO.",
-        "D) CONDENSADOR."
-      ],
-      "resposta_correta": "B) DISTRIBUIDOR."
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
@@ -12475,17 +12156,6 @@ export const questionData = {
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "QUANDO A  TEMPERATURA DO ÓLEO SOBE ACIMA DE UM DETERMINADO LIMITE, A VÁLVULA TERMOSTÁTICA",
-      "respostas": [
-        "A) ABRE-SE, FAZENDO O ÓLEO CONTORNAR O RADIADOR.",
-        "B) FECHA-SE, FAZENDO O ÓLEO CONTORNAR O RADIADOR.",
-        "C) FECHA-SE, FAZENDO O ÓLEO PASSAR PELO RADIADOR.",
-        "D) ABRE-SE, FAZENDO O ÓLEO PASSAR PELO RADIADOR."
-      ],
-      "resposta_correta": "D) ABRE-SE, FAZENDO O ÓLEO PASSAR PELO RADIADOR."
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
       "pergunta": "A VÁLVULA QUE PERMITE A PASSAGEM DO ÓLEO ATRAVÉS DO RADIADOR É CONTROLADA POR",
       "respostas": [
         "A) VÁCUO.",
@@ -12629,17 +12299,6 @@ export const questionData = {
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "QUANDO SE DÁ A FAÍSCA NA VELA E A CHAMA PROPAGA-SE DENTRO DO CILINDRO DE FORMA PROGRESSIVA, DIZ-SE QUE OCORREU UM(A)",
-      "respostas": [
-        "A) COMBUSTÃO NORMAL",
-        "B) PRÉ-IGNIÇÃO",
-        "C) DETONAÇÃO",
-        "D) RETORNO DE CHAMA"
-      ],
-      "resposta_correta": "A) COMBUSTÃO NORMAL"
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
       "pergunta": "AO SAIR DO RADIADOR, O ÓLEO TERÁ MAIOR",
       "respostas": [
         "A) PONTO DE CONGELAMENTO.",
@@ -12648,17 +12307,6 @@ export const questionData = {
         "D) PONTO DE FULGOR."
       ],
       "resposta_correta": "C) VISCOSIDADE."
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "O ÓLEO, EM RELAÇAO À SUA CONDIÇÃO NA ENTRADA DO RADIADOR, APRESENTA-SE AO SAIR DO MESMO, COM AS SEGUINTES CARACTERÍSTICAS",
-      "respostas": [
-        "A) MENOR TEMPERATURA E MAIOR VISCOSIDADE.",
-        "B) MAIOR TEMPERATURA E MENOR VISCOSIDADE.",
-        "C) MENOR TEMPERATURA E MENOR VISCOSIDADE.",
-        "D) MAIOR TEMPERATURA E MAIOR VISCOSIDADE."
-      ],
-      "resposta_correta": "A) MENOR TEMPERATURA E MAIOR VISCOSIDADE."
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
@@ -12791,17 +12439,6 @@ export const questionData = {
         "D) 6 FASES."
       ],
       "resposta_correta": "D) 6 FASES."
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "NO SISTEMA DE LUBRIFICAÇÃO, A  VÁLVULA TERMOSTÁTICA TEM A FINALIDADE DE REGULAR A",
-      "respostas": [
-        "A) PRESSÃO DE ÓLEO.",
-        "B) TEMPERATURA DO ÓLEO.",
-        "C) PRESSÃO DO COMBUSTÍVEL.",
-        "D) TEMPERATURA DO COMBUSTÍVEL."
-      ],
-      "resposta_correta": "B) TEMPERATURA DO ÓLEO."
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
@@ -13003,17 +12640,6 @@ export const questionData = {
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "A DIVISÃO DO CONSUMO HORÁRIO DE UM MOTOR PELA SUA POTÊNCIA REPRESENTA O(A)",
-      "respostas": [
-        "A) SEU CONSUMO ESPECÍFICO.",
-        "B) SUA TAXA DE COMPRESSÃO.",
-        "C) SUA LEVEZA.",
-        "D) SEU ARRASTO."
-      ],
-      "resposta_correta": "A) SEU CONSUMO ESPECÍFICO."
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
       "pergunta": "A POTÊNCIA TRATORA QUE É DESENVOLVIDA PELO GRUPO MOTOPROPULSOR É TAMBÉM DENOMINADA POTÊNCIA",
       "respostas": [
         "A) EFETIVA.",
@@ -13121,17 +12747,6 @@ export const questionData = {
         "D) TEÓRICA."
       ],
       "resposta_correta": "A) NOMINAL."
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "UMA DAS FINALIDADES DOS ANÉIS DE SEGMENTO É",
-      "respostas": [
-        "A) FIXAR A BIELA AO EIXO DE MANIVELAS",
-        "B) VEDAR A FOLGA ENTRE O PISTÃO E O CILINDRO",
-        "C) AUMENTAR O ATRITO ENTRE O PISTÃO E O CILINDRO",
-        "D) FIXAR O PISTÃO À BIELA"
-      ],
-      "resposta_correta": "B) VEDAR A FOLGA ENTRE O PISTÃO E O CILINDRO"
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
@@ -13355,28 +12970,6 @@ export const questionData = {
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "A PEÇA DO MOTOR QUE SERVE PARA FIXAR O PISTÃO À BIELA, DENOMINA-SE",
-      "respostas": [
-        "A) BRONZINA.",
-        "B) PINO DO PISTÃO.",
-        "C) SAIA DO PISTÃO.",
-        "D) ALHETA."
-      ],
-      "resposta_correta": "B) PINO DO PISTÃO."
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "A SUBSTITUIÇÃO DE UM COMPONENTE DO MOTOR, APÓS ESTE TER ATINGIDO O SEU TEMPO DE VIDA ÚTIL, DENOMINA-SE",
-      "respostas": [
-        "A) MANUTENÇÃO PREVENTIVA.",
-        "B) MANUTENÇÃO CORRETIVA.",
-        "C) CONTROLE DE QUALIDADE.",
-        "D) CONTROLE DE EFICIÊNCIA."
-      ],
-      "resposta_correta": "A) MANUTENÇÃO PREVENTIVA."
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
       "pergunta": "QUANDO O PISTÃO PERFAZ UM CURSO, OCORRE NO INTERIOR DO CILINDRO UM(A)",
       "respostas": [
         "A) CICLO.",
@@ -13432,28 +13025,6 @@ export const questionData = {
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "NO FREIO A TAMBOR, NA CONDIÇÃO DE FREIO LIVRE, AS SAPATAS FICAM",
-      "respostas": [
-        "A) AFASTADAS DO TAMBOR, POR AÇÃO DA GRAVIDADE.",
-        "B) COMPRIMIDAS COM O TAMBOR, POR AÇÃO PNEUMÁTICA.",
-        "C) COMPRIMIDAS COM O TAMBOR, POR AÇÃO DE FLUIDO HIDRÁULICO.",
-        "D) AFASTADAS DO TAMBOR, POR AÇÃO DE MOLA."
-      ],
-      "resposta_correta": "D) AFASTADAS DO TAMBOR, POR AÇÃO DE MOLA."
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "O COMPONENTE DO SISTEMA DE LUBRIFICAÇÃO QUE DÁ LIVRE PASSAGEM AO ÓLEO NUM SENTIDO E IMPEDE O FLUXO NO SENTIDO OPOSTO, DENOMINA-SE VÁLVULA",
-      "respostas": [
-        "A) REGULADORA DE PRESSÃO.",
-        "B) DE CONTORNO.",
-        "C) BY-PASS.",
-        "D) UNIDIRECIONAL."
-      ],
-      "resposta_correta": "D) UNIDIRECIONAL."
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
       "pergunta": "EM UM SISTEMA DE COMBUSTÍVEL ALIMENTADO POR PRESSÃO, A BOMBA PRINCIPAL É ACIONADA",
       "respostas": [
         "A) PELO PRÓPRIO MOTOR.",
@@ -13495,17 +13066,6 @@ export const questionData = {
         "D) ÁREA DO CILINDRO ATUADOR"
       ],
       "resposta_correta": "B) PRESSÃO"
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "O SISTEMA DE LUBRIFICAÇÃO DO MOTOR EM QUE O PRÓPRIO CÁRTER SERVE DE RESERVATÓRIO DE ÓLEO É DO TIPO",
-      "respostas": [
-        "A) ÚMIDO.",
-        "B) MISTO.",
-        "C) MOLHADO.",
-        "D) SECO."
-      ],
-      "resposta_correta": "C) MOLHADO."
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
@@ -13641,17 +13201,6 @@ export const questionData = {
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "QUANDO AS VÁLVULAS DO CILINDRO FICAM ABERTAS SIMULTANEAMENTE, DIZ-SE QUE ESTÁ OCORRENDO",
-      "respostas": [
-        "A) UMA PANE SECA.",
-        "B) O AJUSTE DE POTÊNCIA.",
-        "C) O CRUZAMENTO DE VÁLVULAS.",
-        "D) UM FUNCIONAMENTO INADEQUADO."
-      ],
-      "resposta_correta": "C) O CRUZAMENTO DE VÁLVULAS."
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
       "pergunta": "O DESGASTE NAS POLIAS DO SISTEMA DE CABO DE COMANDO É CONSEQUÊNCIA,",
       "respostas": [
         "A) DO CABO, EXCESSIVAMENTE, FROUXO.",
@@ -13704,17 +13253,6 @@ export const questionData = {
         "D) CICLO"
       ],
       "resposta_correta": "D) CICLO"
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "NO TERCEIRO TEMPO, OS GASES ORIGINADOS NA COMBUSTÃO TÊM A SUA PRESSÃO ELEVADA E TENDEM A SE EXPANDIR. A FORÇA EXPANSIVA DOS GASES É TRANSMITIDA PARA O(A)",
-      "respostas": [
-        "A) EIXO DE MANIVELAS, ATRAVÉS DA VÁLVULA DE ADMISSÃO",
-        "B) EIXO DE MANIVELAS, ATRAVÉS DA BIELA",
-        "C) BIELA, ATRAVÉS DOS BALANCINS",
-        "D) BIELA, ATRAVÉS DA VÁLVULA DE ESCAPAMENTO"
-      ],
-      "resposta_correta": "B) EIXO DE MANIVELAS, ATRAVÉS DA BIELA"
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
@@ -13817,17 +13355,6 @@ export const questionData = {
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "APÓS O ÓLEO TER CIRCULADO NO MOTOR, O MESMO É DIRECIONADO PARA O RADIADOR ONDE",
-      "respostas": [
-        "A) PERDERÁ CALOR E RECUPERARÁ A VISCOSIDADE.",
-        "B) GANHARÁ CALOR E RECUPERARÁ A VISCOSIDADE.",
-        "C) GANHARÁ CALOR E RECUPERARÁ A VOLATILIDADE.",
-        "D) PERDERÁ CALOR E RECUPERARÁ A VOLATILIDADE."
-      ],
-      "resposta_correta": "A) PERDERÁ CALOR E RECUPERARÁ A VISCOSIDADE."
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
       "pergunta": "OS MOVIMENTOS DE GUINADA SÃO OBTIDOS PELO COMANDO DO",
       "respostas": [
         "A) COMPENSADOR",
@@ -13927,17 +13454,6 @@ export const questionData = {
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "NO SISTEMA DE COMBUSTÍVEL QUE É ALIMENTADO POR PRESSÃO, A BOMBA PRINCIPAL É ACIONADA",
-      "respostas": [
-        "A) POR UM MOTOR ELÉTRICO",
-        "B) PELO BERÇO DO MOTOR",
-        "C) POR UMA BOMBA DE VÁCUO",
-        "D) PELO PRÓPRIO MOTOR"
-      ],
-      "resposta_correta": "D) PELO PRÓPRIO MOTOR"
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
       "pergunta": "A BOMBA PRINCIPAL DE COMBUSTÍVEL TEM O SEU ACIONAMENTO",
       "respostas": [
         "A) ELÉTRICO.",
@@ -14023,17 +13539,6 @@ export const questionData = {
         "D) EVITAR CORROSÃO NA AGULHA."
       ],
       "resposta_correta": "C) DIMINUIR AS OSCILAÇÕES DA AGULHA."
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "NA QUEIMA DA GASOLINA EM QUE A COMBUSTÃO É INSTANTÂNEA, OU SEJA, EXPLOSIVA, OCORRE UMA",
-      "respostas": [
-        "A) QUEIMA ANTI-DETONANTE.",
-        "B) DETONAÇÃO.",
-        "C) PRÉ-IGNIÇÃO.",
-        "D) QUEIMA NORMAL."
-      ],
-      "resposta_correta": "B) DETONAÇÃO."
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
@@ -14213,17 +13718,6 @@ export const questionData = {
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "AS POSIÇÕES EXTREMAS, ATINGIDAS PELO ÊMBOLO EM SEU MOVIMENTO ALTERNATIVO, DEFINEM OS(AS)",
-      "respostas": [
-        "A) CILINDRADAS MÉDIAS",
-        "B) PONTOS MORTOS",
-        "C) ROTAÇÕES",
-        "D) CILINDRADAS TOTAIS"
-      ],
-      "resposta_correta": "B) PONTOS MORTOS"
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
       "pergunta": "PRODUZIR A CENTELHA NA VELA, PARA PROVOCAR A COMBUSTÃO DA MISTURA NOS CILINDROS, É A FUNÇÃO DO SISTEMA DE",
       "respostas": [
         "A) CARBURAÇÃO.",
@@ -14232,17 +13726,6 @@ export const questionData = {
         "D) INJEÇÃO."
       ],
       "resposta_correta": "B) IGNIÇÃO."
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "AS SUBSTÂNCIAS QUÍMICAS ADICIONADAS AO ÓLEO PARA MELHORAR AS SUAS QUALIDADES SÃO DENOMINADAS",
-      "respostas": [
-        "A) CONGELANTES.",
-        "B) IGNITIVOS.",
-        "C) ADITIVOS.",
-        "D) NEUTRALIZADORES."
-      ],
-      "resposta_correta": "C) ADITIVOS."
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
@@ -14353,28 +13836,6 @@ export const questionData = {
         "D) FORÇA CENTRÍPETA"
       ],
       "resposta_correta": "B) FORÇA CENTRÍFUGA"
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "O DISPOSITIVO QUE UTILIZA UM ELETROÍMA, PARA LIGAR E DESLIGAR CONTATOS ELÉTRICOS DENOMINA-SE",
-      "respostas": [
-        "A) INVERSOR",
-        "B) SOLENÓIDE",
-        "C) RELÉ",
-        "D) DÍNAMO"
-      ],
-      "resposta_correta": "C) RELÉ"
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "A PARTE DO MOTOR ONDE A MISTURA COMBUSTÍVEL É INTRODUZIDA, COMPRIMIDA E QUEIMADA PARA A TRANSFORMAÇÃO DA ENERGIA TÉRMICA EM ENERGIA MECÂNICA, DENOMINA-SE",
-      "respostas": [
-        "A) BIELA.",
-        "B) CILINDRO.",
-        "C) VÁLVULA.",
-        "D) CARBURADOR."
-      ],
-      "resposta_correta": "B) CILINDRO."
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
@@ -14499,28 +13960,6 @@ export const questionData = {
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "NUM VÔO DE CRUZEIRO, USA-SE APENAS UMA PARTE DA POTÊNCIA DISPONÍVEL PARA SE",
-      "respostas": [
-        "A) ENRIQUECER A MISTURA AR/COMBUSTÍVEL",
-        "B) VOAR EM GRANDES ALTITUDES",
-        "C) ECONOMIZAR COMBUSTÍVEL",
-        "D) VOAR EM REGIÃO COM ALTA TEMPERATURA"
-      ],
-      "resposta_correta": "C) ECONOMIZAR COMBUSTÍVEL"
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "DENTRE OS INSTRUMENTOS ABAIXO, AQUELE QUE PERTENCE AO GRUPO DOS INSTRUMENTOS DE NAVEGAÇÃO É O",
-      "respostas": [
-        "A) CRONÔMETRO",
-        "B) ALTÍMETRO",
-        "C) VARIÔMETRO",
-        "D) VELOCÍMETRO"
-      ],
-      "resposta_correta": "A) CRONÔMETRO"
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
       "pergunta": "OS MELHORES CONDUTORES DE ELETRICIDADE SÃO MATERAIS QUE POSSUEM",
       "respostas": [
         "A) POUCOS ELÉTRONS LIVRES",
@@ -14562,17 +14001,6 @@ export const questionData = {
         "D) PODER CALORÍFICO."
       ],
       "resposta_correta": "A) VOLATILIDADE."
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "AS SUPERFÍCIES DE COMANDO SECUNDÁRIAS OU AUXILIARES SÃO OS",
-      "respostas": [
-        "A) COMPENSADORES, FLAPES, SPOILERS E SLATS.",
-        "B) FLAPES, PROFUNDORES, COMPENSADORES E PAINÉIS DE BALANCEAMENTO.",
-        "C) SPOILERS COMPENSADORES, LEMES E SLATS.",
-        "D) AILERONS, SERVO-COMPENSADORES, FLAPES E DISPOSITIVOS DE BORDO DE ATAQUE."
-      ],
-      "resposta_correta": "A) COMPENSADORES, FLAPES, SPOILERS E SLATS."
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
@@ -14686,28 +14114,6 @@ export const questionData = {
     },
     {
       "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "O PRIMEIRO INSTRUMENTO DO PAINEL DO AVIÃO A SER OBSERVADO, QUANDO DA PARTIDA DO MOTOR, É O",
-      "respostas": [
-        "A) MANÔMETRO DE COMBUSTÍVEL",
-        "B) LIQUIDÔMETRO",
-        "C) MANÔMETRO DE ÓLEO",
-        "D) CRONÔMETRO"
-      ],
-      "resposta_correta": "C) MANÔMETRO DE ÓLEO"
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
-      "pergunta": "A FINALIDADE DA VÁLVULA SELETORA DE  COMBUSTÍVEL É",
-      "respostas": [
-        "A) SELECIONAR O TANQUE E CORTAR O SUPRIMENTO DE COMBUSTÍVEL",
-        "B) DIRECIONAR O COMBUSTÍVEL PARA O FILTRO E PARA O TANQUE",
-        "C) DIRECIONAR O COMBUSTÍVEL PARA A BOMBA PRINCIPAL",
-        "D) PROPORCIONAR O REABASTECIMENTO DO TANQUE"
-      ],
-      "resposta_correta": "A) SELECIONAR O TANQUE E CORTAR O SUPRIMENTO DE COMBUSTÍVEL"
-    },
-    {
-      "materia": "CONHECIMENTOS TÉCNICOS",
       "pergunta": "DURANTE O VÔO DE UMA AERONAVE MONOMOTORA, OCORRENDO PANE NO GERADOR, O SISTEMA ELÉTRICO SERÁ ALIMENTADO PELO(A)",
       "respostas": [
         "A) REGULADOR DE VOLTAGEM",
@@ -14740,4 +14146,4 @@ export const questionData = {
       "resposta_correta": "C) OCTANAGEM."
     }
   ]
-} as const satisfies Record<string, readonly SourceQuestion[]>;
+} as const satisfies Record<string, SourceQuestion[]>;
