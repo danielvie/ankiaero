@@ -45,3 +45,28 @@ textarea:focus-visible {
   outline: 2px solid #f6b44b;
   outline-offset: 2px;
 }
+
+@media (max-width: 640px) {
+  .text-\[8px\],
+  .text-\[9px\] {
+    font-size: 0.75rem;
+  }
+
+  .text-\[10px\] {
+    font-size: 0.8125rem;
+  }
+
+  .text-\[11px\],
+  .text-\[12px\],
+  .text-xs {
+    font-size: 0.875rem;
+  }
+
+  main button,
+  nav button,
+  main input,
+  main select,
+  main textarea {
+    min-height: 2.75rem;
+  }
+}

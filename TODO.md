@@ -207,3 +207,10 @@
 - [x] No hover dos botões de ação com accent, preencher com dourado sólido e texto escuro (modelo do layout anterior)
 - [x] Aplicar em INICIAR REVISÃO, REVISAR (Painel, Busca, Histórico), SALVAR, SALVAR NOTA e botões de Avaliação
 - [x] Verificar `task check` e os estados no navegador
+
+# TODO: Melhorar legibilidade e espaçamento no mobile
+
+- [x] Inspecionar tipografia, espaçamentos e alvos de toque atuais
+- [x] Aumentar fontes pequenas e alvos de toque em viewport móvel
+- [x] Verificar `task check` e o fluxo de Revisão no navegador
+- [ ] `task build` continua bloqueado pela dependência pré-existente ausente `workbox-window`

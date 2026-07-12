@@ -106,8 +106,8 @@ export function Card({
       </header>
 
       <section className="mx-4 mt-5 rounded-lg border border-cockpit-line bg-cockpit-panel">
-        <h2 className="px-4 pb-4 pt-5 text-sm leading-relaxed text-cockpit-bright">{card.question}</h2>
-        <div className="grid gap-2 px-3 pb-3">
+        <h2 className="px-4 pb-5 pt-5 text-base leading-relaxed text-cockpit-bright">{card.question}</h2>
+        <div className="grid gap-3 px-3 pb-3">
           {card.options.map((option) => {
             const isSelected = selectedAnswer === option;
             const isAnswer = card.answer === option;
@@ -125,7 +125,7 @@ export function Card({
                 ? "bg-cockpit-red/20"
                 : "bg-cockpit-line/60 text-cockpit-soft";
             return (
-              <button className={`flex items-start gap-2.5 rounded-md border px-3 py-3 text-left text-[12px] leading-relaxed transition ${state}`} disabled={revealed} key={option} onClick={() => chooseAnswer(option)} type="button">
+              <button className={`flex items-start gap-3 rounded-md border px-3 py-3.5 text-left text-sm leading-relaxed transition ${state}`} disabled={revealed} key={option} onClick={() => chooseAnswer(option)} type="button">
                 {letter && <span className={`flex size-6 shrink-0 items-center justify-center rounded text-[11px] font-semibold ${letterState}`}>{letter}</span>}
                 <span className="pt-0.5">{text}</span>
               </button>
