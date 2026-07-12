@@ -1,51 +1,43 @@
-import { ArrowLeft, Download, RotateCcw, Upload } from "lucide-react";
+import { useState } from "react";
 
-export function Settings({
-  importText,
-  setImportText,
-  onBack,
-  exportToClipboard,
-  applyImport,
-  resetAll
-}: {
-  importText: string;
-  setImportText: (text: string) => void;
-  onBack: () => void;
-  exportToClipboard: () => void;
-  applyImport: () => void;
-  resetAll: () => void;
-}) {
+export function Settings({ importText, setImportText, exportToClipboard, applyImport, resetAll }: { importText: string; setImportText: (text: string) => void; exportToClipboard: () => void; applyImport: () => void; resetAll: () => void }) {
+  const [resetStep, setResetStep] = useState(0);
+
+  const requestReset = () => {
+    if (resetStep < 2) {
+      setResetStep(resetStep + 1);
+      return;
+    }
+    resetAll();
+    setResetStep(0);
+  };
+
   return (
-    <div className="rounded-lg border border-white/10 bg-cockpit-panel/90 p-5">
-      <div className="flex items-center gap-3">
-        <button
-          className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-md border border-white/10 px-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white sm:px-3"
-          onClick={onBack}
-          type="button"
-          aria-label="Voltar"
-        >
-          <ArrowLeft size={18} />
-          <span className="hidden sm:inline">Voltar</span>
-        </button>
-        <h2 className="text-3xl font-semibold">Settings</h2>
+    <div>
+      <header className="border-b-2 border-cockpit-glow/40 bg-cockpit-panel/95 px-[18px] pb-3 pt-5">
+        <h1 className="text-xs font-bold tracking-[0.16em] text-cockpit-primary">DADOS DO PROGRESSO</h1>
+        <small className="mt-1 block text-[9px] tracking-[0.06em] text-cockpit-dim">LOCAL-FIRST · NADA SAI DESTE DISPOSITIVO</small>
+      </header>
+      <div className="grid gap-2.5 px-4 pb-5 pt-4">
+        <section className="rounded-md border border-cockpit-line bg-cockpit-panel p-3">
+          <h2 className="text-[9px] tracking-[0.14em] text-cockpit-soft">EXPORTAR</h2>
+          <p className="mt-2 text-[9px] leading-relaxed tracking-[0.03em] text-cockpit-muted">COPIA O PROGRESSO DOS CARDS PARA A ÁREA DE TRANSFERÊNCIA.</p>
+          <button className="mt-2.5 w-full rounded-md border border-cockpit-border px-3 py-2.5 text-[10px] tracking-[0.1em] text-cockpit-text" onClick={exportToClipboard} type="button">⇪ EXPORTAR PROGRESSO</button>
+        </section>
+        <section className="rounded-md border border-cockpit-line bg-cockpit-panel p-3">
+          <h2 className="text-[9px] tracking-[0.14em] text-cockpit-soft">IMPORTAR</h2>
+          <textarea className="mt-2 h-20 w-full resize-none rounded border border-cockpit-border bg-cockpit-ink p-2 text-[10px] text-cockpit-text" placeholder="COLE AQUI UM PROGRESSO EXPORTADO…" value={importText} onChange={(event) => setImportText(event.target.value)} />
+          <button className="mt-2.5 w-full rounded-md border border-cockpit-border px-3 py-2.5 text-[10px] tracking-[0.1em] text-cockpit-text disabled:opacity-40" disabled={!importText.trim()} onClick={applyImport} type="button">⇩ APLICAR IMPORTAÇÃO</button>
+        </section>
+        <section className="rounded-md border border-cockpit-red/30 bg-cockpit-panel p-3">
+          <h2 className="text-[9px] tracking-[0.14em] text-cockpit-red">ZONA CRÍTICA</h2>
+          <p className="mt-2 text-[9px] leading-relaxed tracking-[0.03em] text-cockpit-muted">ZERA TODO O PROGRESSO ARMAZENADO. EXIGE DUPLA CONFIRMAÇÃO.</p>
+          <button className="mt-2.5 w-full rounded-md border border-cockpit-red/40 px-3 py-2.5 text-[10px] tracking-[0.1em] text-cockpit-red" onClick={requestReset} type="button">
+            {resetStep === 0 ? "⚠ ZERAR TUDO" : resetStep === 1 ? "CONFIRMAR 1/2" : "CONFIRMAR 2/2 — ZERAR"}
+          </button>
+          {resetStep > 0 && <button className="mt-2 w-full text-[9px] tracking-[0.08em] text-cockpit-muted" onClick={() => setResetStep(0)} type="button">CANCELAR</button>}
+        </section>
       </div>
-      <div className="mt-5 grid gap-3 md:grid-cols-3">
-        <button className="flex items-center justify-center gap-2 rounded-md bg-cockpit-glow px-4 py-3 font-semibold text-cockpit-ink" onClick={exportToClipboard} type="button">
-          <Download size={18} /> Exportar
-        </button>
-        <button className="flex items-center justify-center gap-2 rounded-md border border-white/10 bg-white/10 px-4 py-3 font-semibold text-white" onClick={applyImport} type="button">
-          <Upload size={18} /> Importar
-        </button>
-        <button className="flex items-center justify-center gap-2 rounded-md border border-cockpit-red/40 bg-cockpit-red/10 px-4 py-3 font-semibold text-cockpit-red" onClick={resetAll} type="button">
-          <RotateCcw size={18} /> Resetar
-        </button>
-      </div>
-      <textarea
-        className="mt-4 min-h-52 w-full rounded-md border border-cockpit-line bg-cockpit-ink p-3 font-mono text-sm text-slate-200"
-        placeholder="Cole JSON exportado aqui para importar."
-        value={importText}
-        onChange={(event) => setImportText(event.target.value)}
-      />
     </div>
   );
 }

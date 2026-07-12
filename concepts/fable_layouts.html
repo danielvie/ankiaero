@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Anki Aero — Conceitos de layout (multi-view)</title>
+<style>
+  :root {
+    --page-bg: #0b0f16;
+    --page-ink: #e7ecf4;
+    --page-muted: #93a0b4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--page-bg);
+    color: var(--page-ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    padding: 40px 24px 80px;
+  }
+  .intro { max-width: 980px; margin: 0 auto 48px; }
+  .intro h1 { font-size: 28px; letter-spacing: -0.02em; }
+  .intro p { color: var(--page-muted); margin-top: 10px; line-height: 1.6; max-width: 72ch; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+    gap: 56px 40px;
+    max-width: 1500px;
+    margin: 0 auto;
+    justify-items: center;
+  }
+  .concept { width: 100%; max-width: 440px; }
+  .concept > header { margin-bottom: 16px; }
+  .concept .kicker {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #5eb3ff;
+  }
+  .concept h2 { font-size: 20px; margin-top: 4px; }
+  .concept .why { color: var(--page-muted); font-size: 13.5px; line-height: 1.55; margin-top: 6px; }
+  .concept .views { margin-top: 8px; font-size: 11.5px; color: #64748b; }
+  .concept .views b { color: #8fa3c0; font-weight: 600; }
+
+  .phone {
+    width: 375px; height: 730px; margin: 0 auto;
+    border-radius: 42px; border: 1px solid #2a3446;
+    box-shadow: 0 30px 60px rgba(0,0,0,.5), inset 0 0 0 8px #06090f;
+    overflow: hidden; position: relative; background: #06090f;
+  }
+  .screen { position: absolute; inset: 8px; border-radius: 34px; overflow: hidden auto; scrollbar-width: none; }
+  .screen::-webkit-scrollbar { display: none; }
+
+  button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; -webkit-tap-highlight-color: transparent; }
+  button:disabled { cursor: default; }
+  .hidden-row { display: none; }
+  .hidden-row.show { display: flex; }
+  .view { display: none; }
+  .view.active { display: flex; flex-direction: column; min-height: 100%; }
+
+  /* ============================================================
+     1. FOCO TOTAL
+  ============================================================ */
+  .c1 { background: linear-gradient(180deg, #0e1420 0%, #101b2e 100%); color: #e8eef8; min-height: 100%; display: flex; flex-direction: column; }
+  .c1 .view.active { flex: 1; }
+
+  .c1-tabs { display: flex; margin-top: auto; border-top: 1px solid rgba(255,255,255,.07); background: rgba(6,10,17,.6); }
+  .c1-tab { flex: 1; padding: 12px 0 18px; text-align: center; font-size: 10.5px; color: #5c6b82; display: grid; gap: 3px; }
+  .c1-tab i { font-style: normal; font-size: 16px; }
+  .c1-tab.on { color: #38bdf8; }
+
+  .c1-home-head { display: flex; justify-content: space-between; align-items: baseline; padding: 26px 22px 0; }
+  .c1-home-head b { font-size: 19px; }
+  .c1-home-head small { font-size: 11px; color: #64748b; }
+  .c1-hero { display: grid; place-items: center; padding: 24px 0 8px; }
+  .c1-ring { width: 148px; height: 148px; border-radius: 50%; background: conic-gradient(#38bdf8 34%, rgba(255,255,255,.07) 0); display: grid; place-items: center; }
+  .c1-ring > div { width: 124px; height: 124px; border-radius: 50%; background: #0f1726; display: grid; place-items: center; text-align: center; }
+  .c1-ring b { font-size: 36px; display: block; }
+  .c1-ring small { font-size: 10.5px; color: #7d8ea8; display: block; margin-top: 2px; }
+  .c1-cta { margin: 14px 22px 6px; }
+  .c1-cta button { width: 100%; padding: 14px; border-radius: 16px; background: #0ea5e9; color: #04121d; font-weight: 800; font-size: 15px; box-shadow: 0 8px 24px rgba(14,165,233,.25); }
+  .c1-subjects { padding: 12px 16px 18px; display: grid; gap: 8px; }
+  .c1-subject { display: flex; align-items: center; gap: 12px; text-align: left; padding: 12px 14px; border-radius: 16px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); }
+  .c1-subject .nm { flex: 1; min-width: 0; }
+  .c1-subject .nm b { display: block; font-size: 12.5px; }
+  .c1-subject .nm .bar { height: 3px; border-radius: 99px; background: rgba(255,255,255,.08); margin-top: 7px; overflow: hidden; }
+  .c1-subject .nm .bar i { display: block; height: 100%; background: #38bdf8; border-radius: 99px; }
+  .c1-subject .due { font-size: 11px; font-weight: 700; color: #7dd3fc; background: rgba(56,189,248,.1); padding: 4px 9px; border-radius: 99px; white-space: nowrap; }
+
+  .c1-top { padding: 22px 20px 0; }
+  .c1-progress { height: 4px; border-radius: 99px; background: rgba(255,255,255,.1); overflow: hidden; }
+  .c1-progress i { display: block; height: 100%; background: #38bdf8; border-radius: 99px; }
+  .c1-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
+  .c1-chip { font-size: 11px; font-weight: 700; letter-spacing: .1em; color: #7dd3fc; background: rgba(56,189,248,.12); padding: 5px 10px; border-radius: 99px; }
+  .c1-count { font-size: 12px; color: #8fa3c0; }
+  .c1-close { color: #64748b; font-size: 18px; padding: 4px 8px; }
+  .c1-question { flex: 1; display: flex; align-items: center; padding: 12px 24px; }
+  .c1-question p { font-size: 19px; line-height: 1.5; font-weight: 600; }
+  .c1-tools { display: flex; gap: 18px; padding: 0 24px 10px; color: #64748b; font-size: 13px; }
+  .c1-alts { padding: 0 16px 16px; display: grid; gap: 10px; }
+  .c1-alt {
+    text-align: left; padding: 14px 16px; border-radius: 16px; font-size: 14.5px; line-height: 1.4;
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); color: #dbe6f5;
+  }
+  .c1-alt.is-correct { background: rgba(52,211,153,.15); border-color: #34d399; color: #a7f3d0; }
+  .c1-alt.is-wrong { background: rgba(248,113,113,.12); border-color: #f87171; color: #fecaca; }
+  .c1-grades { gap: 8px; padding: 0 16px 24px; }
+  .c1-grade { flex: 1; padding: 10px 4px; border-radius: 14px; font-size: 12.5px; font-weight: 700; display: grid; gap: 2px; }
+  .c1-grade small { font-weight: 500; font-size: 10.5px; opacity: .75; }
+  .g-again { background: rgba(248,113,113,.16); color: #fca5a5; }
+  .g-hard  { background: rgba(251,191,36,.14); color: #fcd34d; }
+  .g-good  { background: rgba(52,211,153,.14); color: #6ee7b7; }
+  .g-easy  { background: rgba(56,189,248,.14); color: #7dd3fc; }
+  .c1-ok { padding: 0 16px 24px; }
+  .c1-ok button { width: 100%; padding: 13px; border-radius: 14px; background: #334155; color: #e2e8f0; font-weight: 700; }
+
+  .c1-done { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 30px; gap: 8px; }
+  .c1-done .check { width: 92px; height: 92px; border-radius: 50%; background: rgba(52,211,153,.14); border: 2px solid #34d399; color: #6ee7b7; font-size: 40px; display: grid; place-items: center; margin-bottom: 10px; }
+  .c1-done h3 { font-size: 21px; }
+  .c1-done p { color: #8fa3c0; font-size: 13.5px; line-height: 1.55; }
+  .c1-done .acts { width: 100%; display: grid; gap: 9px; margin-top: 18px; }
+  .c1-done .acts .pri { padding: 13px; border-radius: 14px; background: #0ea5e9; color: #04121d; font-weight: 800; }
+  .c1-done .acts .sec { padding: 13px; border-radius: 14px; border: 1px solid rgba(255,255,255,.14); color: #cbd5e1; font-weight: 600; }
+
+  .c1-panel-head { display: flex; justify-content: space-between; align-items: center; padding: 24px 22px 12px; }
+  .c1-panel-head b { font-size: 19px; }
+  .c1-panel-head small { color: #64748b; font-size: 11.5px; }
+  .c1-search { margin: 0 16px 10px; display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); border-radius: 14px; padding: 11px 14px; color: #64748b; font-size: 13.5px; }
+  .c1-filters { display: flex; gap: 8px; padding: 0 16px 12px; }
+  .c1-filter { font-size: 11.5px; font-weight: 600; color: #8fa3c0; border: 1px solid rgba(255,255,255,.12); border-radius: 99px; padding: 6px 12px; }
+  .c1-items { padding: 0 16px 18px; display: grid; gap: 8px; }
+  .c1-item { text-align: left; padding: 12px 14px; border-radius: 16px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); }
+  .c1-item .tags { display: flex; align-items: center; gap: 8px; }
+  .c1-item .m { font-size: 9.5px; font-weight: 800; letter-spacing: .1em; color: #7dd3fc; }
+  .c1-item .ic { font-size: 11px; color: #64748b; }
+  .c1-item p { font-size: 12.5px; color: #cbd8ea; line-height: 1.45; margin-top: 6px; }
+  .c1-item .foot { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+  .c1-item .when { font-size: 10.5px; color: #64748b; }
+  .c1-badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 99px; }
+  .b-good { background: rgba(52,211,153,.13); color: #6ee7b7; }
+  .b-again { background: rgba(248,113,113,.14); color: #fca5a5; }
+  .b-easy { background: rgba(56,189,248,.13); color: #7dd3fc; }
+
+  /* ============================================================
+     2. CABINE DE COMANDO
+     Paleta azul: aviônicos em tons de azul; âmbar/vermelho apenas
+     para urgência e perigo; verde apenas para acerto.
+  ============================================================ */
+  .c2 { background: #070b14; color: #d4e2f4; font-family: "SF Mono", ui-monospace, Menlo, monospace; min-height: 100%; display: flex; flex-direction: column; }
+  .c2 .view.active { flex: 1; }
+  .c2-keys { display: flex; gap: 6px; padding: 10px 10px 16px; border-top: 1px solid #16233a; background: #060910; margin-top: auto; position: sticky; bottom: 0; }
+  .c2-key { flex: 1; font-family: inherit; font-size: 8.5px; letter-spacing: .08em; padding: 9px 2px; border: 1px solid #1a2740; border-radius: 5px; color: #5c7396; background: #0c1424; }
+  .c2-key.on { color: #7cb8ff; border-color: #2f5a9e; background: #0d1a30; }
+
+  .c2-head { padding: 20px 18px 12px; display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #16233a; }
+  .c2-head b { letter-spacing: .18em; font-size: 13px; color: #7cb8ff; }
+  .c2-head span { font-size: 10px; color: #4d6076; }
+  .c2-gauges { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px 8px; padding: 18px 14px 8px; }
+  .c2-gauge { text-align: center; }
+  .c2-dial { width: 76px; height: 76px; margin: 0 auto; border-radius: 50%; position: relative; display: grid; place-items: center; border: 1px solid #1a2740; }
+  .c2-dial::before { content: ""; position: absolute; inset: 5px; border-radius: 50%; background: #0b1322; }
+  .c2-dial b { position: relative; font-size: 17px; color: #e2efff; }
+  .c2-dial small { position: relative; display: block; font-size: 8px; color: #5c7396; }
+  .c2-gauge label { display: block; margin-top: 7px; font-size: 8.5px; letter-spacing: .08em; color: #8aa3c2; }
+  .c2-gauge .due { font-size: 10px; color: #ffb454; margin-top: 2px; display: block; }
+  .c2-master { margin: 16px 16px 10px; }
+  .c2-master button {
+    width: 100%; padding: 16px; border-radius: 8px; background: #0e1c33; border: 1px solid #2f5a9e;
+    color: #9cc7ff; font-weight: 700; font-size: 13px; letter-spacing: .12em; font-family: inherit;
+    box-shadow: 0 0 24px rgba(96,165,250,.16), inset 0 1px 0 rgba(255,255,255,.06);
+  }
+  .c2-strips { padding: 4px 16px 22px; display: grid; gap: 8px; }
+  .c2-strip { display: flex; align-items: center; justify-content: space-between; padding: 11px 12px; border: 1px solid #16233a; border-radius: 6px; background: #0c1424; }
+  .c2-strip span { font-size: 10.5px; letter-spacing: .06em; color: #a9c1de; }
+  .c2-strip button { font-size: 9.5px; letter-spacing: .1em; color: #7cb8ff; border: 1px solid #29466f; border-radius: 4px; padding: 5px 9px; font-family: inherit; }
+
+  .c2-rev-head { display: flex; justify-content: space-between; align-items: center; padding: 18px 16px; border-bottom: 1px solid #16233a; font-size: 10px; letter-spacing: .1em; color: #8aa3c2; }
+  .c2-rev-head button { color: #7cb8ff; font-family: inherit; font-size: 10px; letter-spacing: .1em; }
+  .c2-q { padding: 24px 20px; font-size: 14px; line-height: 1.6; color: #e6f0fc; }
+  .c2-alts { display: grid; gap: 9px; padding: 0 16px; }
+  .c2-alt { text-align: left; font-family: inherit; font-size: 11.5px; line-height: 1.5; padding: 12px 13px; border: 1px solid #1e2c47; border-radius: 6px; background: #0c1424; color: #c3d5ec; }
+  .c2-alt.is-correct { border-color: #34d399; color: #a7f3d0; background: #0e241c; }
+  .c2-alt.is-wrong { border-color: #f87171; color: #fecaca; background: #271114; }
+  .c2-grades { gap: 7px; padding: 18px 16px 22px; margin-top: auto; }
+  .c2-grade { flex: 1; font-family: inherit; padding: 11px 2px; border-radius: 6px; border: 1px solid #1e2c47; font-size: 9.5px; letter-spacing: .06em; display: grid; gap: 3px; }
+  .c2-grade small { font-size: 8.5px; opacity: .7; }
+  .c2-ok { padding: 18px 16px 22px; margin-top: auto; }
+  .c2-ok button { width: 100%; font-family: inherit; padding: 13px; border-radius: 6px; border: 1px solid #33445f; color: #d4e2f4; font-size: 11px; letter-spacing: .12em; }
+
+  .c2-done { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; gap: 12px; }
+  .c2-annun { border: 1px solid #2f5a9e; background: #0e1c33; border-radius: 8px; padding: 22px 16px; text-align: center; color: #9cc7ff; font-size: 13px; letter-spacing: .14em; box-shadow: 0 0 24px rgba(96,165,250,.16); }
+  .c2-done .row { display: flex; justify-content: space-between; border: 1px solid #16233a; border-radius: 6px; background: #0c1424; padding: 11px 12px; font-size: 10px; letter-spacing: .08em; color: #a9c1de; }
+  .c2-done .row b { color: #e2efff; }
+  .c2-done > button { font-family: inherit; margin-top: 8px; padding: 13px; border-radius: 6px; border: 1px solid #33445f; color: #d4e2f4; font-size: 10.5px; letter-spacing: .12em; }
+
+  .c2-sec-head { padding: 20px 18px 12px; border-bottom: 1px solid #16233a; }
+  .c2-sec-head b { font-size: 12px; letter-spacing: .16em; color: #7cb8ff; }
+  .c2-sec-head small { display: block; margin-top: 5px; font-size: 9.5px; color: #4d6076; letter-spacing: .06em; }
+  .c2-find { margin: 12px 16px 4px; border: 1px solid #1e2c47; border-radius: 6px; background: #0c1424; padding: 10px 12px; font-size: 10.5px; color: #5c7396; letter-spacing: .06em; }
+  .c2-rows { padding: 10px 16px 20px; display: grid; gap: 7px; }
+  .c2-row { border: 1px solid #16233a; border-radius: 6px; background: #0c1424; padding: 10px 11px; text-align: left; }
+  .c2-row .l1 { display: flex; justify-content: space-between; font-size: 9px; letter-spacing: .1em; color: #5c7396; }
+  .c2-row .l1 b { color: #93c5fd; }
+  .c2-row p { margin-top: 6px; font-size: 10px; line-height: 1.5; color: #c3d5ec; letter-spacing: .02em; }
+  .c2-row .l3 { display: flex; justify-content: space-between; align-items: center; margin-top: 7px; }
+  .c2-row .flags { font-size: 9px; color: #8aa3c2; }
+  .c2-row .l3 button { font-family: inherit; font-size: 8.5px; letter-spacing: .1em; color: #7cb8ff; border: 1px solid #29466f; border-radius: 4px; padding: 4px 8px; }
+  .c2-log { padding: 12px 16px 20px; display: grid; gap: 2px; }
+  .c2-logline { display: flex; gap: 10px; padding: 9px 4px; border-bottom: 1px dashed #142138; font-size: 9.5px; line-height: 1.5; }
+  .c2-logline .tz { color: #4d6076; white-space: nowrap; }
+  .c2-logline .res { white-space: nowrap; font-weight: 700; }
+  .c2-logline .res.ok { color: #6ee7b7; } .c2-logline .res.lapse { color: #ff8f6b; }
+  .c2-logline p { color: #a9c1de; flex: 1; }
+
+  .c2-note-ctx { padding: 16px 18px 6px; font-size: 10px; line-height: 1.6; color: #5c7396; letter-spacing: .04em; }
+  .c2-note { padding: 8px 16px; }
+  .c2-note textarea { width: 100%; height: 150px; resize: none; background: #0c1424; border: 1px solid #24365a; border-radius: 6px; padding: 12px; font-family: inherit; font-size: 11px; line-height: 1.7; color: #d0e2f8; outline: none; }
+  .c2-note-acts { display: flex; gap: 8px; padding: 8px 16px 20px; }
+  .c2-note-acts button { flex: 1; font-family: inherit; font-size: 9.5px; letter-spacing: .1em; padding: 11px 2px; border-radius: 6px; border: 1px solid #2f5a9e; color: #9cc7ff; }
+  .c2-note-acts .del { border-color: #6f3a2c; color: #ffab8a; flex: 0 0 32%; }
+  .c2-data { padding: 14px 16px 22px; display: grid; gap: 10px; }
+  .c2-databox { border: 1px solid #16233a; border-radius: 6px; background: #0c1424; padding: 12px; }
+  .c2-databox label { font-size: 9px; letter-spacing: .14em; color: #8aa3c2; }
+  .c2-databox p { margin-top: 7px; font-size: 9.5px; line-height: 1.6; color: #5c7396; letter-spacing: .03em; }
+  .c2-databox textarea { width: 100%; height: 56px; resize: none; margin-top: 8px; background: #0a111d; border: 1px solid #1e2c47; border-radius: 4px; padding: 8px; font-family: inherit; font-size: 9.5px; color: #c3d5ec; outline: none; }
+  .c2-databox button { margin-top: 9px; width: 100%; font-family: inherit; font-size: 9.5px; letter-spacing: .1em; padding: 10px; border-radius: 5px; border: 1px solid #33445f; color: #d4e2f4; }
+  .c2-databox.danger { border-color: #4a2318; }
+  .c2-databox.danger label { color: #ff8f6b; }
+  .c2-databox.danger button { border-color: #6f3a2c; color: #ffab8a; }
+
+  /* ============================================================
+     3. RADAR DE MATÉRIAS  (novo — instrumentos do C2 + foco do C1)
+     Paleta azul: fundo azul-profundo, acento #60a5fa; vermelho/âmbar
+     ficam reservados para urgência.
+  ============================================================ */
+  .c3 { background: radial-gradient(140% 100% at 50% 0%, #10264d 0%, #0a1830 55%, #060f20 100%); color: #dce9fb; min-height: 100%; display: flex; flex-direction: column; }
+  .c3 .view.active { flex: 1; }
+  .c3-tabs { display: flex; margin-top: auto; border-top: 1px solid rgba(96,165,250,.12); background: rgba(4,9,18,.6); }
+  .c3-tab { flex: 1; padding: 12px 0 18px; text-align: center; font-size: 10.5px; color: #5c7396; display: grid; gap: 3px; }
+  .c3-tab i { font-style: normal; font-size: 15px; }
+  .c3-tab.on { color: #60a5fa; }
+
+  .c3-head { padding: 26px 22px 4px; display: flex; justify-content: space-between; align-items: baseline; }
+  .c3-head b { font-size: 19px; }
+  .c3-head small { font-size: 11px; color: #93c5fd; font-weight: 700; }
+  .c3-sub { padding: 0 22px 14px; font-size: 12px; color: #6e8cb8; }
+  .c3-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 16px 18px; }
+  .c3-tile { text-align: left; border-radius: 18px; padding: 14px; border: 1px solid; position: relative; overflow: hidden; min-height: 108px; display: flex; flex-direction: column; }
+  .c3-tile label { font-size: 9px; font-weight: 800; letter-spacing: .12em; opacity: .9; padding-right: 34px; }
+  .c3-tile b { font-size: 30px; margin-top: auto; }
+  .c3-tile small { font-size: 10px; opacity: .75; }
+  .c3-tile .acc { font-size: 10px; position: absolute; top: 13px; right: 13px; opacity: .8; }
+  .t-hot  { background: rgba(255,90,80,.1);  border-color: rgba(255,90,80,.45);  color: #ff9d94; box-shadow: inset 0 0 30px rgba(255,90,80,.08); }
+  .t-warm { background: rgba(255,180,84,.08); border-color: rgba(255,180,84,.4); color: #ffcf94; }
+  .t-cool { background: rgba(96,165,250,.08); border-color: rgba(96,165,250,.4); color: #a8cdff; }
+  .t-all  { background: rgba(129,140,248,.1); border-color: rgba(129,140,248,.45); color: #c7d2fe; }
+  .c3-legend { padding: 0 22px 16px; font-size: 10.5px; color: #5c7396; }
+  .c3-legend i { font-style: normal; }
+
+  .c3-rev-top { padding: 22px 20px 0; }
+  .c3-heat { height: 4px; border-radius: 99px; background: rgba(255,255,255,.08); overflow: hidden; }
+  .c3-heat i { display: block; height: 100%; background: linear-gradient(90deg, #ff5a50, #ffb454); border-radius: 99px; }
+  .c3-rev-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
+  .c3-rev-meta .mat { font-size: 11px; font-weight: 800; letter-spacing: .1em; color: #ff9d94; }
+  .c3-rev-meta .pos { font-size: 11.5px; color: #6e8cb8; }
+  .c3-rev-meta button { color: #5c7396; font-size: 12.5px; }
+  .c3-q { padding: 22px 22px 8px; }
+  .c3-q p { font-size: 15.5px; line-height: 1.6; font-weight: 600; }
+  .c3-alts { padding: 10px 16px 16px; display: grid; gap: 9px; margin-top: auto; }
+  .c3-alt { text-align: left; padding: 12px 14px; border-radius: 14px; font-size: 12.5px; line-height: 1.45; background: rgba(96,165,250,.06); border: 1px solid rgba(96,165,250,.14); color: #cfe0f7; }
+  .c3-alt.is-correct { background: rgba(52,211,153,.13); border-color: #34d399; color: #a7f3d0; }
+  .c3-alt.is-wrong { background: rgba(248,113,113,.11); border-color: #f87171; color: #fecaca; }
+  .c3-grades { gap: 8px; padding: 0 16px 24px; }
+  .c3-grade { flex: 1; padding: 10px 4px; border-radius: 12px; font-size: 12px; font-weight: 700; display: grid; gap: 2px; border: 1px solid transparent; }
+  .c3-grade small { font-weight: 500; font-size: 10px; opacity: .75; }
+  .c3-ok { padding: 0 16px 24px; }
+  .c3-ok button { width: 100%; padding: 13px; border-radius: 12px; background: rgba(96,165,250,.12); border: 1px solid rgba(96,165,250,.25); color: #dce9fb; font-weight: 700; }
+
+  .c3-done { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 28px; }
+  .c3-done h3 { font-size: 20px; }
+  .c3-done p { color: #6e8cb8; font-size: 13px; line-height: 1.55; margin-top: 8px; }
+  .c3-cool-tile { margin: 20px 0 6px; width: 170px; border-radius: 18px; padding: 14px; text-align: left; border: 1px solid rgba(255,180,84,.4); background: rgba(255,180,84,.08); color: #ffcf94; }
+  .c3-cool-tile label { font-size: 9px; font-weight: 800; letter-spacing: .12em; }
+  .c3-cool-tile b { font-size: 28px; display: block; margin-top: 12px; }
+  .c3-cool-tile b .old { color: #ff9d94; text-decoration: line-through; font-size: 16px; margin-right: 8px; }
+  .c3-cool-tile small { font-size: 10px; opacity: .75; }
+  .c3-done .acts { width: 100%; display: grid; gap: 9px; margin-top: 20px; }
+  .c3-done .pri { padding: 13px; border-radius: 12px; background: #60a5fa; color: #041224; font-weight: 800; }
+  .c3-done .sec { padding: 13px; border-radius: 12px; border: 1px solid rgba(147,197,253,.25); color: #cfe0f7; font-weight: 600; }
+
+  .c3-search { margin: 0 16px 10px; display: flex; align-items: center; gap: 8px; background: rgba(96,165,250,.06); border: 1px solid rgba(96,165,250,.14); border-radius: 14px; padding: 11px 14px; color: #5c7396; font-size: 13px; }
+  .c3-filters { display: flex; gap: 8px; padding: 0 16px 12px; }
+  .c3-filter { font-size: 11.5px; font-weight: 600; color: #8fb0d9; border: 1px solid rgba(96,165,250,.22); border-radius: 99px; padding: 6px 12px; }
+  .c3-items { padding: 0 16px 18px; display: grid; gap: 8px; }
+  .c3-item { padding: 12px 14px; border-radius: 16px; background: rgba(96,165,250,.05); border: 1px solid rgba(96,165,250,.12); }
+  .c3-item .tags { display: flex; align-items: center; gap: 8px; }
+  .c3-item .m { font-size: 9.5px; font-weight: 800; letter-spacing: .1em; color: #93c5fd; }
+  .c3-item .m.hot { color: #ff9d94; }
+  .c3-item .ic { font-size: 11px; color: #5c7396; }
+  .c3-item p { font-size: 12.5px; color: #c6d8ef; line-height: 1.45; margin-top: 6px; }
+  .c3-item .foot { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+  .c3-item .when { font-size: 10.5px; color: #5c7396; }
+  .c3-badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 99px; }
+  .cb-good { background: rgba(52,211,153,.13); color: #6ee7b7; }
+  .cb-again { background: rgba(248,113,113,.14); color: #fca5a5; }
+  .cb-blue { background: rgba(96,165,250,.16); color: #93c5fd; }
+
+  .c3-resumo { padding: 26px 22px 18px; }
+  .c3-resumo h3 { font-size: 19px; }
+  .c3-bigring { display: grid; place-items: center; padding: 22px 0 8px; }
+  .c3-ring { width: 132px; height: 132px; border-radius: 50%; background: conic-gradient(#60a5fa 74%, rgba(255,255,255,.07) 0); display: grid; place-items: center; }
+  .c3-ring > div { width: 108px; height: 108px; border-radius: 50%; background: #0b1b36; display: grid; place-items: center; text-align: center; }
+  .c3-ring b { font-size: 28px; display: block; }
+  .c3-ring small { font-size: 9.5px; color: #6e8cb8; }
+  .c3-streak { text-align: center; font-size: 12px; color: #ffb454; padding-bottom: 14px; }
+  .c3-bars { display: grid; gap: 12px; padding: 6px 22px 20px; }
+  .c3-bar label { display: flex; justify-content: space-between; font-size: 10.5px; color: #8fb0d9; letter-spacing: .06em; }
+  .c3-bar .tr { height: 6px; border-radius: 99px; background: rgba(255,255,255,.07); margin-top: 5px; overflow: hidden; }
+  .c3-bar .tr i { display: block; height: 100%; border-radius: 99px; }
+
+  /* ============================================================
+     4. PLANO DE VOO  (novo — sessão como pernas de um voo)
+  ============================================================ */
+  .c4 { background: linear-gradient(180deg, #0c1026 0%, #131033 60%, #0d0a1f 100%); color: #eae6ff; min-height: 100%; display: flex; flex-direction: column; }
+  .c4 .view.active { flex: 1; }
+  .c4-head { padding: 26px 22px 4px; display: flex; justify-content: space-between; align-items: baseline; }
+  .c4-head b { font-size: 13px; letter-spacing: .16em; color: #c4b5fd; }
+  .c4-head small { font-size: 11px; color: #7d74ad; }
+  .c4-sub { padding: 0 22px 18px; font-size: 12px; color: #8d84bd; }
+  .c4-route { position: relative; margin: 0 22px 16px 30px; padding-left: 24px; }
+  .c4-route::before { content: ""; position: absolute; left: 5px; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(#34d399, #a78bfa 30%, #ec4899); border-radius: 2px; }
+  .c4-leg { position: relative; display: flex; align-items: center; gap: 10px; padding: 11px 0; text-align: left; width: 100%; }
+  .c4-leg::before { content: ""; position: absolute; left: -24px; top: 50%; transform: translate(-4.5px, -50%); width: 12px; height: 12px; border-radius: 50%; border: 2px solid #a78bfa; background: #0c1026; }
+  .c4-leg.done::before { background: #34d399; border-color: #34d399; }
+  .c4-leg.arr::before { border-color: #ec4899; }
+  .c4-leg .nm { flex: 1; }
+  .c4-leg .nm b { display: block; font-size: 12.5px; letter-spacing: .04em; }
+  .c4-leg .nm small { font-size: 10px; color: #7d74ad; }
+  .c4-leg .eta { font-size: 10px; color: #8d84bd; white-space: nowrap; }
+  .c4-leg .chip { font-size: 10.5px; font-weight: 700; color: #f0abfc; background: rgba(236,72,153,.13); border: 1px solid rgba(236,72,153,.3); padding: 3px 9px; border-radius: 99px; white-space: nowrap; }
+  .c4-leg.done .chip { color: #6ee7b7; background: rgba(52,211,153,.12); border-color: rgba(52,211,153,.3); }
+  .c4-cta { margin: auto 20px 24px; }
+  .c4-cta button { width: 100%; padding: 15px; border-radius: 16px; background: linear-gradient(90deg, #a78bfa, #ec4899); color: #14041d; font-weight: 800; font-size: 14.5px; box-shadow: 0 10px 30px rgba(167,139,250,.25); }
+
+  .c4-strip { padding: 20px 20px 0; }
+  .c4-dots { display: flex; align-items: center; gap: 0; }
+  .c4-dots .dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid #4c4477; background: transparent; flex: none; }
+  .c4-dots .dot.done { background: #34d399; border-color: #34d399; }
+  .c4-dots .dot.cur { border-color: #ec4899; background: #ec4899; box-shadow: 0 0 10px rgba(236,72,153,.7); }
+  .c4-dots .seg { flex: 1; height: 2px; background: #37305e; }
+  .c4-dots .seg.done { background: #34d399; }
+  .c4-strip .lbl { display: flex; justify-content: space-between; margin-top: 10px; font-size: 10px; letter-spacing: .08em; color: #8d84bd; }
+  .c4-strip .lbl button { color: #c4b5fd; font-size: 10px; letter-spacing: .08em; }
+  .c4-q { padding: 20px 22px 8px; }
+  .c4-q .mat { font-size: 10px; font-weight: 800; letter-spacing: .14em; color: #f0abfc; }
+  .c4-q p { margin-top: 10px; font-size: 15.5px; line-height: 1.55; font-weight: 600; }
+  .c4-alts { padding: 10px 16px 16px; display: grid; gap: 9px; margin-top: auto; }
+  .c4-alt { text-align: left; padding: 12px 14px; border-radius: 14px; font-size: 12.5px; line-height: 1.45; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); color: #ded8f7; }
+  .c4-alt.is-correct { background: rgba(52,211,153,.14); border-color: #34d399; color: #a7f3d0; }
+  .c4-alt.is-wrong { background: rgba(251,113,133,.12); border-color: #fb7185; color: #fecdd3; }
+  .c4-grades { gap: 8px; padding: 0 16px 24px; }
+  .c4-grade { flex: 1; padding: 10px 4px; border-radius: 12px; font-size: 12px; font-weight: 700; display: grid; gap: 2px; }
+  .c4-grade small { font-weight: 500; font-size: 10px; opacity: .75; }
+  .c4-ok { padding: 0 16px 24px; }
+  .c4-ok button { width: 100%; padding: 13px; border-radius: 12px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); color: #eae6ff; font-weight: 700; }
+
+  .c4-arrival { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 28px; }
+  .c4-arrival .plane { font-size: 44px; }
+  .c4-arrival h3 { font-size: 20px; margin-top: 10px; }
+  .c4-arrival p { color: #8d84bd; font-size: 13px; line-height: 1.6; margin-top: 8px; }
+  .c4-stats { display: flex; gap: 10px; margin-top: 18px; width: 100%; }
+  .c4-stat { flex: 1; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.04); border-radius: 14px; padding: 12px 6px; }
+  .c4-stat b { font-size: 19px; display: block; }
+  .c4-stat small { font-size: 9.5px; color: #8d84bd; letter-spacing: .06em; }
+  .c4-arrival .acts { width: 100%; display: grid; gap: 9px; margin-top: 20px; }
+  .c4-arrival .pri { padding: 13px; border-radius: 12px; background: linear-gradient(90deg, #a78bfa, #ec4899); color: #14041d; font-weight: 800; }
+</style>
+</head>
+<body>
+
+<div class="intro">
+  <h1>Anki Aero — conceitos de layout, rodada 2</h1>
+  <p>
+    Evolução dos conceitos <b>Foco Total</b> e <b>Cabine de Comando</b>, agora como mocks navegáveis com
+    múltiplas views (Painel, Revisão com dois Cards, conclusão, Busca e Histórico), mais dois conceitos novos
+    derivados deles: <b>Radar de Matérias</b> e <b>Plano de Voo</b>. O fluxo de resposta segue o app atual:
+    correta → Avaliação (novamente · difícil · bom · fácil); errada → correta revelada + “OK”.
+    Questões-fonte reais, termos conforme <code>CONTEXT.md</code>.
+  </p>
+</div>
+
+<div class="grid">
+
+  <!-- ============================================================ 1 -->
+  <section class="concept">
+    <header>
+      <span class="kicker">Conceito 1 · Evolução do atual</span>
+      <h2>Foco Total</h2>
+      <p class="why">Tela inteira para um único Card, sem chrome durante a Revisão. Fora dela, um Painel mínimo com anel de Cards devidos e navegação por abas.</p>
+      <p class="views"><b>Views:</b> Painel → Revisão (2 Cards) → Conclusão · Busca · Histórico</p>
+    </header>
+    <div class="phone"><div class="screen">
+      <div class="c1" data-phone>
+
+        <div class="view active" data-view="painel">
+          <div class="c1-home-head"><b>Bom dia, Piloto ✈</b><small>sáb, 12 jul</small></div>
+          <div class="c1-hero">
+            <div class="c1-ring"><div><span><b>12</b><small>Cards devidos</small></span></div></div>
+          </div>
+          <div class="c1-cta"><button data-goto="rev1">Iniciar Revisão</button></div>
+          <div class="c1-subjects">
+            <button class="c1-subject" data-goto="rev1"><span class="nm"><b>Regulamentos</b><span class="bar"><i style="width:82%"></i></span></span><span class="due">5 devidos</span></button>
+            <button class="c1-subject" data-goto="rev1"><span class="nm"><b>Teoria de Vôo</b><span class="bar"><i style="width:74%"></i></span></span><span class="due">4 devidos</span></button>
+            <button class="c1-subject" data-goto="rev1"><span class="nm"><b>Meteorologia</b><span class="bar"><i style="width:61%"></i></span></span><span class="due">3 devidos</span></button>
+          </div>
+          <div class="c1-tabs">
+            <button class="c1-tab on" data-goto="painel" data-tab="painel"><i>▦</i>Painel</button>
+            <button class="c1-tab" data-goto="busca" data-tab="busca"><i>⌕</i>Busca</button>
+            <button class="c1-tab" data-goto="historico" data-tab="historico"><i>↺</i>Histórico</button>
+          </div>
+        </div>
+
+        <div class="view quiz" data-view="rev1" data-correct="0">
+          <div class="c1-top">
+            <div class="c1-progress"><i style="width:8%"></i></div>
+            <div class="c1-meta">
+              <span class="c1-chip">REGULAMENTOS</span>
+              <span class="c1-count">Card 1 de 12</span>
+              <button class="c1-close" data-goto="painel">✕</button>
+            </div>
+          </div>
+          <div class="c1-question"><p>O comandante poderá delegar as atribuições que lhe competem, exceto aquelas referentes ao(à):</p></div>
+          <div class="c1-tools"><button>☆ Marcar</button><button>✎ Nota</button></div>
+          <div class="c1-alts">
+            <button class="c1-alt" data-alt>A) Segurança de voo.</button>
+            <button class="c1-alt" data-alt>B) Manutenção de interiores.</button>
+            <button class="c1-alt" data-alt>C) Embarque de deficientes.</button>
+            <button class="c1-alt" data-alt>D) Guarda de volumes.</button>
+          </div>
+          <div class="c1-grades hidden-row grade-row">
+            <button class="c1-grade g-again" data-goto="rev2">Novamente<small>10 min</small></button>
+            <button class="c1-grade g-hard" data-goto="rev2">Difícil<small>1 h</small></button>
+            <button class="c1-grade g-good" data-goto="rev2">Bom<small>1 dia</small></button>
+            <button class="c1-grade g-easy" data-goto="rev2">Fácil<small>4 dias</small></button>
+          </div>
+          <div class="c1-ok hidden-row ok-row"><button data-goto="rev2">OK — próximo Card</button></div>
+        </div>
+
+        <div class="view quiz" data-view="rev2" data-correct="1">
+          <div class="c1-top">
+            <div class="c1-progress"><i style="width:16%"></i></div>
+            <div class="c1-meta">
+              <span class="c1-chip">TEORIA DE VÔO</span>
+              <span class="c1-count">Card 2 de 12</span>
+              <button class="c1-close" data-goto="painel">✕</button>
+            </div>
+          </div>
+          <div class="c1-question"><p>Dentre as alternativas abaixo, a condição mais favorável ao pouso é</p></div>
+          <div class="c1-tools"><button>☆ Marcar</button><button>✎ Nota</button></div>
+          <div class="c1-alts">
+            <button class="c1-alt" data-alt>A) Vento de cauda</button>
+            <button class="c1-alt" data-alt>B) Pista em aclive</button>
+            <button class="c1-alt" data-alt>C) Alta temperatura</button>
+            <button class="c1-alt" data-alt>D) Alta altitude</button>
+          </div>
+          <div class="c1-grades hidden-row grade-row">
+            <button class="c1-grade g-again" data-goto="fim">Novamente<small>10 min</small></button>
+            <button class="c1-grade g-hard" data-goto="fim">Difícil<small>1 h</small></button>
+            <button class="c1-grade g-good" data-goto="fim">Bom<small>1 dia</small></button>
+            <button class="c1-grade g-easy" data-goto="fim">Fácil<small>4 dias</small></button>
+          </div>
+          <div class="c1-ok hidden-row ok-row"><button data-goto="fim">OK — próximo Card</button></div>
+        </div>
+
+        <div class="view" data-view="fim">
+          <div class="c1-done">
+            <div class="check">✓</div>
+            <h3>Revisão concluída</h3>
+            <p>2 Cards revisados neste mock.<br />Os próximos voltam conforme a Avaliação.</p>
+            <div class="acts">
+              <button class="pri" data-goto="painel">Voltar ao Painel</button>
+              <button class="sec" data-goto="historico">Ver Histórico</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="view" data-view="busca">
+          <div class="c1-panel-head"><b>Busca</b><small>1285 Cards</small></div>
+          <div class="c1-search">⌕ Buscar enunciado, alternativa ou Nota…</div>
+          <div class="c1-filters"><button class="c1-filter">★ Marcados</button><button class="c1-filter">✎ Com Nota</button><button class="c1-filter">Devidos</button></div>
+          <div class="c1-items">
+            <div class="c1-item">
+              <div class="tags"><span class="m">REGULAMENTOS</span><span class="ic">★ ✎</span></div>
+              <p>A sigla “SBD”, na identificação de um espaço aéreo condicionado, indica que é uma área…</p>
+              <div class="foot"><span class="when">devido agora</span><button class="c1-badge b-easy" data-goto="rev1">Revisar</button></div>
+            </div>
+            <div class="c1-item">
+              <div class="tags"><span class="m">METEOROLOGIA</span></div>
+              <p>Os ventos que fluem, exclusivamente, por efeito direto do gradiente de pressão, denominam-se…</p>
+              <div class="foot"><span class="when">em 2 dias</span><button class="c1-badge b-easy" data-goto="rev1">Revisar</button></div>
+            </div>
+            <div class="c1-item">
+              <div class="tags"><span class="m">NAVEGAÇÃO</span><span class="ic">✎</span></div>
+              <p>Para que uma aeronave se mantenha no rumo desejado, sob influência de vento da esquerda…</p>
+              <div class="foot"><span class="when">em 4 horas</span><button class="c1-badge b-easy" data-goto="rev1">Revisar</button></div>
+            </div>
+          </div>
+          <div class="c1-tabs">
+            <button class="c1-tab" data-goto="painel" data-tab="painel"><i>▦</i>Painel</button>
+            <button class="c1-tab on" data-goto="busca" data-tab="busca"><i>⌕</i>Busca</button>
+            <button class="c1-tab" data-goto="historico" data-tab="historico"><i>↺</i>Histórico</button>
+          </div>
+        </div>
+
+        <div class="view" data-view="historico">
+          <div class="c1-panel-head"><b>Histórico</b><small>hoje</small></div>
+          <div class="c1-items">
+            <div class="c1-item">
+              <div class="tags"><span class="m">REGULAMENTOS</span></div>
+              <p>O comandante poderá delegar as atribuições que lhe competem, exceto…</p>
+              <div class="foot"><span class="when">agora há pouco</span><span class="c1-badge b-good">Bom · 1 dia</span></div>
+            </div>
+            <div class="c1-item">
+              <div class="tags"><span class="m">TEORIA DE VÔO</span></div>
+              <p>Dentre as alternativas abaixo, a condição mais favorável ao pouso é…</p>
+              <div class="foot"><span class="when">agora há pouco</span><span class="c1-badge b-easy">Fácil · 4 dias</span></div>
+            </div>
+            <div class="c1-item">
+              <div class="tags"><span class="m">CONHEC. TÉCNICOS</span></div>
+              <p>Durante o cheque dos magnetos, ao se desligar um deles…</p>
+              <div class="foot"><span class="when">há 2 horas</span><span class="c1-badge b-again">Novamente · 10 min</span></div>
+            </div>
+          </div>
+          <div class="c1-tabs">
+            <button class="c1-tab" data-goto="painel" data-tab="painel"><i>▦</i>Painel</button>
+            <button class="c1-tab" data-goto="busca" data-tab="busca"><i>⌕</i>Busca</button>
+            <button class="c1-tab on" data-goto="historico" data-tab="historico"><i>↺</i>Histórico</button>
+          </div>
+        </div>
+
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ============================================================ 2 -->
+  <section class="concept">
+    <header>
+      <span class="kicker">Conceito 2 · Painel de instrumentos</span>
+      <h2>Cabine de Comando</h2>
+      <p class="why">Estética de aviônicos: mostradores por Matéria, annunciators e soft keys fixas na base — como os botões de um MFD — para trocar de view.</p>
+      <p class="views"><b>Views:</b> Painel → Revisão (2 Cards) → Conclusão · Nota do Card · Busca · Histórico · Dados</p>
+    </header>
+    <div class="phone"><div class="screen">
+      <div class="c2" data-phone>
+
+        <div class="view active" data-view="painel">
+          <div class="c2-head"><b>ANKI AERO</b><span>v0.1.42 · OFFLINE</span></div>
+          <div class="c2-gauges" id="c2gauges"></div>
+          <div class="c2-master"><button data-goto="rev1">▶ INICIAR REVISÃO — 47 DEVIDOS</button></div>
+          <div class="c2-strips">
+            <div class="c2-strip"><span>REGULAMENTOS · 82%</span><button data-goto="rev1">REVISAR 12</button></div>
+            <div class="c2-strip"><span>METEOROLOGIA · 61%</span><button data-goto="rev1">REVISAR 15</button></div>
+            <div class="c2-strip"><span>NAVEGAÇÃO · 68%</span><button data-goto="rev1">REVISAR 6</button></div>
+          </div>
+        </div>
+
+        <div class="view quiz" data-view="rev1" data-correct="1">
+          <div class="c2-rev-head"><button data-goto="painel">◀ PAINEL</button><span>METEOROLOGIA · CARD 1/15</span><button data-goto="nota">✎ NOTA</button></div>
+          <p class="c2-q">Os ventos que fluem, exclusivamente, por efeito direto do gradiente de pressão, denominam-se</p>
+          <div class="c2-alts">
+            <button class="c2-alt" data-alt>A) GRADIENTES</button>
+            <button class="c2-alt" data-alt>B) BAROSTRÓFICOS</button>
+            <button class="c2-alt" data-alt>C) CICLOSTRÓFICOS</button>
+            <button class="c2-alt" data-alt>D) GEOSTRÓFICOS</button>
+          </div>
+          <div class="c2-grades hidden-row grade-row">
+            <button class="c2-grade" data-goto="rev2" style="color:#ff8f6b">NOVAMENTE<small>10 MIN</small></button>
+            <button class="c2-grade" data-goto="rev2" style="color:#ffd36b">DIFÍCIL<small>1 H</small></button>
+            <button class="c2-grade" data-goto="rev2" style="color:#9fe870">BOM<small>1 DIA</small></button>
+            <button class="c2-grade" data-goto="rev2" style="color:#6bd4ff">FÁCIL<small>4 DIAS</small></button>
+          </div>
+          <div class="c2-ok hidden-row ok-row"><button data-goto="rev2">OK — PRÓXIMO CARD</button></div>
+        </div>
+
+        <div class="view quiz" data-view="rev2" data-correct="1">
+          <div class="c2-rev-head"><button data-goto="painel">◀ PAINEL</button><span>NAVEGAÇÃO · CARD 2/15</span></div>
+          <p class="c2-q">Para que uma aeronave se mantenha no rumo desejado, sob influência de vento da esquerda e componente de cauda, deverá ter</p>
+          <div class="c2-alts">
+            <button class="c2-alt" data-alt>A) DR NEGATIVA</button>
+            <button class="c2-alt" data-alt>B) ACD NEGATIVO</button>
+            <button class="c2-alt" data-alt>C) DR NULA</button>
+            <button class="c2-alt" data-alt>D) ACD POSITIVO</button>
+          </div>
+          <div class="c2-grades hidden-row grade-row">
+            <button class="c2-grade" data-goto="fim" style="color:#ff8f6b">NOVAMENTE<small>10 MIN</small></button>
+            <button class="c2-grade" data-goto="fim" style="color:#ffd36b">DIFÍCIL<small>1 H</small></button>
+            <button class="c2-grade" data-goto="fim" style="color:#9fe870">BOM<small>1 DIA</small></button>
+            <button class="c2-grade" data-goto="fim" style="color:#6bd4ff">FÁCIL<small>4 DIAS</small></button>
+          </div>
+          <div class="c2-ok hidden-row ok-row"><button data-goto="fim">OK — PRÓXIMO CARD</button></div>
+        </div>
+
+        <div class="view" data-view="fim">
+          <div class="c2-done">
+            <div class="c2-annun">✓ REVISÃO COMPLETA</div>
+            <div class="row"><span>CARDS REVISADOS</span><b>2</b></div>
+            <div class="row"><span>DEVIDOS RESTANTES</span><b>47 → 45</b></div>
+            <div class="row"><span>PRÓXIMO CARD DEVIDO</span><b>HOJE 18:40</b></div>
+            <button data-goto="painel">RETORNAR AO PAINEL</button>
+          </div>
+        </div>
+
+        <div class="view" data-view="busca">
+          <div class="c2-sec-head"><b>BUSCA</b><small>1285 CARDS · FILTRO: DEVIDOS</small></div>
+          <div class="c2-find">⌕ BUSCAR ENUNCIADO / NOTA…</div>
+          <div class="c2-rows">
+            <div class="c2-row">
+              <div class="l1"><b>REG-0031</b><span>DEVIDO AGORA</span></div>
+              <p>A SIGLA “SBD”, NA IDENTIFICAÇÃO DE UM ESPAÇO AÉREO CONDICIONADO, INDICA…</p>
+              <div class="l3"><span class="flags">[★ MARCADO] [N NOTA]</span><button data-goto="rev1">REVISAR</button></div>
+            </div>
+            <div class="c2-row">
+              <div class="l1"><b>MET-0007</b><span>DEVIDO AGORA</span></div>
+              <p>NO METAR SBKP 101800Z 30020KT +RA SCT005 OVC100 25/20 Q1020, TEM-SE…</p>
+              <div class="l3"><span class="flags">[—]</span><button data-goto="rev1">REVISAR</button></div>
+            </div>
+            <div class="c2-row">
+              <div class="l1"><b>CT-0102</b><span>EM 4 H</span></div>
+              <p>DURANTE O CHEQUE DOS MAGNETOS, AO SE DESLIGAR UM DELES…</p>
+              <div class="l3"><span class="flags">[N NOTA]</span><button data-goto="rev1">REVISAR</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="view" data-view="historico">
+          <div class="c2-sec-head"><b>HISTÓRICO</b><small>REVISÕES RECENTES · UTC−3</small></div>
+          <div class="c2-log">
+            <div class="c2-logline"><span class="tz">14:02</span><p>MET — VENTOS BAROSTRÓFICOS…</p><span class="res ok">BOM +1D</span></div>
+            <div class="c2-logline"><span class="tz">14:01</span><p>NAV — RUMO SOB VENTO DA ESQUERDA…</p><span class="res ok">FÁCIL +4D</span></div>
+            <div class="c2-logline"><span class="tz">11:47</span><p>CT — CHEQUE DOS MAGNETOS…</p><span class="res lapse">LAPSO +10M</span></div>
+            <div class="c2-logline"><span class="tz">11:45</span><p>REG — DELEGAÇÃO DE ATRIBUIÇÕES…</p><span class="res ok">BOM +1D</span></div>
+            <div class="c2-logline"><span class="tz">09:12</span><p>TV — CONDIÇÃO FAVORÁVEL AO POUSO…</p><span class="res ok">FÁCIL +4D</span></div>
+          </div>
+        </div>
+
+        <div class="view" data-view="nota">
+          <div class="c2-rev-head"><button data-goto="rev1">◀ CARD</button><span>NOTA — MET-0007</span></div>
+          <p class="c2-note-ctx">OS VENTOS QUE FLUEM, EXCLUSIVAMENTE, POR EFEITO DIRETO DO GRADIENTE DE PRESSÃO, DENOMINAM-SE…</p>
+          <div class="c2-note">
+            <textarea>BARO = PRESSÃO. SÓ O GRADIENTE, SEM CORIOLIS E SEM ATRITO.
+
+GEOSTRÓFICO = GRADIENTE + CORIOLIS.</textarea>
+          </div>
+          <div class="c2-note-acts">
+            <button data-goto="rev1">✔ SALVAR NOTA</button>
+            <button class="del" data-goto="rev1">✕ APAGAR</button>
+          </div>
+        </div>
+
+        <div class="view" data-view="dados">
+          <div class="c2-sec-head"><b>DADOS DO PROGRESSO</b><small>LOCAL-FIRST · NADA SAI DESTE DISPOSITIVO</small></div>
+          <div class="c2-data">
+            <div class="c2-databox">
+              <label>EXPORTAR</label>
+              <p>COPIA PROGRESSO, NOTAS, MARCAÇÕES E HISTÓRICO PARA A ÁREA DE TRANSFERÊNCIA.</p>
+              <button>⇪ EXPORTAR PROGRESSO</button>
+            </div>
+            <div class="c2-databox">
+              <label>IMPORTAR</label>
+              <textarea placeholder="COLE AQUI UM PROGRESSO EXPORTADO…"></textarea>
+              <button>⇩ APLICAR IMPORTAÇÃO</button>
+            </div>
+            <div class="c2-databox danger">
+              <label>ZONA CRÍTICA</label>
+              <p>ZERA TODO O PROGRESSO ARMAZENADO. EXIGE DUPLA CONFIRMAÇÃO.</p>
+              <button>⚠ ZERAR TUDO</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="c2-keys">
+          <button class="c2-key on" data-goto="painel" data-tab="painel">PAINEL</button>
+          <button class="c2-key" data-goto="rev1" data-tab="rev1">REVISÃO</button>
+          <button class="c2-key" data-goto="busca" data-tab="busca">BUSCA</button>
+          <button class="c2-key" data-goto="historico" data-tab="historico">HISTÓRICO</button>
+          <button class="c2-key" data-goto="dados" data-tab="dados">DADOS</button>
+        </div>
+
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ============================================================ 3 -->
+  <section class="concept">
+    <header>
+      <span class="kicker">Conceito 3 · Novo — derivado de 1 + 2</span>
+      <h2>Radar de Matérias</h2>
+      <p class="why">Os instrumentos da Cabine viram um radar térmico: cada Matéria é um bloco cuja cor mostra a urgência (devidos + precisão). Tocar num bloco quente abre a Revisão focada, no estilo limpo do Foco Total. Revisar “esfria” a Matéria.</p>
+      <p class="views"><b>Views:</b> Radar → Revisão focada (2 Cards) → Conclusão · Busca · Histórico · Resumo</p>
+    </header>
+    <div class="phone"><div class="screen">
+      <div class="c3" data-phone>
+
+        <div class="view active" data-view="radar">
+          <div class="c3-head"><b>Radar</b><small>47 devidos</small></div>
+          <div class="c3-sub">Toque numa Matéria quente para esfriá-la</div>
+          <div class="c3-tiles">
+            <button class="c3-tile t-hot" data-goto="rev1"><label>METEOROLOGIA</label><span class="acc">61%</span><b>15</b><small>Cards devidos</small></button>
+            <button class="c3-tile t-warm" data-goto="rev1"><label>REGULAMENTOS</label><span class="acc">82%</span><b>12</b><small>Cards devidos</small></button>
+            <button class="c3-tile t-warm" data-goto="rev1"><label>TEORIA DE VÔO</label><span class="acc">74%</span><b>8</b><small>Cards devidos</small></button>
+            <button class="c3-tile t-cool" data-goto="rev1"><label>NAVEGAÇÃO</label><span class="acc">68%</span><b>6</b><small>Cards devidos</small></button>
+            <button class="c3-tile t-cool" data-goto="rev1"><label>CONHEC. TÉCNICOS</label><span class="acc">79%</span><b>6</b><small>Cards devidos</small></button>
+            <button class="c3-tile t-all" data-goto="rev1"><label>REVISÃO GERAL</label><b>47</b><small>todas as Matérias</small></button>
+          </div>
+          <div class="c3-legend"><i style="color:#ff9d94">■</i> urgente&nbsp;&nbsp;<i style="color:#ffcf94">■</i> atenção&nbsp;&nbsp;<i style="color:#a8cdff">■</i> sob controle</div>
+          <div class="c3-tabs">
+            <button class="c3-tab on" data-goto="radar" data-tab="radar"><i>◉</i>Radar</button>
+            <button class="c3-tab" data-goto="busca" data-tab="busca"><i>⌕</i>Busca</button>
+            <button class="c3-tab" data-goto="historico" data-tab="historico"><i>↺</i>Histórico</button>
+            <button class="c3-tab" data-goto="resumo" data-tab="resumo"><i>≣</i>Resumo</button>
+          </div>
+        </div>
+
+        <div class="view quiz" data-view="rev1" data-correct="2">
+          <div class="c3-rev-top">
+            <div class="c3-heat"><i style="width:88%"></i></div>
+            <div class="c3-rev-meta">
+              <span class="mat">METEOROLOGIA</span>
+              <span class="pos">Card 1 de 15</span>
+              <button data-goto="radar">✕</button>
+            </div>
+          </div>
+          <div class="c3-q"><p>No TAF SBUL 041200Z 0418/0506 24010KT 5000 TSRA SCT015 FEW030CB BKN090 TX26/0418Z TN20/0506Z BECMG 0422/0500 19010KT 9000 SCT020 BKN100, previu-se</p></div>
+          <div class="c3-alts">
+            <button class="c3-alt" data-alt>A) Temperatura máxima, às 0800Z</button>
+            <button class="c3-alt" data-alt>B) Variações insignificantes na visibilidade horizontal, após as 2400Z</button>
+            <button class="c3-alt" data-alt>C) Atmosfera agitada, em função de nuvens pesadas, até as 2200Z</button>
+            <button class="c3-alt" data-alt>D) Trovoada sem precipitação, até as 2200Z</button>
+          </div>
+          <div class="c3-grades hidden-row grade-row">
+            <button class="c3-grade g-again" data-goto="rev2">Novamente<small>10 min</small></button>
+            <button class="c3-grade g-hard" data-goto="rev2">Difícil<small>1 h</small></button>
+            <button class="c3-grade g-good" data-goto="rev2">Bom<small>1 dia</small></button>
+            <button class="c3-grade g-easy" data-goto="rev2">Fácil<small>4 dias</small></button>
+          </div>
+          <div class="c3-ok hidden-row ok-row"><button data-goto="rev2">OK — próximo Card</button></div>
+        </div>
+
+        <div class="view quiz" data-view="rev2" data-correct="2">
+          <div class="c3-rev-top">
+            <div class="c3-heat"><i style="width:82%"></i></div>
+            <div class="c3-rev-meta">
+              <span class="mat">METEOROLOGIA</span>
+              <span class="pos">Card 2 de 15</span>
+              <button data-goto="radar">✕</button>
+            </div>
+          </div>
+          <div class="c3-q"><p>No METAR SBKP 101800Z 30020KT +RA SCT005 OVC100 25/20 Q1020, tem-se</p></div>
+          <div class="c3-alts">
+            <button class="c3-alt" data-alt>A) Precipitação, de leve a moderada</button>
+            <button class="c3-alt" data-alt>B) Turbulência, em função de grandes cumulus embutidos</button>
+            <button class="c3-alt" data-alt>C) Nebulosidade do estágio baixo, a 150 metros de altura</button>
+            <button class="c3-alt" data-alt>D) Vento proveniente do ponto cardeal sudeste</button>
+          </div>
+          <div class="c3-grades hidden-row grade-row">
+            <button class="c3-grade g-again" data-goto="fim">Novamente<small>10 min</small></button>
+            <button class="c3-grade g-hard" data-goto="fim">Difícil<small>1 h</small></button>
+            <button class="c3-grade g-good" data-goto="fim">Bom<small>1 dia</small></button>
+            <button class="c3-grade g-easy" data-goto="fim">Fácil<small>4 dias</small></button>
+          </div>
+          <div class="c3-ok hidden-row ok-row"><button data-goto="fim">OK — próximo Card</button></div>
+        </div>
+
+        <div class="view" data-view="fim">
+          <div class="c3-done">
+            <h3>Matéria esfriando</h3>
+            <p>2 Cards de Meteorologia revisados neste mock. Continue para tirá-la do vermelho.</p>
+            <div class="c3-cool-tile">
+              <label>METEOROLOGIA</label>
+              <b><span class="old">15</span>13</b>
+              <small>Cards devidos</small>
+            </div>
+            <div class="acts">
+              <button class="pri" data-goto="radar">Voltar ao Radar</button>
+              <button class="sec" data-goto="resumo">Ver Resumo</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="view" data-view="busca">
+          <div class="c3-head"><b>Busca</b><small>1285 Cards</small></div>
+          <div class="c3-sub">Localize, filtre e estude um Card específico</div>
+          <div class="c3-search">⌕ Buscar enunciado, alternativa ou Nota…</div>
+          <div class="c3-filters"><button class="c3-filter">★ Marcados</button><button class="c3-filter">✎ Com Nota</button><button class="c3-filter">Devidos</button></div>
+          <div class="c3-items">
+            <div class="c3-item">
+              <div class="tags"><span class="m hot">METEOROLOGIA</span><span class="ic">★</span></div>
+              <p>No METAR SBKP 101800Z 30020KT +RA SCT005 OVC100 25/20 Q1020, tem-se…</p>
+              <div class="foot"><span class="when">devido agora</span><button class="c3-badge cb-blue" data-goto="rev1">Revisar</button></div>
+            </div>
+            <div class="c3-item">
+              <div class="tags"><span class="m">REGULAMENTOS</span><span class="ic">✎</span></div>
+              <p>A sigla “SBD”, na identificação de um espaço aéreo condicionado, indica que é uma área…</p>
+              <div class="foot"><span class="when">em 2 dias</span><button class="c3-badge cb-blue" data-goto="rev1">Revisar</button></div>
+            </div>
+            <div class="c3-item">
+              <div class="tags"><span class="m">NAVEGAÇÃO</span></div>
+              <p>Para que uma aeronave se mantenha no rumo desejado, sob influência de vento da esquerda…</p>
+              <div class="foot"><span class="when">em 4 horas</span><button class="c3-badge cb-blue" data-goto="rev1">Revisar</button></div>
+            </div>
+          </div>
+          <div class="c3-tabs">
+            <button class="c3-tab" data-goto="radar" data-tab="radar"><i>◉</i>Radar</button>
+            <button class="c3-tab on" data-goto="busca" data-tab="busca"><i>⌕</i>Busca</button>
+            <button class="c3-tab" data-goto="historico" data-tab="historico"><i>↺</i>Histórico</button>
+            <button class="c3-tab" data-goto="resumo" data-tab="resumo"><i>≣</i>Resumo</button>
+          </div>
+        </div>
+
+        <div class="view" data-view="historico">
+          <div class="c3-head"><b>Histórico</b><small>hoje</small></div>
+          <div class="c3-sub">Cards revisados recentemente</div>
+          <div class="c3-items">
+            <div class="c3-item">
+              <div class="tags"><span class="m hot">METEOROLOGIA</span></div>
+              <p>No TAF SBUL 041200Z 0418/0506 24010KT 5000 TSRA SCT015…</p>
+              <div class="foot"><span class="when">agora há pouco</span><span class="c3-badge cb-good">Bom · 1 dia</span></div>
+            </div>
+            <div class="c3-item">
+              <div class="tags"><span class="m hot">METEOROLOGIA</span></div>
+              <p>No METAR SBKP 101800Z 30020KT +RA SCT005 OVC100 25/20 Q1020…</p>
+              <div class="foot"><span class="when">agora há pouco</span><span class="c3-badge cb-blue">Fácil · 4 dias</span></div>
+            </div>
+            <div class="c3-item">
+              <div class="tags"><span class="m">CONHEC. TÉCNICOS</span></div>
+              <p>Durante o cheque dos magnetos, ao se desligar um deles…</p>
+              <div class="foot"><span class="when">há 2 horas</span><span class="c3-badge cb-again">Novamente · 10 min</span></div>
+            </div>
+          </div>
+          <div class="c3-tabs">
+            <button class="c3-tab" data-goto="radar" data-tab="radar"><i>◉</i>Radar</button>
+            <button class="c3-tab" data-goto="busca" data-tab="busca"><i>⌕</i>Busca</button>
+            <button class="c3-tab on" data-goto="historico" data-tab="historico"><i>↺</i>Histórico</button>
+            <button class="c3-tab" data-goto="resumo" data-tab="resumo"><i>≣</i>Resumo</button>
+          </div>
+        </div>
+
+        <div class="view" data-view="resumo">
+          <div class="c3-resumo"><h3>Resumo</h3></div>
+          <div class="c3-bigring">
+            <div class="c3-ring"><div><span><b>74%</b><small>precisão geral</small></span></div></div>
+          </div>
+          <div class="c3-streak">🔥 6 dias seguidos de Revisão</div>
+          <div class="c3-bars">
+            <div class="c3-bar"><label><span>METEOROLOGIA</span><span>61%</span></label><div class="tr"><i style="width:61%;background:#ff5a50"></i></div></div>
+            <div class="c3-bar"><label><span>NAVEGAÇÃO</span><span>68%</span></label><div class="tr"><i style="width:68%;background:#ffb454"></i></div></div>
+            <div class="c3-bar"><label><span>TEORIA DE VÔO</span><span>74%</span></label><div class="tr"><i style="width:74%;background:#ffb454"></i></div></div>
+            <div class="c3-bar"><label><span>CONHEC. TÉCNICOS</span><span>79%</span></label><div class="tr"><i style="width:79%;background:#60a5fa"></i></div></div>
+            <div class="c3-bar"><label><span>REGULAMENTOS</span><span>82%</span></label><div class="tr"><i style="width:82%;background:#60a5fa"></i></div></div>
+          </div>
+          <div class="c3-tabs">
+            <button class="c3-tab" data-goto="radar" data-tab="radar"><i>◉</i>Radar</button>
+            <button class="c3-tab" data-goto="busca" data-tab="busca"><i>⌕</i>Busca</button>
+            <button class="c3-tab" data-goto="historico" data-tab="historico"><i>↺</i>Histórico</button>
+            <button class="c3-tab on" data-goto="resumo" data-tab="resumo"><i>≣</i>Resumo</button>
+          </div>
+        </div>
+
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ============================================================ 4 -->
+  <section class="concept">
+    <header>
+      <span class="kicker">Conceito 4 · Novo — derivado de 1 + 2</span>
+      <h2>Plano de Voo</h2>
+      <p class="why">A sessão do dia como um plano de voo: cada Matéria com devidos é uma perna da rota. “Decolar” abre a Revisão no estilo Foco Total, com a rota como barra de progresso; zerar os devidos é pousar.</p>
+      <p class="views"><b>Views:</b> Plano → Revisão (2 Cards, pernas na rota) → Chegada</p>
+    </header>
+    <div class="phone"><div class="screen">
+      <div class="c4" data-phone>
+
+        <div class="view active" data-view="plano">
+          <div class="c4-head"><b>PLANO DE VOO · HOJE</b><small>sáb, 12 jul</small></div>
+          <div class="c4-sub">5 pernas · 47 Cards devidos · ≈ 35 min</div>
+          <div class="c4-route">
+            <div class="c4-leg done"><span class="nm"><b>Briefing</b><small>preparação</small></span><span class="chip">✓ feito</span></div>
+            <button class="c4-leg" data-goto="rev1"><span class="nm"><b>Regulamentos</b><small>precisão 82%</small></span><span class="eta">≈ 9 min</span><span class="chip">12 devidos</span></button>
+            <button class="c4-leg" data-goto="rev1"><span class="nm"><b>Conhec. Técnicos</b><small>precisão 79%</small></span><span class="eta">≈ 4 min</span><span class="chip">6 devidos</span></button>
+            <button class="c4-leg" data-goto="rev1"><span class="nm"><b>Meteorologia</b><small>precisão 61%</small></span><span class="eta">≈ 11 min</span><span class="chip">15 devidos</span></button>
+            <button class="c4-leg" data-goto="rev1"><span class="nm"><b>Teoria de Vôo</b><small>precisão 74%</small></span><span class="eta">≈ 6 min</span><span class="chip">8 devidos</span></button>
+            <button class="c4-leg" data-goto="rev1"><span class="nm"><b>Navegação</b><small>precisão 68%</small></span><span class="eta">≈ 5 min</span><span class="chip">6 devidos</span></button>
+            <div class="c4-leg arr"><span class="nm"><b>Dia completo</b><small>0 Cards devidos</small></span><span class="eta">🛬</span></div>
+          </div>
+          <div class="c4-cta"><button data-goto="rev1">🛫 Decolar — iniciar Revisão</button></div>
+        </div>
+
+        <div class="view quiz" data-view="rev1" data-correct="2">
+          <div class="c4-strip">
+            <div class="c4-dots">
+              <span class="dot done"></span><span class="seg done"></span>
+              <span class="dot cur"></span><span class="seg"></span>
+              <span class="dot"></span><span class="seg"></span>
+              <span class="dot"></span><span class="seg"></span>
+              <span class="dot"></span><span class="seg"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="lbl"><span>PERNA 1/5 · REGULAMENTOS · CARD 1/12</span><button data-goto="plano">PLANO</button></div>
+          </div>
+          <div class="c4-q">
+            <span class="mat">REGULAMENTOS</span>
+            <p>A sigla “SBD”, na identificação de um espaço aéreo condicionado, indica que é uma área:</p>
+          </div>
+          <div class="c4-alts">
+            <button class="c4-alt" data-alt>A) Restrita, cujo sobrevôo só poderá ser realizado de acordo com as condições preestabelecidas</button>
+            <button class="c4-alt" data-alt>B) Perigosa, cujo sobrevôo é proibido</button>
+            <button class="c4-alt" data-alt>C) Perigosa, na qual pode existir perigo para a aeronave que a sobrevoar</button>
+            <button class="c4-alt" data-alt>D) Na qual o vôo de aeronaves é proibido</button>
+          </div>
+          <div class="c4-grades hidden-row grade-row">
+            <button class="c4-grade g-again" data-goto="rev2">Novamente<small>10 min</small></button>
+            <button class="c4-grade g-hard" data-goto="rev2">Difícil<small>1 h</small></button>
+            <button class="c4-grade g-good" data-goto="rev2">Bom<small>1 dia</small></button>
+            <button class="c4-grade g-easy" data-goto="rev2">Fácil<small>4 dias</small></button>
+          </div>
+          <div class="c4-ok hidden-row ok-row"><button data-goto="rev2">OK — próximo Card</button></div>
+        </div>
+
+        <div class="view quiz" data-view="rev2" data-correct="0">
+          <div class="c4-strip">
+            <div class="c4-dots">
+              <span class="dot done"></span><span class="seg done"></span>
+              <span class="dot done"></span><span class="seg done"></span>
+              <span class="dot cur"></span><span class="seg"></span>
+              <span class="dot"></span><span class="seg"></span>
+              <span class="dot"></span><span class="seg"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="lbl"><span>PERNA 2/5 · CONHEC. TÉCNICOS · CARD 1/6</span><button data-goto="plano">PLANO</button></div>
+          </div>
+          <div class="c4-q">
+            <span class="mat">CONHECIMENTOS TÉCNICOS</span>
+            <p>Durante o cheque dos magnetos, ao se desligar um deles (mantendo o outro selecionado) observou-se uma acentuada queda de RPM. Isto significa que o(a)</p>
+          </div>
+          <div class="c4-alts">
+            <button class="c4-alt" data-alt>A) Sistema está deficiente.</button>
+            <button class="c4-alt" data-alt>B) Mistura está rica.</button>
+            <button class="c4-alt" data-alt>C) Mistura está pobre.</button>
+            <button class="c4-alt" data-alt>D) Sistema está normal.</button>
+          </div>
+          <div class="c4-grades hidden-row grade-row">
+            <button class="c4-grade g-again" data-goto="chegada">Novamente<small>10 min</small></button>
+            <button class="c4-grade g-hard" data-goto="chegada">Difícil<small>1 h</small></button>
+            <button class="c4-grade g-good" data-goto="chegada">Bom<small>1 dia</small></button>
+            <button class="c4-grade g-easy" data-goto="chegada">Fácil<small>4 dias</small></button>
+          </div>
+          <div class="c4-ok hidden-row ok-row"><button data-goto="chegada">OK — próximo Card</button></div>
+        </div>
+
+        <div class="view" data-view="chegada">
+          <div class="c4-arrival">
+            <span class="plane">🛬</span>
+            <h3>Pernas cumpridas</h3>
+            <p>2 Cards revisados neste mock. Na app, a rota segue até zerar os 47 devidos do dia.</p>
+            <div class="c4-stats">
+              <div class="c4-stat"><b>2</b><small>CARDS</small></div>
+              <div class="c4-stat"><b>100%</b><small>PRECISÃO</small></div>
+              <div class="c4-stat"><b>2/5</b><small>PERNAS</small></div>
+            </div>
+            <div class="acts">
+              <button class="pri" data-goto="plano">Voltar ao Plano de Voo</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div></div>
+  </section>
+
+</div>
+
+<script>
+  // Fluxo de resposta compartilhado: correta → Avaliação; errada → correta revelada + OK.
+  function wireQuiz(root) {
+    const alts = [...root.querySelectorAll("[data-alt]")];
+    const correct = Number(root.dataset.correct);
+    alts.forEach((btn, i) => btn.addEventListener("click", () => {
+      if (root.dataset.done) return;
+      root.dataset.done = "1";
+      const right = i === correct;
+      btn.classList.add(right ? "is-correct" : "is-wrong");
+      if (!right) alts[correct].classList.add("is-correct");
+      alts.forEach((b) => (b.disabled = true));
+      root.querySelector(right ? ".grade-row" : ".ok-row").classList.add("show");
+    }));
+  }
+
+  // Roteador de views por telefone: qualquer [data-goto] troca a view ativa;
+  // [data-tab] marca a aba/soft key correspondente.
+  function wireRouter(phone) {
+    const show = (id) => {
+      phone.querySelectorAll(".view").forEach((v) => v.classList.toggle("active", v.dataset.view === id));
+      phone.querySelectorAll("[data-tab]").forEach((t) => t.classList.toggle("on", t.dataset.tab === id));
+    };
+    phone.querySelectorAll("[data-goto]").forEach((b) => b.addEventListener("click", () => show(b.dataset.goto)));
+  }
+
+  document.querySelectorAll("[data-phone]").forEach((phone) => {
+    wireRouter(phone);
+    phone.querySelectorAll(".quiz").forEach(wireQuiz);
+  });
+
+  // Mostradores do Conceito 2.
+  document.getElementById("c2gauges").innerHTML = [
+    ["REGULAMENTOS", 82, 12, "#7cb8ff"],
+    ["TEORIA DE VÔO", 74, 8, "#7cb8ff"],
+    ["METEOROLOGIA", 61, 15, "#ffb454"],
+    ["NAVEGAÇÃO", 68, 6, "#ffd36b"],
+    ["CONHEC. TÉC.", 79, 6, "#7cb8ff"],
+    ["TOTAL", 74, 47, "#60a5fa"],
+  ].map(([name, pct, due, col]) => `
+    <div class="c2-gauge">
+      <div class="c2-dial" style="background:conic-gradient(${col} ${pct}%, #14213a 0)">
+        <b>${pct}<small>% PRECISÃO</small></b>
+      </div>
+      <label>${name}</label><span class="due">${due} DEVIDOS</span>
+    </div>`).join("");
+</script>
+</body>
+</html>

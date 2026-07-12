@@ -103,6 +103,9 @@ export function useStudySession() {
       setPreviousView(view);
       pushNavigationHistory(nextView);
     }
+    if (nextView === "review" || nextView === "browse") {
+      setSubject("ALL");
+    }
     setView(nextView);
   };
 

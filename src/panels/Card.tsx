@@ -1,18 +1,14 @@
-import { ArrowLeft, CheckCircle2, Pencil, Star, X, XCircle } from "lucide-react";
+import { Pencil, Star } from "lucide-react";
 import { useState } from "react";
-import { formatDueTime, previewSchedule } from "../scheduler";
-import type { Card, CardProgress, Grade } from "../types";
+import { previewSchedule } from "../scheduler";
+import type { Card as StudyCard, CardProgress, Grade } from "../types";
 
 const gradeLabels: Record<Grade, string> = {
-  again: "De novo",
-  hard: "Difícil",
-  good: "Bom",
-  easy: "Fácil"
+  again: "NOVAMENTE",
+  hard: "DIFÍCIL",
+  good: "BOM",
+  easy: "FÁCIL"
 };
-
-function optionLetter(option: string) {
-  return option.match(/^[A-D]\)/)?.[0] ?? "";
-}
 
 export function Card({
   card,
@@ -28,7 +24,7 @@ export function Card({
   saveNote,
   toggleMarked
 }: {
-  card: Card;
+  card: StudyCard;
   progress: CardProgress;
   dueCount: number;
   isMarked: boolean;
@@ -45,166 +41,115 @@ export function Card({
   const [noteDraft, setNoteDraft] = useState(note);
   const [notesOpen, setNotesOpen] = useState(false);
   const now = Date.now();
-  const hasNote = note.trim().length > 0;
 
   const openNotes = () => {
     setNoteDraft(note);
     setNotesOpen(true);
   };
 
-  const closeNotes = () => {
-    setNoteDraft(note);
-    setNotesOpen(false);
-  };
-
-  const submitNote = () => {
+  const saveAndClose = () => {
     saveNote(noteDraft);
     setNotesOpen(false);
   };
 
-  const deleteNote = () => {
+  const deleteAndClose = () => {
     saveNote("");
     setNoteDraft("");
     setNotesOpen(false);
   };
 
-  return (
-    <div className="answer-panel rounded-lg border border-white/10 p-5 shadow-2xl shadow-black/30">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
-        <div className="flex min-w-0 items-start gap-3">
-          <button
-            className="mt-1 flex h-9 shrink-0 items-center justify-center gap-2 rounded-md border border-white/10 px-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white sm:px-3"
-            onClick={onBack}
-            type="button"
-            aria-label="Voltar"
-          >
-            <ArrowLeft size={18} />
-            <span className="hidden sm:inline">Voltar</span>
-          </button>
-          <div className="min-w-0">
-            <p className="font-mono text-xs uppercase tracking-[0.22em] text-cockpit-glow">{card.subject}</p>
-            <p className="mt-1 text-sm text-slate-400">
-              Próxima: {formatDueTime(progress.dueAt)} · Agora: {dueCount} {dueCount === 1 ? "item" : "itens"}
-            </p>
-          </div>
+  if (notesOpen) {
+    return (
+      <div className="min-h-[calc(100vh-5rem)]">
+        <header className="flex items-center justify-between border-b-2 border-cockpit-glow/40 bg-cockpit-panel/95 px-4 py-[18px] text-[10px] tracking-[0.1em] text-cockpit-soft">
+          <button className="text-cockpit-primary" onClick={() => setNotesOpen(false)} type="button">◀ CARD</button>
+          <span>NOTA — {shortCardId(card)}</span>
+        </header>
+        <p className="px-[18px] pb-1 pt-4 text-[10px] leading-relaxed tracking-[0.04em] text-cockpit-muted">{card.question}</p>
+        <div className="px-4 py-2">
+          <textarea className="h-40 w-full resize-none rounded-md border border-cockpit-border bg-cockpit-panel p-3 text-[11px] leading-relaxed text-cockpit-text outline-none focus:border-cockpit-primary" placeholder="ADICIONAR NOTA…" value={noteDraft} onChange={(event) => setNoteDraft(event.target.value)} />
         </div>
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex gap-2 px-4 pb-5 pt-2">
+          <button className="flex-1 rounded-md border border-cockpit-active px-2 py-3 text-[10px] tracking-[0.1em] text-cockpit-primary" onClick={saveAndClose} type="button">✔ SALVAR NOTA</button>
+          <button className="basis-1/3 rounded-md border border-cockpit-red/40 px-2 py-3 text-[10px] tracking-[0.1em] text-cockpit-red disabled:opacity-40" disabled={!note.trim() && !noteDraft.trim()} onClick={deleteAndClose} type="button">✕ APAGAR</button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex min-h-[calc(100vh-5rem)] flex-col">
+      <header className="border-b-2 border-cockpit-glow/40 bg-cockpit-panel/95 px-4 py-3 text-[10px] tracking-[0.08em] text-cockpit-soft">
+        <div className="flex items-center justify-between gap-3">
+          <button className="shrink-0 text-cockpit-primary" onClick={onBack} type="button">◀ PAINEL</button>
+          <span className="truncate text-right">{card.subject} · {dueCount} DEVIDOS</span>
+        </div>
+        <div className="mt-3 flex items-center gap-2 border-t border-cockpit-line pt-3">
           <button
-            className={`flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-semibold ${
-              isMarked ? "border-cockpit-amber bg-cockpit-amber/15 text-cockpit-amber" : "border-white/10 text-slate-300 hover:bg-white/10"
-            }`}
+            aria-label={isMarked ? "Desmarcar Card" : "Marcar Card"}
+            className={`flex h-9 items-center gap-1.5 rounded border px-2.5 ${isMarked ? "border-cockpit-amber/60 bg-cockpit-amber/10 text-cockpit-amber" : "border-cockpit-border text-cockpit-soft"}`}
             onClick={toggleMarked}
             type="button"
           >
-            <Star size={17} fill={isMarked ? "currentColor" : "none"} />
+            <Star size={14} fill={isMarked ? "currentColor" : "none"} />
+            <span>MARCAR</span>
           </button>
-          <button
-            className={`flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-semibold ${
-              hasNote ? "border-cockpit-glow bg-cockpit-glow/10 text-cockpit-glow" : "border-white/10 text-slate-300 hover:bg-white/10"
-            }`}
-            onClick={openNotes}
-            type="button"
-            aria-label="Notas"
-          >
-            <Pencil size={17} />
+          <button className={`flex h-9 items-center gap-1.5 rounded border px-2.5 ${note.trim() ? "border-cockpit-glow/60 bg-cockpit-activeBg text-cockpit-primary" : "border-cockpit-border text-cockpit-soft"}`} onClick={openNotes} type="button">
+            <Pencil size={14} />
+            <span>NOTA</span>
           </button>
-          <div className="rounded-md border border-white/10 px-3 py-2 font-mono text-sm text-slate-300">
-            {progress.attempts} tentativas · intervalo {progress.intervalDays}d
+          <div className="ml-auto rounded border border-cockpit-border bg-cockpit-ink/70 px-2 py-2 text-right text-[9px] leading-tight text-cockpit-muted">
+            <span className="block">{progress.attempts} {progress.attempts === 1 ? "TENTATIVA" : "TENTATIVAS"}</span>
+            <span className="mt-0.5 block">INTERVALO {formatInterval(progress.intervalDays)}</span>
           </div>
         </div>
-      </div>
+      </header>
 
-      <h3 className="mt-5 text-balance text-2xl font-semibold leading-snug text-white">{card.question}</h3>
-      <div className="mt-6 grid gap-3">
+      <h2 className="px-5 py-6 text-sm leading-relaxed text-cockpit-bright">{card.question}</h2>
+      <div className="grid gap-2 px-4">
         {card.options.map((option) => {
           const isSelected = selectedAnswer === option;
           const isAnswer = card.answer === option;
-          const state = revealed && isAnswer ? "border-cockpit-green bg-cockpit-green/10" : revealed && isSelected ? "border-cockpit-red bg-cockpit-red/10" : "";
+          const state = revealed && isAnswer
+            ? "border-cockpit-green bg-cockpit-green/10 text-cockpit-green"
+            : revealed && isSelected
+              ? "border-cockpit-red bg-cockpit-red/10 text-cockpit-red"
+              : "border-cockpit-border bg-cockpit-panel text-cockpit-text hover:border-cockpit-primary";
           return (
-            <button
-              key={option}
-              className={`flex min-h-16 items-center gap-4 rounded-md border border-cockpit-line bg-cockpit-ink/80 p-4 text-left text-slate-100 transition hover:border-cockpit-glow ${state}`}
-              disabled={revealed}
-              onClick={() => chooseAnswer(option)}
-              type="button"
-            >
-              <span className="flex size-9 shrink-0 items-center justify-center rounded bg-white/10 font-mono text-sm text-cockpit-amber">
-                {optionLetter(option)}
-              </span>
-              <span>{option.replace(/^[A-D]\)\s*/, "")}</span>
+            <button className={`rounded-md border px-3 py-3 text-left text-[12px] leading-relaxed transition ${state}`} disabled={revealed} key={option} onClick={() => chooseAnswer(option)} type="button">
+              {option}
             </button>
           );
         })}
       </div>
 
-      {revealed && (
-        <div className="mt-5 rounded-md border border-white/10 bg-cockpit-ink/80 p-4">
-          <div className={`flex items-center gap-2 font-semibold ${correct ? "text-cockpit-green" : "text-cockpit-red"}`}>
-            {correct ? <CheckCircle2 size={20} /> : <XCircle size={20} />}
-            {correct ? "Correto" : "Incorreto"}
-          </div>
-          <p className="mt-2 text-slate-200">Resposta: {card.answer}</p>
-          <div className={`mt-4 grid gap-2 ${correct ? "grid-cols-2 md:grid-cols-4" : "grid-cols-1"}`}>
-            {(correct ? (Object.keys(gradeLabels) as Grade[]) : (["again"] as Grade[])).map((grade) => (
-              <button
-                key={grade}
-                className="rounded-md border border-white/10 bg-white/10 px-3 py-3 text-white hover:bg-white/15"
-                onClick={() => gradeAnswer(grade)}
-                type="button"
-              >
-                <span className="block font-semibold">{correct ? gradeLabels[grade] : "OK"}</span>
-                <span className="mt-1 block font-mono text-xs text-slate-300">
-                  {previewSchedule(progress, grade, correct, now)}
-                </span>
-              </button>
-            ))}
-          </div>
+      {revealed && correct && (
+        <div className="mt-auto grid grid-cols-4 gap-1.5 px-4 pb-5 pt-5">
+          {(Object.keys(gradeLabels) as Grade[]).map((grade) => (
+            <button className="grid gap-1 rounded-md border border-cockpit-border px-0.5 py-3 text-[9px] tracking-[0.04em] text-cockpit-primary" key={grade} onClick={() => gradeAnswer(grade)} type="button">
+              <span>{gradeLabels[grade]}</span>
+              <small className="text-[8px] text-cockpit-muted">{previewSchedule(progress, grade, true, now).toUpperCase()}</small>
+            </button>
+          ))}
         </div>
       )}
-      {notesOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-          <div className="w-full max-w-lg rounded-lg border border-white/10 bg-cockpit-panel p-5 shadow-2xl shadow-black/60">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <p className="font-mono text-xs uppercase tracking-[0.22em] text-cockpit-glow">{card.subject}</p>
-                <h3 className="mt-1 text-xl font-semibold text-white">Notas do card</h3>
-              </div>
-              <button
-                className="rounded-md border border-white/10 p-2 text-slate-300 hover:bg-white/10 hover:text-white"
-                onClick={closeNotes}
-                type="button"
-                aria-label="Fechar notas"
-              >
-                <X size={18} />
-              </button>
-            </div>
-            <textarea
-              className="mt-4 min-h-40 w-full resize-y rounded-md border border-cockpit-line bg-cockpit-ink p-3 text-sm text-white outline-none focus:border-cockpit-glow"
-              placeholder="Adicionar nota"
-              value={noteDraft}
-              onChange={(event) => setNoteDraft(event.target.value)}
-            />
-            <div className="mt-4 flex flex-wrap justify-between gap-2">
-              <button
-                className="rounded-md border border-cockpit-red/40 px-4 py-2 text-sm font-semibold text-cockpit-red hover:bg-cockpit-red/10 disabled:cursor-not-allowed disabled:opacity-50"
-                disabled={!noteDraft.trim() && !hasNote}
-                onClick={deleteNote}
-                type="button"
-              >
-                Deletar
-              </button>
-              <div className="flex gap-2">
-                <button className="rounded-md border border-white/10 px-4 py-2 text-sm text-slate-300 hover:bg-white/10" onClick={closeNotes} type="button">
-                  Cancelar
-                </button>
-                <button className="rounded-md bg-cockpit-glow px-4 py-2 text-sm font-semibold text-cockpit-ink" onClick={submitNote} type="button">
-                  Salvar
-                </button>
-              </div>
-            </div>
-          </div>
+      {revealed && !correct && (
+        <div className="mt-auto px-4 pb-5 pt-5">
+          <button className="w-full rounded-md border border-cockpit-border px-3 py-3 text-[11px] tracking-[0.12em] text-cockpit-text" onClick={() => gradeAnswer("again")} type="button">OK — PRÓXIMO CARD</button>
         </div>
       )}
     </div>
   );
+}
+
+function shortCardId(card: StudyCard) {
+  const index = card.id.match(/-(\d+)$/)?.[1] ?? "0";
+  const prefix = card.subject.split(" ").map((word) => word[0]).join("").slice(0, 3);
+  return `${prefix}-${index.padStart(4, "0")}`;
+}
+
+function formatInterval(intervalDays: number) {
+  if (intervalDays === 0) return "0D";
+  if (intervalDays < 1) return `${Math.round(intervalDays * 24)}H`;
+  return `${intervalDays}D`;
 }

@@ -1,272 +1,125 @@
-import { ArrowLeft, Check, MessageSquareText, Search, Star, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { formatDueTime } from "../scheduler";
 import type { Card, CardProgress } from "../types";
 
 const maxBrowseCards = 200;
 
-export function Browse({
-  cards,
-  progress,
-  markedCardIds,
-  cardNotes,
-  showMarkedOnly,
-  setShowMarkedOnly,
-  showNotedOnly,
-  setShowNotedOnly,
-  query,
-  setQuery,
-  onBack,
-  reviewCard,
-  resetCard,
-  resetCards,
-  saveNote,
-  toggleMarked
-}: {
+type BrowseProps = {
   cards: Card[];
   progress: Record<string, CardProgress>;
   markedCardIds: Set<string>;
   cardNotes: Record<string, string>;
   showMarkedOnly: boolean;
-  setShowMarkedOnly: (showMarkedOnly: boolean) => void;
+  setShowMarkedOnly: (value: boolean) => void;
   showNotedOnly: boolean;
-  setShowNotedOnly: (showNotedOnly: boolean) => void;
+  setShowNotedOnly: (value: boolean) => void;
   query: string;
   setQuery: (query: string) => void;
-  onBack: () => void;
   reviewCard: (card: Card) => void;
   resetCard: (cardId: string) => void;
   resetCards: (cardIds: string[]) => void;
   saveNote: (cardId: string, note: string) => void;
   toggleMarked: (cardId: string) => void;
-}) {
+};
+
+export function Browse({ cards, progress, markedCardIds, cardNotes, showMarkedOnly, setShowMarkedOnly, showNotedOnly, setShowNotedOnly, query, setQuery, reviewCard, resetCard, resetCards, saveNote, toggleMarked }: BrowseProps) {
   const visibleCards = cards.slice(0, maxBrowseCards);
-  const notedCount = Object.values(cardNotes).filter((note) => note.trim()).length;
   const [noteCard, setNoteCard] = useState<Card | null>(null);
   const [noteDraft, setNoteDraft] = useState("");
   const [confirmReset, setConfirmReset] = useState(false);
 
-  useEffect(() => {
-    setConfirmReset(false);
-  }, [query, showMarkedOnly, showNotedOnly, visibleCards.length]);
+  useEffect(() => setConfirmReset(false), [query, showMarkedOnly, showNotedOnly, visibleCards.length]);
 
   const openNote = (card: Card) => {
     setNoteCard(card);
     setNoteDraft(cardNotes[card.id] ?? "");
   };
-
   const closeNote = () => {
     setNoteCard(null);
     setNoteDraft("");
   };
-
   const submitNote = () => {
     if (!noteCard) return;
     saveNote(noteCard.id, noteDraft);
     closeNote();
   };
 
-  const deleteNote = () => {
-    if (!noteCard) return;
-    saveNote(noteCard.id, "");
-    closeNote();
-  };
-
-  const resetVisibleCards = () => {
-    resetCards(visibleCards.map((card) => card.id));
-    setConfirmReset(false);
-  };
-
   return (
-    <div className="rounded-lg border border-white/10 bg-cockpit-panel/90 p-5">
-      <div className="mb-4 flex flex-wrap items-center gap-3">
-        <button
-          className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-md border border-white/10 px-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white sm:px-3"
-          onClick={onBack}
-          type="button"
-          aria-label="Voltar"
-        >
-          <ArrowLeft size={18} />
-          <span className="hidden sm:inline">Voltar</span>
+    <div>
+      <header className="border-b-2 border-cockpit-glow/40 bg-cockpit-panel/95 px-[18px] pb-3 pt-5">
+        <h1 className="text-xs font-bold tracking-[0.16em] text-cockpit-primary">BUSCA</h1>
+        <small className="mt-1 block text-[9px] tracking-[0.06em] text-cockpit-dim">{cards.length} CARDS · ATÉ {maxBrowseCards} EXIBIDOS</small>
+      </header>
+
+      <div className="relative mx-4 mb-1 mt-3">
+        <span className="pointer-events-none absolute left-3 top-2.5 text-cockpit-muted">⌕</span>
+        <input className="w-full rounded-md border border-cockpit-border bg-cockpit-panel py-2.5 pl-8 pr-9 text-[11px] text-cockpit-text placeholder:text-cockpit-muted" placeholder="BUSCAR ENUNCIADO / NOTA…" value={query} onChange={(event) => setQuery(event.target.value)} />
+        {query && <button aria-label="Limpar Busca" className="absolute right-3 top-2.5 text-cockpit-muted" onClick={() => setQuery("")} type="button">×</button>}
+      </div>
+
+      <div className="flex flex-wrap gap-2 px-4 py-2 text-[9px] tracking-[0.06em]">
+        <button className={filterClass(showMarkedOnly)} onClick={() => setShowMarkedOnly(!showMarkedOnly)} type="button">★ MARCADOS ({markedCardIds.size})</button>
+        <button className={filterClass(showNotedOnly)} onClick={() => setShowNotedOnly(!showNotedOnly)} type="button">N NOTAS</button>
+        <button className="ml-auto rounded border border-cockpit-border px-2 py-1.5 text-cockpit-muted disabled:opacity-40" disabled={!visibleCards.length} onClick={() => confirmReset ? (resetCards(visibleCards.map((card) => card.id)), setConfirmReset(false)) : setConfirmReset(true)} type="button">
+          {confirmReset ? "CONFIRMAR REINÍCIO" : "REINICIAR VISÍVEIS"}
         </button>
-        <h2 className="text-3xl font-semibold">Buscar</h2>
-        <div className="ml-auto flex">
-          {confirmReset ? (
-            <>
-              <button
-                className="flex h-9 w-16 items-center justify-center rounded-l-md border border-white/10  text-slate-300 hover:bg-white/10"
-                onClick={() => setConfirmReset(false)}
-                type="button"
-                aria-label="Cancelar reset"
-              >
-                <X size={17} />
-              </button>
-              <button
-                className="flex h-9 w-16 items-center justify-center rounded-r-md border border-l-0 border-white/10 hover:bg-white/10"
-                onClick={resetVisibleCards}
-                type="button"
-                aria-label="Confirmar reset"
-              >
-                <Check size={17} />
-              </button>
-            </>
-          ) : (
-            <button
-              className="h-9 rounded-md border border-white/10 px-3 text-sm font-semibold text-slate-200 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
-              disabled={visibleCards.length === 0}
-              onClick={() => setConfirmReset(true)}
-              type="button"
-            >
-              Resetar Tempo
-            </button>
-          )}
-        </div>
       </div>
-      <div className="flex flex-col gap-3 sm:flex-row">
-        <div className="relative flex-1">
-          <Search className="pointer-events-none absolute left-3 top-3 text-slate-500" size={18} />
-          <input
-            className="w-full rounded-md border border-cockpit-line bg-cockpit-ink py-3 pl-10 pr-10 text-white"
-            placeholder="Buscar pergunta ou alternativa"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-          />
-          {query && (
-            <button
-              className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-md text-slate-400 hover:bg-white/10 hover:text-white"
-              onClick={() => setQuery("")}
-              type="button"
-              aria-label="Limpar busca"
-            >
-              <X size={16} />
-            </button>
-          )}
-        </div>
-        <div className="flex gap-3">
-          <button
-            className={`flex grow items-center justify-center gap-2 rounded-md border px-4 py-3 text-sm font-semibold ${
-              showMarkedOnly ? "border-cockpit-amber bg-cockpit-amber/15 text-cockpit-amber" : "border-white/10 text-slate-200 hover:bg-white/10"
-            }`}
-            onClick={() => setShowMarkedOnly(!showMarkedOnly)}
-            type="button"
-          >
-            <Star size={17} fill={showMarkedOnly ? "currentColor" : "none"} />
-            ({markedCardIds.size})
-          </button>
-          <button
-            className={`flex grow items-center justify-center gap-2 rounded-md border px-4 py-3 text-sm font-semibold ${
-              showNotedOnly ? "border-cockpit-glow bg-cockpit-glow/10 text-cockpit-glow" : "border-white/10 text-slate-200 hover:bg-white/10"
-            }`}
-            onClick={() => setShowNotedOnly(!showNotedOnly)}
-            type="button"
-          >
-            <MessageSquareText size={17} fill={showNotedOnly ? "currentColor" : "none"} />
-            ({notedCount})
-          </button>
-        </div>
-      </div>
-      <div className="mt-4 max-h-[68vh] space-y-3 overflow-auto pr-1">
+
+      <div className="grid gap-2 px-4 pb-5 pt-1">
         {visibleCards.map((card) => {
-          const note = (cardNotes[card.id] ?? "").trim();
-          const hasNote = note.length > 0;
+          const hasNote = Boolean(cardNotes[card.id]?.trim());
+          const isMarked = markedCardIds.has(card.id);
           return (
-            <div key={card.id} className="rounded-md border border-white/10 bg-white/[0.04] p-4">
-              <div className="flex flex-col justify-between gap-3 md:flex-row md:items-start">
-                <div>
-                  <p className="font-mono text-xs text-cockpit-amber">{card.subject}</p>
-                  <p className="mt-1 text-sm text-slate-100">{card.question}</p>
-                  <p className="mt-2 text-xs text-slate-400">Próxima: {formatDueTime(progress[card.id].dueAt)}</p>
+            <article className="rounded-md border border-cockpit-line bg-cockpit-panel px-3 py-2.5" key={card.id}>
+              <div className="flex justify-between gap-2 text-[9px] tracking-[0.1em] text-cockpit-muted">
+                <b className="text-cockpit-primary">{shortCardId(card)}</b>
+                <span>{dueLabel(progress[card.id].dueAt)}</span>
+              </div>
+              <p className="mt-1.5 line-clamp-3 text-[10px] leading-relaxed tracking-[0.02em] text-cockpit-text">{card.question}</p>
+              <div className="mt-2 flex items-center justify-between gap-2">
+                <div className="flex gap-2 text-[9px] text-cockpit-soft">
+                  <button aria-label={isMarked ? "Desmarcar Card" : "Marcar Card"} onClick={() => toggleMarked(card.id)} type="button">[{isMarked ? "★ MARCADO" : "☆"}]</button>
+                  <button aria-label={hasNote ? "Abrir Nota" : "Adicionar Nota"} onClick={() => openNote(card)} type="button">[{hasNote ? "N NOTA" : "+ NOTA"}]</button>
                 </div>
-                <div className="flex gap-2">
-                  <button
-                    className={`rounded border px-3 py-2 text-sm ${
-                      markedCardIds.has(card.id) ? "border-cockpit-amber text-cockpit-amber" : "border-white/10 text-slate-200"
-                    }`}
-                    onClick={() => toggleMarked(card.id)}
-                    type="button"
-                    aria-label="Marcar card"
-                  >
-                    <Star size={16} fill={markedCardIds.has(card.id) ? "currentColor" : "none"} />
-                  </button>
-                  <button
-                    className={`rounded border px-3 py-2 text-sm ${
-                      hasNote ? "border-cockpit-glow text-cockpit-glow" : "border-white/10 text-slate-500"
-                    }`}
-                    onClick={() => openNote(card)}
-                    type="button"
-                    aria-label={hasNote ? "Abrir comentário" : "Adicionar comentário"}
-                  >
-                    <MessageSquareText size={16} fill={hasNote ? "currentColor" : "none"} />
-                  </button>
-                  <button className="rounded bg-cockpit-glow px-3 py-2 text-sm font-semibold text-cockpit-ink" onClick={() => reviewCard(card)} type="button">
-                    Estudar
-                  </button>
-                  <button className="rounded border border-white/10 px-3 py-2 text-sm text-slate-200" onClick={() => resetCard(card.id)} type="button">
-                    Resetar
-                  </button>
+                <div className="flex gap-1.5">
+                  <button className="rounded border border-cockpit-border px-2 py-1 text-[8px] tracking-[0.08em] text-cockpit-muted" onClick={() => resetCard(card.id)} type="button">REINICIAR</button>
+                  <button className="rounded border border-cockpit-glow/40 px-2 py-1 text-[8px] tracking-[0.1em] text-cockpit-primary" onClick={() => reviewCard(card)} type="button">REVISAR</button>
                 </div>
               </div>
-              {hasNote && (
-                <button
-                  className="mt-3 w-full rounded-md border border-cockpit-glow/20 bg-cockpit-glow/5 px-3 py-2 text-left text-sm text-slate-200 hover:border-cockpit-glow/40 hover:bg-cockpit-glow/10"
-                  onClick={() => openNote(card)}
-                  type="button"
-                >
-                  <span className="mb-1 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-cockpit-glow">
-                    <MessageSquareText size={13} />
-                    Nota
-                  </span>
-                  <span className="line-clamp-3 whitespace-pre-line">{note}</span>
-                </button>
-              )}
-            </div>
+            </article>
           );
         })}
+        {!visibleCards.length && <p className="py-8 text-center text-[10px] tracking-[0.08em] text-cockpit-muted">NENHUM CARD ENCONTRADO</p>}
       </div>
+
       {noteCard && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-          <div className="w-full max-w-lg rounded-lg border border-white/10 bg-cockpit-panel p-5 shadow-2xl shadow-black/60">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <p className="font-mono text-xs uppercase tracking-[0.22em] text-cockpit-glow">{noteCard.subject}</p>
-                <h3 className="mt-1 text-xl font-semibold text-white">Comentário do card</h3>
-              </div>
-              <button
-                className="rounded-md border border-white/10 p-2 text-slate-300 hover:bg-white/10 hover:text-white"
-                onClick={closeNote}
-                type="button"
-                aria-label="Fechar comentário"
-              >
-                <X size={18} />
-              </button>
-            </div>
-            <textarea
-              className="mt-4 min-h-40 w-full resize-y rounded-md border border-cockpit-line bg-cockpit-ink p-3 text-sm text-white outline-none focus:border-cockpit-glow"
-              placeholder="Adicionar comentário"
-              value={noteDraft}
-              onChange={(event) => setNoteDraft(event.target.value)}
-            />
-            <div className="mt-4 flex flex-wrap justify-between gap-2">
-              <button
-                className="rounded-md border border-cockpit-red/40 px-4 py-2 text-sm font-semibold text-cockpit-red hover:bg-cockpit-red/10 disabled:cursor-not-allowed disabled:opacity-50"
-                disabled={!noteDraft.trim() && !(cardNotes[noteCard.id] ?? "").trim()}
-                onClick={deleteNote}
-                type="button"
-              >
-                Deletar
-              </button>
-              <div className="flex gap-2">
-                <button className="rounded-md border border-white/10 px-4 py-2 text-sm text-slate-300 hover:bg-white/10" onClick={closeNote} type="button">
-                  Cancelar
-                </button>
-                <button className="rounded-md bg-cockpit-glow px-4 py-2 text-sm font-semibold text-cockpit-ink" onClick={submitNote} type="button">
-                  Salvar
-                </button>
-              </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-cockpit-deep/90 p-4">
+          <div className="w-full max-w-lg rounded-md border border-cockpit-border bg-cockpit-ink p-4">
+            <div className="flex justify-between text-[10px] tracking-[0.1em] text-cockpit-primary"><span>NOTA — {shortCardId(noteCard)}</span><button onClick={closeNote} type="button">×</button></div>
+            <p className="mt-3 line-clamp-3 text-[10px] leading-relaxed text-cockpit-muted">{noteCard.question}</p>
+            <textarea className="mt-3 h-36 w-full resize-none rounded-md border border-cockpit-border bg-cockpit-panel p-3 text-[11px] leading-relaxed text-cockpit-text" placeholder="ADICIONAR NOTA…" value={noteDraft} onChange={(event) => setNoteDraft(event.target.value)} />
+            <div className="mt-3 flex gap-2">
+              <button className="flex-1 rounded border border-cockpit-active py-2.5 text-[9px] tracking-[0.1em] text-cockpit-primary" onClick={submitNote} type="button">SALVAR</button>
+              <button className="rounded border border-cockpit-red/40 px-4 py-2.5 text-[9px] text-cockpit-red" onClick={() => { saveNote(noteCard.id, ""); closeNote(); }} type="button">APAGAR</button>
             </div>
           </div>
         </div>
       )}
     </div>
   );
+}
+
+function filterClass(active: boolean) {
+  return `rounded border px-2 py-1.5 ${active ? "border-cockpit-active bg-cockpit-activeBg text-cockpit-primary" : "border-cockpit-border text-cockpit-muted"}`;
+}
+
+function shortCardId(card: Card) {
+  const index = card.id.match(/-(\d+)$/)?.[1] ?? "0";
+  const prefix = card.subject.split(" ").map((word) => word[0]).join("").slice(0, 3);
+  return `${prefix}-${index.padStart(4, "0")}`;
+}
+
+function dueLabel(dueAt: number) {
+  const due = formatDueTime(dueAt).toUpperCase();
+  return due === "AGORA" ? "DEVIDO AGORA" : `EM ${due}`;
 }

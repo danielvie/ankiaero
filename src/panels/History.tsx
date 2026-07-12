@@ -1,47 +1,37 @@
-import { ArrowLeft } from "lucide-react";
-import type { Card } from "../types";
+import type { Card, CardProgress, Grade } from "../types";
 
-export function History({ cards, onBack, reviewCard }: { cards: Card[]; onBack: () => void; reviewCard: (card: Card) => void }) {
+const gradeLabels: Record<Grade, string> = { again: "LAPSO", hard: "DIFÍCIL", good: "BOM", easy: "FÁCIL" };
+
+export function History({ cards, progress, reviewCard }: { cards: Card[]; progress: Record<string, CardProgress>; reviewCard: (card: Card) => void }) {
   return (
-    <div className="rounded-lg border border-white/10 bg-cockpit-panel/90 p-5">
-      <div className="mb-4 flex items-center gap-3">
-        <button
-          className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-md border border-white/10 px-2 text-sm text-slate-300 hover:bg-white/10 hover:text-white sm:px-3"
-          onClick={onBack}
-          type="button"
-          aria-label="Voltar"
-        >
-          <ArrowLeft size={18} />
-          <span className="hidden sm:inline">Voltar</span>
-        </button>
-        <h2 className="text-3xl font-semibold">Histórico</h2>
+    <div>
+      <header className="border-b-2 border-cockpit-glow/40 bg-cockpit-panel/95 px-[18px] pb-3 pt-5">
+        <h1 className="text-xs font-bold tracking-[0.16em] text-cockpit-primary">HISTÓRICO</h1>
+        <small className="mt-1 block text-[9px] tracking-[0.06em] text-cockpit-dim">REVISÕES RECENTES · HORÁRIO LOCAL</small>
+      </header>
+      <div className="grid px-4 pb-5 pt-3">
+        {cards.map((card) => {
+          const cardProgress = progress[card.id];
+          const result = cardProgress.lastGrade ? gradeLabels[cardProgress.lastGrade] : "VISTO";
+          return (
+            <button className="flex gap-2.5 border-b border-dashed border-cockpit-line px-1 py-3 text-left text-[10px] leading-relaxed" key={card.id} onClick={() => reviewCard(card)} type="button">
+              <span className="shrink-0 text-cockpit-dim">{formatTime(cardProgress.lastAnsweredAt)}</span>
+              <span className="line-clamp-2 flex-1 text-cockpit-soft">{subjectCode(card.subject)} — {card.question}</span>
+              <b className={`shrink-0 ${cardProgress.lastGrade === "again" ? "text-cockpit-amber" : cardProgress.lastGrade ? "text-cockpit-green" : "text-cockpit-muted"}`}>{result}</b>
+            </button>
+          );
+        })}
+        {!cards.length && <p className="py-10 text-center text-[10px] tracking-[0.08em] text-cockpit-muted">NENHUM CARD REVISADO</p>}
       </div>
-
-      {cards.length === 0 ? (
-        <p className="rounded-md border border-white/10 bg-white/[0.04] p-4 text-sm text-slate-300">
-          Nenhum card visto ainda.
-        </p>
-      ) : (
-        <div className="max-h-[68vh] space-y-3 overflow-auto pr-1">
-          {cards.map((card) => (
-            <div key={card.id} className="rounded-md border border-white/10 bg-white/[0.04] p-4">
-              <div className="flex flex-col justify-between gap-3 md:flex-row md:items-start">
-                <div>
-                  <p className="font-mono text-xs text-cockpit-amber">{card.subject}</p>
-                  <p className="mt-1 text-sm text-slate-100">{card.question}</p>
-                </div>
-                <button
-                  className="rounded bg-cockpit-glow px-3 py-2 text-sm font-semibold text-cockpit-ink"
-                  onClick={() => reviewCard(card)}
-                  type="button"
-                >
-                  Estudar
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
+}
+
+function formatTime(timestamp?: number) {
+  if (!timestamp) return "--:--";
+  return new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit" }).format(timestamp);
+}
+
+function subjectCode(subject: string) {
+  return subject.split(" ").map((word) => word[0]).join("").slice(0, 3);
 }

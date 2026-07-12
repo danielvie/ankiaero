@@ -78,3 +78,83 @@
 - [x] Verify check after Browse reset confirm controls change
 - [x] Add clear button to Browse search input
 - [x] Verify check after Browse search clear button change
+
+# TODO: Study layout concepts
+
+- [x] Analyze the current dashboard, shell, and review-card layout
+- [x] Create five usable Anki-style layout concepts in one HTML file
+- [x] Verify the concepts file structure and interactions
+
+# TODO: Learning-first concept revision
+
+- [x] Extract representative real questions and correct answers from source data
+- [x] Redesign five concepts with a modern learning-focused color system
+- [x] Make every mockup run the answer selection and correction flow
+- [x] Verify data fidelity, responsiveness, and interactions
+
+# TODO: Four mobile-first study concepts
+
+- [x] Inspect the current mobile review layout and interaction flow
+- [x] Replace all existing examples with four phone layouts
+- [x] Keep one concept faithful to the current app with usability improvements
+- [x] Create three new mobile-first learning concepts using real source cards
+- [x] Verify answer checking, source values, and mobile presentation
+
+# TODO: Rodada 4 — Conceito 2 final (azul) + handoff
+
+- [x] Trocar a paleta do Conceito 2 para tons de azul (âmbar/vermelho só para urgência, verde só para acerto)
+- [x] Ajustar os painéis para Painel, Revisão, Busca, Histórico e Dados (Simulado removido)
+- [x] Verificar navegação, soft keys e fluxo de resposta no navegador
+- [x] Gerar handoff de implementação em `/tmp/handoff-ankiaero-conceito2.md` referenciando `concepts/fable_layouts.html`
+
+# TODO: Rodada 3 — expandir conceitos 2 e 3
+
+- [x] Conceito 2: adicionar views de Nota do Card, Dados (exportar/importar/zerar) e prévia do Simulado; soft key DADOS
+- [x] Conceito 3: adicionar views de Busca e Histórico com abas próprias
+- [x] Conceito 3: trocar a paleta para tons de azul (fundo, acentos e blocos frios)
+- [x] Verificar navegação, abas e fluxo de resposta após as mudanças
+
+# TODO: Rodada 2 de conceitos (fable_layouts multi-view)
+
+- [x] Manter apenas os conceitos Foco Total e Cabine de Comando
+- [x] Expandir os dois com múltiplas views navegáveis (Painel, Revisão com 2 Cards, conclusão, Busca, Histórico)
+- [x] Criar dois conceitos novos derivados deles: Radar de Matérias e Plano de Voo
+- [x] Verificar navegação entre views e fluxo de resposta/Avaliação nos quatro mocks
+
+# TODO: Seis conceitos de layout (fable_layouts)
+
+- [x] Ler o contexto do produto e levantar Questões-fonte reais por Matéria
+- [x] Criar seis layouts variados e interativos em `concepts/fable_layouts.html`
+- [x] Verificar interações de resposta, correção e Avaliação no navegador
+
+# TODO: Contexto do repositório para novos agentes
+
+- [x] Inspecionar o repositório, o glossário, os fluxos e a estrutura do projeto
+- [x] Definir objetivo, público, restrições e orientações operacionais para agentes
+- [x] Atualizar a linguagem do domínio conforme as decisões aceitas
+- [x] Criar o guia do repositório para agentes
+- [x] Verificar precisão, consistência e descoberta da documentação
+
+# TODO: Implementar Conceito 2 — Cabine de Comando
+
+- [x] Inspecionar o mock aprovado e os componentes atuais
+- [x] Aplicar tokens visuais e navegação por soft keys
+- [x] Reestilizar Painel, Revisão, Busca, Histórico e Dados
+- [x] Integrar Nota do Card e conclusão ao novo layout
+- [x] Verificar tipos e build de produção
+- [ ] Verificar fluxos em viewport móvel (navegador embutido indisponível na sessão)
+
+# TODO: Restaurar paleta e fundo anteriores
+
+- [x] Restaurar os tokens de cores anteriores sem alterar o layout
+- [x] Restaurar o fundo azul quadriculado com brilho ciano
+- [x] Substituir cores azuis fixas remanescentes nos painéis
+- [x] Verificar tipos e consistência do diff
+
+# TODO: Refinar headers e controles da Revisão
+
+- [x] Dar aos headers divisão visual mais clara usando a accent color ciano
+- [x] Remover sombras luminosas dos elementos de destaque
+- [x] Restaurar controles visíveis de Card marcado e Nota na Revisão
+- [x] Mostrar tentativas e intervalo do Card atual
+- [x] Verificar tipos e compilação visual

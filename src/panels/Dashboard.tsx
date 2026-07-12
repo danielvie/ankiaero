@@ -1,57 +1,60 @@
-import { PlayCircle } from "lucide-react";
 import { getSubjectRows } from "../studyStats";
 import { appBuiltAt, appVersion } from "../version";
 import type { SubjectFilter } from "../appTypes";
 import type { CardProgress } from "../types";
 
-export function Dashboard({
-  progress,
-  startReview
-}: {
-  progress: Record<string, CardProgress>;
-  startReview: (subject?: SubjectFilter) => void;
-}) {
+export function Dashboard({ progress, startReview }: { progress: Record<string, CardProgress>; startReview: (subject?: SubjectFilter) => void }) {
   const rows = getSubjectRows(progress);
+  const due = rows.reduce((total, row) => total + row.due, 0);
 
   return (
-    <div className="rounded-lg border border-white/10 bg-cockpit-panel/90 p-5">
-      <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
-        <div>
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-cockpit-amber">repetição espaçada</p>
-          <h2 className="mt-2 text-3xl font-semibold">Dashboard</h2>
-        </div>
-        <button className="rounded-md bg-cockpit-amber px-4 py-3 font-semibold text-cockpit-ink hover:brightness-110" onClick={() => startReview()} type="button">
-          Revisar agora
-        </button>
-      </div>
-      <div className="mt-6 grid gap-3">
+    <div>
+      <header className="flex items-baseline justify-between border-b-2 border-cockpit-glow/40 bg-cockpit-panel/95 px-5 pb-3 pt-5">
+        <h1 className="text-sm font-bold tracking-[0.18em] text-cockpit-primary">ANKI AERO</h1>
+        <span className="text-[10px] text-cockpit-dim">v{appVersion} · OFFLINE</span>
+      </header>
+
+      <div className="grid grid-cols-3 gap-x-2 gap-y-4 px-3 pb-2 pt-5">
         {rows.map((row) => (
-          <div key={row.subject} className="rounded-md border border-white/10 bg-white/[0.04] p-4">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div className="min-w-0">
-                <div className="font-semibold">{row.subject}</div>
-                <div className="mt-1 font-mono text-sm text-slate-300">
-                  {row.due} pendentes / {row.total} · {row.accuracy}% acerto
-                </div>
+          <div className="text-center" key={row.subject}>
+            <div
+              className="relative mx-auto grid size-[76px] place-items-center rounded-full border border-cockpit-edge"
+              style={{ background: `conic-gradient(#00d4ff ${row.accuracy}%, #29384f 0)` }}
+            >
+              <div className="absolute inset-[5px] rounded-full bg-cockpit-ink" />
+              <div className="relative">
+                <b className={`block text-base ${row.accuracy < 60 && row.reviewed > 0 ? "text-cockpit-amber" : "text-cockpit-bright"}`}>{row.accuracy}%</b>
+                <small className="block text-[8px] text-cockpit-muted">PRECISÃO</small>
               </div>
-              <button
-                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-md border border-cockpit-amber/60 px-3 py-2 text-sm font-semibold text-cockpit-amber hover:bg-cockpit-amber hover:text-cockpit-ink"
-                onClick={() => startReview(row.subject)}
-                type="button"
-              >
-                <PlayCircle className="h-4 w-4" aria-hidden="true" />
-                Revisar
-              </button>
             </div>
-            <div className="mt-3 h-2 overflow-hidden rounded bg-cockpit-ink">
-              <div className="h-full bg-cockpit-glow" style={{ width: `${Math.round((row.reviewed / row.total) * 100)}%` }} />
-            </div>
+            <span className="mt-2 block truncate text-[8px] tracking-[0.07em] text-cockpit-soft">{shortSubject(row.subject)}</span>
+            <span className="mt-0.5 block text-[10px] text-cockpit-amber">{row.due} DEVIDOS</span>
           </div>
         ))}
       </div>
-      <div className="mt-4 rounded-md border border-white/10 bg-white/[0.04] px-4 py-3 font-mono text-xs text-slate-300">
-        App v{appVersion} · build {appBuiltAt}
+
+      <div className="mx-4 mb-3 mt-4">
+        <button className="w-full rounded-md border border-cockpit-active bg-cockpit-activeBg px-3 py-3 text-[11px] tracking-[0.1em] text-cockpit-primary" onClick={() => startReview("ALL")} type="button">
+          ▶ INICIAR REVISÃO — {due} DEVIDOS
+        </button>
       </div>
+
+      <div className="grid gap-2 px-4 pb-5">
+        {rows.map((row) => (
+          <div className="flex items-center justify-between rounded-md border border-cockpit-line bg-cockpit-panel px-3 py-3" key={row.subject}>
+            <span className="text-[10px] tracking-[0.05em] text-cockpit-soft">{row.subject} · {row.accuracy}%</span>
+            <button className="rounded border border-cockpit-glow/40 px-2 py-1 text-[9px] tracking-[0.1em] text-cockpit-primary disabled:opacity-40" disabled={row.due === 0} onClick={() => startReview(row.subject)} type="button">
+              REVISAR {row.due}
+            </button>
+          </div>
+        ))}
+      </div>
+      <p className="px-4 pb-4 text-center text-[8px] tracking-[0.08em] text-cockpit-dim">BUILD {appBuiltAt}</p>
     </div>
   );
+}
+
+function shortSubject(subject: string) {
+  if (subject === "CONHECIMENTOS TÉCNICOS") return "CONH. TÉCNICOS";
+  return subject;
 }

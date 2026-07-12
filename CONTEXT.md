@@ -1,57 +1,65 @@
 # Anki Aero
 
-Anki Aero is a local study app for ANAC-style aviation exam practice. Its language centers on question cards, review flow, and spaced-repetition progress.
+Anki Aero é um aplicativo de estudos para ajudar pilotos a memorizar conteúdos de provas teóricas da ANAC por meio de revisões repetidas. Sua linguagem se concentra em cards de questões, fluxo de revisão e progresso de repetição espaçada.
 
-## Language
+## Linguagem
+
+**Piloto**:
+Pessoa que usa o Anki Aero para se preparar para uma prova teórica da ANAC, seja para renovar ou obter uma licença ou habilitação.
+_Evitar_: Usuário, aluno, candidato
 
 **Card**:
-A study item made from one source question, its answer options, and one correct answer.
-_Avoid_: Flashcard, question item
+Item de estudo criado a partir de uma questão-fonte, suas alternativas e uma resposta correta.
+_Evitar_: Flashcard, item de questão
 
-**Source Question**:
-A question imported from the original ANAC simulator material before it becomes a Card.
-_Avoid_: Raw card, imported card
+**Questão-fonte**:
+Questão importada do material original do simulado da ANAC antes de se tornar um Card.
+_Evitar_: Card bruto, card importado
 
-**Subject**:
-The aviation knowledge area assigned to a Card, such as Meteorologia or Regulamentos.
-_Avoid_: Category, topic, area
+**Matéria**:
+Área de conhecimento aeronáutico atribuída a um Card, como Meteorologia ou Regulamentos.
+_Evitar_: Categoria, tópico, área
 
-**Review**:
-A study pass where the learner answers due Cards and then grades remembered Cards for scheduling.
-_Avoid_: Quiz, test, exam
+**Revisão**:
+Sessão de estudo em que o Piloto responde Cards devidos e avalia os Cards lembrados para definir seu agendamento.
+_Evitar_: Questionário, teste, prova
 
-**Focused Review**:
-A Review limited to one Subject.
-_Avoid_: Per-area quiz, subject quiz
+**Revisão focada**:
+Revisão limitada a uma Matéria.
+_Evitar_: Questionário por área, questionário de matéria
 
-**Due Card**:
-A Card whose scheduled time has arrived and can appear in Review.
-_Avoid_: Pending card, available card
+**Simulado**:
+Modo de avaliação com 100 questões, composto por 20 questões aleatórias e sem repetição de cada uma das cinco Matérias. O percentual de acertos é apresentado somente ao final.
+_Evitar_: Revisão, teste, questionário
 
-**Grade**:
-The learner's self-assessment after a correct answer: Again, Hard, Good, or Easy.
-_Avoid_: Score, rating
+**Card devido**:
+Card cujo horário agendado chegou e que pode aparecer em uma Revisão.
+_Evitar_: Card pendente, card disponível
 
-**Progress**:
-The stored learning state for a Card, including schedule, attempts, accuracy, repetitions, and lapses.
-_Avoid_: Stats, history
+**Avaliação**:
+Autoavaliação feita pelo Piloto após uma resposta correta: novamente, difícil, bom ou fácil.
+_Evitar_: Pontuação, nota
 
-**Lapse**:
-A Review result that resets a Card because the answer was missed or not remembered well enough.
-_Avoid_: Failure, wrong answer
+**Progresso**:
+Estado de aprendizagem armazenado para um Card, incluindo agendamento, tentativas, precisão, repetições e lapsos.
+_Evitar_: Estatísticas, histórico
 
-**Marked Card**:
-A Card explicitly starred by the learner for later filtering.
-_Avoid_: Favorite, saved card
+**Lapso**:
+Resultado de uma Revisão que reinicia o agendamento de um Card porque a resposta foi errada ou não foi bem lembrada.
+_Evitar_: Falha, resposta errada
 
-**Note**:
-A learner-written comment attached to one Card.
-_Avoid_: Comment, annotation
+**Card marcado**:
+Card destacado explicitamente pelo Piloto para filtragem posterior.
+_Evitar_: Favorito, card salvo
 
-**History**:
-The ordered list of recently reviewed Cards.
-_Avoid_: Log, timeline
+**Nota**:
+Comentário escrito pelo Piloto e vinculado a um Card.
+_Evitar_: Comentário, anotação
 
-**Browse**:
-The searchable Card list used to find, filter, reset, mark, note, or start studying a specific Card.
-_Avoid_: Search, catalog
+**Histórico**:
+Lista ordenada dos Cards revisados recentemente.
+_Evitar_: Registro, linha do tempo
+
+**Busca**:
+Lista pesquisável de Cards usada para localizar, filtrar, reiniciar, marcar, anotar ou iniciar o estudo de um Card específico.
+_Evitar_: Pesquisa, catálogo

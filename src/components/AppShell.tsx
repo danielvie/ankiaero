@@ -1,33 +1,43 @@
-import { Header } from "../panels/Header";
-import { Stats } from "../panels/Stats";
-import type { SubjectFilter, View } from "../appTypes";
-import type { StudyStats } from "../studyStats";
+import type { View } from "../appTypes";
 
-type AppShellProps = {
+const softKeys: { label: string; view: View }[] = [
+  { label: "PAINEL", view: "dashboard" },
+  { label: "REVISÃO", view: "review" },
+  { label: "BUSCA", view: "browse" },
+  { label: "HISTÓRICO", view: "history" },
+  { label: "DADOS", view: "settings" }
+];
+
+export function AppShell({
+  view,
+  onViewChange,
+  children
+}: {
   view: View;
   onViewChange: (view: View) => void;
-  subject: SubjectFilter;
-  onSubjectChange: (subject: SubjectFilter) => void;
-  stats: StudyStats;
-  markedCount: number;
-  onOpenMarked: () => void;
   children: React.ReactNode;
-};
-
-export function AppShell({ view, onViewChange, subject, onSubjectChange, stats, markedCount, onOpenMarked, children }: AppShellProps) {
-  const isReviewing = view === "review";
-
+}) {
   return (
-    <div className="min-h-screen text-slate-100">
-      <Header view={view} onViewChange={onViewChange} />
-
-      <main className={`mx-auto grid max-w-7xl gap-5 px-4 py-5 ${isReviewing ? "" : "lg:grid-cols-[18rem_1fr]"}`}>
-        {!isReviewing && (
-          <Stats subject={subject} onSubjectChange={onSubjectChange} stats={stats} markedCount={markedCount} onOpenMarked={onOpenMarked} />
-        )}
-
-        <section>{children}</section>
-      </main>
+    <div className="min-h-screen bg-transparent pb-20 font-mono text-cockpit-text">
+      <main className="mx-auto min-h-[calc(100vh-5rem)] w-full max-w-3xl">{children}</main>
+      <nav
+        aria-label="Painéis"
+        className="fixed inset-x-0 bottom-0 z-40 border-t border-cockpit-line bg-cockpit-deep/95 px-2 pb-[max(1rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur"
+      >
+        <div className="mx-auto grid max-w-3xl grid-cols-5 gap-1.5">
+          {softKeys.map((key) => (
+            <button
+              key={key.view}
+              aria-current={view === key.view ? "page" : undefined}
+              className={`min-w-0 rounded border px-0.5 py-2.5 text-[9px] tracking-[0.07em] transition sm:text-xs ${view === key.view ? "border-cockpit-active bg-cockpit-activeBg text-cockpit-primary" : "border-cockpit-edge bg-cockpit-panel text-cockpit-muted hover:text-cockpit-soft"}`}
+              onClick={() => onViewChange(key.view)}
+              type="button"
+            >
+              {key.label}
+            </button>
+          ))}
+        </div>
+      </nav>
     </div>
   );
 }
