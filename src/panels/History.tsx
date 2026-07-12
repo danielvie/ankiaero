@@ -21,7 +21,7 @@ export function History({ cards, progress, reviewCard }: { cards: Card[]; progre
               <p className="mt-1.5 line-clamp-2 text-[10px] leading-relaxed text-cockpit-text">{card.question}</p>
               <div className="mt-2 flex items-center justify-between gap-2">
                 <ResultChip lastGrade={cardProgress.lastGrade} />
-                <button className="rounded border border-cockpit-accent/40 px-2 py-1 text-[8px] tracking-[0.1em] text-cockpit-accent hover:border-cockpit-accent hover:bg-cockpit-accent hover:font-semibold hover:text-cockpit-ink" onClick={() => reviewCard(card)} type="button">REVISAR</button>
+                <button className="rounded border border-cockpit-accent px-2 py-1 text-[8px] tracking-[0.1em] text-cockpit-text hover:bg-cockpit-accent hover:font-semibold hover:text-cockpit-ink" onClick={() => reviewCard(card)} type="button">REVISAR</button>
               </div>
             </article>
           );

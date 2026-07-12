@@ -70,7 +70,7 @@ export function Card({
           <textarea className="h-40 w-full resize-none rounded-md border border-cockpit-line bg-cockpit-panel p-3 text-[11px] leading-relaxed text-cockpit-text outline-none focus:border-cockpit-accent" placeholder="ADICIONAR NOTA…" value={noteDraft} onChange={(event) => setNoteDraft(event.target.value)} />
         </div>
         <div className="flex gap-2 px-4 pb-5 pt-2">
-          <button className="flex-1 rounded-md border border-cockpit-accent px-2 py-3 text-[10px] tracking-[0.1em] text-cockpit-accent hover:bg-cockpit-accent hover:font-semibold hover:text-cockpit-ink" onClick={saveAndClose} type="button">✔ SALVAR NOTA</button>
+          <button className="flex-1 rounded-md border border-cockpit-accent px-2 py-3 text-[10px] tracking-[0.1em] text-cockpit-text hover:bg-cockpit-accent hover:font-semibold hover:text-cockpit-ink" onClick={saveAndClose} type="button">✔ SALVAR NOTA</button>
           <button className="basis-1/3 rounded-md border border-cockpit-red/40 px-2 py-3 text-[10px] tracking-[0.1em] text-cockpit-red transition hover:bg-cockpit-red/10 disabled:opacity-40" disabled={!note.trim() && !noteDraft.trim()} onClick={deleteAndClose} type="button">✕ APAGAR</button>
         </div>
       </div>
@@ -94,7 +94,7 @@ export function Card({
             <Star size={14} fill={isMarked ? "currentColor" : "none"} />
             <span>MARCAR</span>
           </button>
-          <button className={`flex h-9 items-center gap-1.5 rounded border px-2.5 transition hover:bg-cockpit-line/30 ${note.trim() ? "border-cockpit-accent/60 bg-cockpit-accentBg text-cockpit-accent" : "border-cockpit-line text-cockpit-soft"}`} onClick={openNotes} type="button">
+          <button className={`flex h-9 items-center gap-1.5 rounded border px-2.5 transition hover:bg-cockpit-line/30 ${note.trim() ? "border-cockpit-accent/60 bg-cockpit-accent/10 text-cockpit-accent" : "border-cockpit-line text-cockpit-soft"}`} onClick={openNotes} type="button">
             <Pencil size={14} />
             <span>NOTA</span>
           </button>
@@ -137,7 +137,7 @@ export function Card({
       {revealed && correct && (
         <div className="mt-auto grid grid-cols-4 gap-1.5 px-4 pb-5 pt-5">
           {(Object.keys(gradeLabels) as Grade[]).map((grade) => (
-            <button className="group grid gap-1 rounded-md border border-cockpit-line px-0.5 py-3 text-[9px] tracking-[0.04em] text-cockpit-accent hover:border-cockpit-accent hover:bg-cockpit-accent hover:font-semibold hover:text-cockpit-ink" key={grade} onClick={() => gradeAnswer(grade)} type="button">
+            <button className="group grid gap-1 rounded-md border border-cockpit-accent/60 px-0.5 py-3 text-[9px] tracking-[0.04em] text-cockpit-text hover:border-cockpit-accent hover:bg-cockpit-accent hover:font-semibold hover:text-cockpit-ink" key={grade} onClick={() => gradeAnswer(grade)} type="button">
               <span>{gradeLabels[grade]}</span>
               <small className="text-[8px] text-cockpit-muted group-hover:text-cockpit-ink/70">{previewSchedule(progress, grade, true, now).toUpperCase()}</small>
             </button>

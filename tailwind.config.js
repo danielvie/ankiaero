@@ -22,7 +22,6 @@ export default {
           dim: "#64748b",
           // accent e feedback
           accent: "#f6b44b",
-          accentBg: "#33270f",
           green: "#4ade80",
           red: "#f87171"
         }

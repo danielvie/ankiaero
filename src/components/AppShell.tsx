@@ -29,7 +29,7 @@ export function AppShell({
             <button
               key={key.view}
               aria-current={view === key.view ? "page" : undefined}
-              className={`min-w-0 rounded border px-0.5 py-2.5 text-[9px] tracking-[0.07em] transition sm:text-xs ${view === key.view ? "border-cockpit-accent bg-cockpit-accentBg text-cockpit-accent" : "border-cockpit-line bg-cockpit-panel text-cockpit-muted hover:border-cockpit-muted hover:bg-cockpit-line/40 hover:text-cockpit-soft"}`}
+              className={`min-w-0 rounded border px-0.5 py-2.5 text-[9px] tracking-[0.07em] transition sm:text-xs ${view === key.view ? "border-cockpit-accent bg-cockpit-accent/10 text-cockpit-accent" : "border-cockpit-line bg-cockpit-panel text-cockpit-muted hover:border-cockpit-muted hover:bg-cockpit-line/40 hover:text-cockpit-soft"}`}
               onClick={() => onViewChange(key.view)}
               type="button"
             >

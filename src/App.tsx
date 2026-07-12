@@ -44,7 +44,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
         )}
         {study.view === "review" && !study.activeCard && (
           <div className="flex min-h-[calc(100vh-5rem)] flex-col justify-center gap-3 px-5 py-10">
-            <div className="rounded-lg border border-cockpit-accent bg-cockpit-accentBg px-4 py-6 text-center text-sm tracking-[0.14em] text-cockpit-accent">
+            <div className="rounded-lg border border-cockpit-accent bg-cockpit-accent/10 px-4 py-6 text-center text-sm tracking-[0.14em] text-cockpit-accent">
               ✓ REVISÃO COMPLETA
             </div>
             <div className="flex justify-between rounded-md border border-cockpit-line bg-cockpit-panel px-3 py-3 text-[10px] tracking-[0.08em] text-cockpit-soft">

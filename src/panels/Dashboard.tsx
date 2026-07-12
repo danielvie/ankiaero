@@ -34,7 +34,7 @@ export function Dashboard({ progress, startReview }: { progress: Record<string, 
       </div>
 
       <div className="mx-4 mb-3 mt-4">
-        <button className="w-full rounded-md border border-cockpit-accent bg-cockpit-accentBg px-3 py-3 text-[11px] tracking-[0.1em] text-cockpit-accent hover:bg-cockpit-accent hover:font-semibold hover:text-cockpit-ink" onClick={() => startReview("ALL")} type="button">
+        <button className="w-full rounded-md border border-cockpit-accent px-3 py-3 text-[11px] tracking-[0.1em] text-cockpit-text hover:bg-cockpit-accent hover:font-semibold hover:text-cockpit-ink" onClick={() => startReview("ALL")} type="button">
           ▶ INICIAR REVISÃO — {due} DEVIDOS
         </button>
       </div>
@@ -43,7 +43,7 @@ export function Dashboard({ progress, startReview }: { progress: Record<string, 
         {rows.map((row) => (
           <div className="flex items-center justify-between rounded-md border border-cockpit-line bg-cockpit-panel px-3 py-3" key={row.subject}>
             <span className="text-[10px] tracking-[0.05em] text-cockpit-soft">{row.subject} · {row.accuracy}%</span>
-            <button className="rounded border border-cockpit-accent/40 px-2 py-1 text-[9px] tracking-[0.1em] text-cockpit-accent hover:border-cockpit-accent hover:bg-cockpit-accent hover:font-semibold hover:text-cockpit-ink disabled:opacity-40" disabled={row.due === 0} onClick={() => startReview(row.subject)} type="button">
+            <button className="rounded border border-cockpit-accent px-2 py-1 text-[9px] tracking-[0.1em] text-cockpit-text hover:bg-cockpit-accent hover:font-semibold hover:text-cockpit-ink disabled:opacity-40" disabled={row.due === 0} onClick={() => startReview(row.subject)} type="button">
               REVISAR {row.due}
             </button>
           </div>

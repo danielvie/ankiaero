@@ -83,7 +83,7 @@ export function Browse({ cards, progress, markedCardIds, cardNotes, showMarkedOn
                 </div>
                 <div className="flex gap-1.5">
                   <button className="rounded border border-cockpit-line px-2 py-1 text-[8px] tracking-[0.08em] text-cockpit-muted transition hover:border-cockpit-muted hover:text-cockpit-soft" onClick={() => resetCard(card.id)} type="button">REINICIAR</button>
-                  <button className="rounded border border-cockpit-accent/40 px-2 py-1 text-[8px] tracking-[0.1em] text-cockpit-accent hover:border-cockpit-accent hover:bg-cockpit-accent hover:font-semibold hover:text-cockpit-ink" onClick={() => reviewCard(card)} type="button">REVISAR</button>
+                  <button className="rounded border border-cockpit-accent px-2 py-1 text-[8px] tracking-[0.1em] text-cockpit-text hover:bg-cockpit-accent hover:font-semibold hover:text-cockpit-ink" onClick={() => reviewCard(card)} type="button">REVISAR</button>
                 </div>
               </div>
             </article>
@@ -99,7 +99,7 @@ export function Browse({ cards, progress, markedCardIds, cardNotes, showMarkedOn
             <p className="mt-3 line-clamp-3 text-[10px] leading-relaxed text-cockpit-muted">{noteCard.question}</p>
             <textarea className="mt-3 h-36 w-full resize-none rounded-md border border-cockpit-line bg-cockpit-panel p-3 text-[11px] leading-relaxed text-cockpit-text" placeholder="ADICIONAR NOTA…" value={noteDraft} onChange={(event) => setNoteDraft(event.target.value)} />
             <div className="mt-3 flex gap-2">
-              <button className="flex-1 rounded border border-cockpit-accent py-2.5 text-[9px] tracking-[0.1em] text-cockpit-accent hover:bg-cockpit-accent hover:font-semibold hover:text-cockpit-ink" onClick={submitNote} type="button">SALVAR</button>
+              <button className="flex-1 rounded border border-cockpit-accent py-2.5 text-[9px] tracking-[0.1em] text-cockpit-text hover:bg-cockpit-accent hover:font-semibold hover:text-cockpit-ink" onClick={submitNote} type="button">SALVAR</button>
               <button className="rounded border border-cockpit-red/40 px-4 py-2.5 text-[9px] text-cockpit-red transition hover:bg-cockpit-red/10" onClick={() => { saveNote(noteCard.id, ""); closeNote(); }} type="button">APAGAR</button>
             </div>
           </div>
@@ -110,7 +110,7 @@ export function Browse({ cards, progress, markedCardIds, cardNotes, showMarkedOn
 }
 
 function filterClass(active: boolean) {
-  return `rounded border px-2 py-1.5 transition ${active ? "border-cockpit-accent bg-cockpit-accentBg text-cockpit-accent hover:brightness-125" : "border-cockpit-line text-cockpit-muted hover:border-cockpit-muted hover:text-cockpit-soft"}`;
+  return `rounded border px-2 py-1.5 transition ${active ? "border-cockpit-accent bg-cockpit-accent/10 text-cockpit-accent hover:brightness-125" : "border-cockpit-line text-cockpit-muted hover:border-cockpit-muted hover:text-cockpit-soft"}`;
 }
 
 function shortCardId(card: Card) {

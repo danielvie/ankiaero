@@ -195,6 +195,13 @@
 - [x] Mostrar o resultado como chip colorido e a ação REVISAR como botão, no padrão da Busca
 - [x] Verificar `task check` e o painel no navegador
 
+# TODO: Botões normais com amarelo apenas nas bordas
+
+- [x] Estado normal dos botões de ação: borda dourada, texto neutro, sem preenchimento
+- [x] Substituir o fundo `accentBg` (#33270f) por tint `accent/10` nos estados ativos (navegação, filtros, nota) e remover o token
+- [x] Verificar `task check` e os estados no navegador
+- [x] Commit e fast-forward para `main` com push
+
 # TODO: Hover com preenchimento dourado sólido
 
 - [x] No hover dos botões de ação com accent, preencher com dourado sólido e texto escuro (modelo do layout anterior)
