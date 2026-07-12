@@ -44,7 +44,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
         )}
         {study.view === "review" && !study.activeCard && (
           <div className="flex min-h-[calc(100vh-5rem)] flex-col justify-center gap-3 px-5 py-10">
-            <div className="rounded-lg border border-cockpit-active bg-cockpit-activeBg px-4 py-6 text-center text-sm tracking-[0.14em] text-cockpit-primary">
+            <div className="rounded-lg border border-cockpit-accent bg-cockpit-accentBg px-4 py-6 text-center text-sm tracking-[0.14em] text-cockpit-accent">
               ✓ REVISÃO COMPLETA
             </div>
             <div className="flex justify-between rounded-md border border-cockpit-line bg-cockpit-panel px-3 py-3 text-[10px] tracking-[0.08em] text-cockpit-soft">
@@ -53,7 +53,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
             <div className="flex justify-between rounded-md border border-cockpit-line bg-cockpit-panel px-3 py-3 text-[10px] tracking-[0.08em] text-cockpit-soft">
               <span>STATUS</span><b className="text-cockpit-bright">EM DIA</b>
             </div>
-            <button className="mt-2 rounded-md border border-cockpit-border px-3 py-3 text-[11px] tracking-[0.12em] text-cockpit-text" onClick={() => study.setView("dashboard")} type="button">
+            <button className="mt-2 rounded-md border border-cockpit-line px-3 py-3 text-[11px] tracking-[0.12em] text-cockpit-text transition hover:border-cockpit-muted hover:bg-cockpit-panel" onClick={() => study.setView("dashboard")} type="button">
               RETORNAR AO PAINEL
             </button>
           </div>

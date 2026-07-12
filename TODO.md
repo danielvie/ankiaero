@@ -158,3 +158,45 @@
 - [x] Restaurar controles visíveis de Card marcado e Nota na Revisão
 - [x] Mostrar tentativas e intervalo do Card atual
 - [x] Verificar tipos e compilação visual
+
+# TODO: Visual mais profissional, menos futurista
+
+- [x] Trocar a fonte monoespaçada por uma pilha sans-serif do sistema
+- [x] Substituir o ciano neon por um azul profissional e superfícies slate neutras
+- [x] Remover o fundo quadriculado com brilho ciano
+- [x] Atualizar cores fixas remanescentes (gradiente cônico do Painel, outline de foco)
+- [x] Verificar `task check` e os fluxos no navegador em viewport móvel
+- [ ] `task build` falha por causa pré-existente: `node_modules` instalado com pnpm não expõe `workbox-window` (vite-plugin-pwa); decidir entre reinstalar com Bun ou adicionar `workbox-window` como devDependency
+
+# TODO: Feedback visual — fundo, accent e container da Revisão
+
+- [x] Trocar a seta "◀" dos botões de voltar por ícone SVG (lucide)
+- [x] Envolver pergunta e alternativas em um container destacado do fundo
+- [x] Restaurar o fundo quadriculado com brilho, agora na cor do novo accent
+- [x] Substituir o azul brilhante por um accent teal com mais identidade
+- [x] Verificar `task check` e os fluxos no navegador
+
+# TODO: Accent dourado e limpeza da paleta
+
+- [x] Adotar `#f6b44b` como accent (fundo do brilho, outline de foco, anel de precisão)
+- [x] Consolidar tokens duplicados: `active`/`primary`/`glow`/`amber` → `accent`; `edge`/`border` → `line`
+- [x] Reduzir a paleta a um conjunto claro: superfícies, texto, accent e verde/vermelho de feedback
+- [x] Verificar `task check` e os fluxos no navegador
+
+# TODO: Letra da alternativa em destaque e hover nos botões
+
+- [x] Separar a letra da alternativa em uma caixa com fundo próprio, contrastando com o texto
+- [x] Adicionar efeitos hover a todos os botões (Painel, Revisão, Busca, Histórico, Dados, navegação)
+- [x] Verificar `task check` e os fluxos no navegador
+
+# TODO: Reestruturar a página de Histórico
+
+- [x] Transformar as linhas do Histórico em cards estruturados (Matéria, enunciado, horário, resultado)
+- [x] Mostrar o resultado como chip colorido e a ação REVISAR como botão, no padrão da Busca
+- [x] Verificar `task check` e o painel no navegador
+
+# TODO: Hover com preenchimento dourado sólido
+
+- [x] No hover dos botões de ação com accent, preencher com dourado sólido e texto escuro (modelo do layout anterior)
+- [x] Aplicar em INICIAR REVISÃO, REVISAR (Painel, Busca, Histórico), SALVAR, SALVAR NOTA e botões de Avaliação
+- [x] Verificar `task check` e os estados no navegador

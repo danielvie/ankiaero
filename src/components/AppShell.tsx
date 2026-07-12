@@ -18,7 +18,7 @@ export function AppShell({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-transparent pb-20 font-mono text-cockpit-text">
+    <div className="min-h-screen bg-transparent pb-20 font-sans text-cockpit-text">
       <main className="mx-auto min-h-[calc(100vh-5rem)] w-full max-w-3xl">{children}</main>
       <nav
         aria-label="Painéis"
@@ -29,7 +29,7 @@ export function AppShell({
             <button
               key={key.view}
               aria-current={view === key.view ? "page" : undefined}
-              className={`min-w-0 rounded border px-0.5 py-2.5 text-[9px] tracking-[0.07em] transition sm:text-xs ${view === key.view ? "border-cockpit-active bg-cockpit-activeBg text-cockpit-primary" : "border-cockpit-edge bg-cockpit-panel text-cockpit-muted hover:text-cockpit-soft"}`}
+              className={`min-w-0 rounded border px-0.5 py-2.5 text-[9px] tracking-[0.07em] transition sm:text-xs ${view === key.view ? "border-cockpit-accent bg-cockpit-accentBg text-cockpit-accent" : "border-cockpit-line bg-cockpit-panel text-cockpit-muted hover:border-cockpit-muted hover:bg-cockpit-line/40 hover:text-cockpit-soft"}`}
               onClick={() => onViewChange(key.view)}
               type="button"
             >
