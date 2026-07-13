@@ -13,7 +13,7 @@ Leia [CONTEXT.md](./CONTEXT.md) antes de alterar regras, textos ou nomes do dom�
 - O aplicativo é local-first. Depois de instalado como PWA, o fluxo essencial de estudo deve funcionar offline.
 - Não presuma conta, autenticação, backend ou sincronização remota. Progresso, notas, marcações e histórico ficam no `localStorage`; o Progresso pode ser exportado e importado manualmente.
 - Revisão não é prova. A Revisão agenda Cards por repetição espaçada e permite autoavaliação após uma resposta correta.
-- O Simulado é uma capacidade futura: 100 questões, com 20 aleatórias e sem repetição de cada Matéria, e percentual de acertos apresentado ao final.
+- O Simulado tem 100 questões, com 20 aleatórias e sem repetição de cada Matéria, e percentual de acertos apresentado ao final.
 - Respostas de um Simulado não alteram o Progresso nem o agendamento da Revisão. Resultados do Simulado pertencem a um histórico separado.
 
 ## Questões e fonte de dados
@@ -28,7 +28,8 @@ Leia [CONTEXT.md](./CONTEXT.md) antes de alterar regras, textos ou nomes do dom�
 
 - React 19, TypeScript, Vite, Tailwind CSS e `vite-plugin-pwa`.
 - `src/App.tsx` compõe as telas; `src/hooks/useStudySession.ts` concentra estado e ações da sessão.
-- `src/panels/` contém Painel, Revisão, Busca, Histórico, Dados e atualização do PWA.
+- `src/panels/` contém Painel, Revisão, Busca, Histórico, Simulado, Dados e atualização do PWA.
+- `src/simulation.ts` isola seleção, correção e persistência local dos Simulados.
 - `src/scheduler.ts` contém agendamento e repetição espaçada.
 - `src/studyStats.ts` seleciona Cards devidos, calcula métricas e realiza buscas.
 - `src/storage.ts`, `src/cardNotes.ts`, `src/markedCards.ts` e `src/cardHistory.ts` isolam persistência local.

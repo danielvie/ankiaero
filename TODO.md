@@ -280,3 +280,31 @@
 - [x] Criar `src/components/Logo.tsx` e exibir a marca no Header
 - [x] Verificar `task check` e o header no navegador
 - [x] Trocar o icone para o conceito C1 (breve + check) por legibilidade em tamanhos pequenos
+
+# TODO: Adicionar Simulado
+
+- [x] Selecionar 20 Questões sem repetição de cada Matéria
+- [x] Persistir e retomar o Simulado em andamento
+- [x] Permitir responder por Matéria e terminar antecipadamente
+- [x] Mostrar resultado geral, por Matéria e detalhes das respostas
+- [x] Manter histórico próprio de Simulados
+- [x] Verificar lógica, tipos, build e fluxo no navegador
+- [x] Revalidar em viewport móvel quando o controle de viewport do navegador estiver disponível
+
+# TODO: Trocar de Matéria durante o Simulado
+
+- [x] Adicionar seletor de Matérias com progresso respondido
+- [x] Retomar cada Matéria na primeira questão não respondida
+- [x] Verificar persistência, tipos, build e fluxo no navegador
+
+# TODO: Melhorar seletor de Matérias no mobile
+
+- [x] Prototipar seletor nativo no mobile e manter botões no desktop
+- [x] Preservar troca e contadores de progresso
+- [x] Validar o protótipo em viewport móvel
+
+# TODO: Grade 3+2 de Matérias no mobile
+
+- [x] Substituir o seletor nativo por cinco botões compactos
+- [x] Organizar três botões na primeira linha e dois centralizados na segunda
+- [x] Verificar troca, contadores, tipos, build e viewport móvel

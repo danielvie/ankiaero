@@ -6,6 +6,7 @@ import { Card } from "./panels/Card";
 import { Dashboard } from "./panels/Dashboard";
 import { History } from "./panels/History";
 import { Settings } from "./panels/Settings";
+import { Simulation } from "./panels/Simulation";
 import { Update } from "./panels/Update";
 
 type AppProps = {
@@ -80,6 +81,7 @@ export default function App({ updateReady, onConfirmUpdate, onDismissUpdate }: A
         {study.view === "history" && (
           <History cards={study.historyCards} progress={study.progress} reviewCard={study.reviewSpecificCard} />
         )}
+        {study.view === "simulation" && <Simulation />}
         {study.view === "settings" && (
           <Settings
             importText={study.importText}

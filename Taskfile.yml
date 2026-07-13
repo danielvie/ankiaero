@@ -23,6 +23,10 @@ tasks:
     desc: Type-check TypeScript project
     cmds:
       - bun run check
+  test:
+    desc: Run automated checks
+    cmds:
+      - bun test src/simulation.test.js
   preview:
     desc: Preview production build locally
     cmds:
