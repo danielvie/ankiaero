@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- C6: Bússola de múltipla escolha — a agulha aponta a alternativa correta -->
+  <rect width="512" height="512" rx="112" fill="#0f172a"/>
+  <circle cx="256" cy="256" r="172" fill="#0b1120" stroke="#334155" stroke-width="10"/>
+  <g stroke="#334155" stroke-width="8" stroke-linecap="round">
+    <path d="M377 135 l-16 16"/>
+    <path d="M377 377 l-16 -16"/>
+    <path d="M135 377 l16 -16"/>
+    <path d="M135 135 l16 16"/>
+  </g>
+  <g font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-size="64" font-weight="700" text-anchor="middle">
+    <text x="256" y="166" fill="#f6b44b">A</text>
+    <text x="378" y="280" fill="#64748b">B</text>
+    <text x="256" y="400" fill="#64748b">C</text>
+    <text x="134" y="280" fill="#64748b">D</text>
+  </g>
+  <path d="M256 256 V206" stroke="#f6b44b" stroke-width="14" stroke-linecap="round"/>
+  <path d="M256 178 L238 214 H274 Z" fill="#f6b44b"/>
+  <circle cx="256" cy="256" r="17" fill="#0f172a" stroke="#f6b44b" stroke-width="10"/>
+</svg>

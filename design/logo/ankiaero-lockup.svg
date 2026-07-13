@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 320">
+  <!-- Anki Aero — horizontal lockup (icon + wordmark) on dark panel. -->
+  <rect width="1400" height="320" rx="48" fill="#0f172a"/>
+  <g transform="translate(32 32) scale(0.5)">
+    <rect width="512" height="512" rx="112" fill="#1e293b"/>
+    <circle cx="256" cy="256" r="176" fill="none" stroke="#334155" stroke-width="6"/>
+    <g fill="none" stroke="#f6b44b" stroke-width="20" stroke-linecap="round">
+      <path d="M286.6 429.3 A176 176 0 0 0 310.4 423.4"/>
+      <path d="M349.3 405.3 A176 176 0 0 0 382.6 378.3"/>
+      <path d="M408.4 344 A176 176 0 0 0 430.3 280.5"/>
+    </g>
+    <g transform="translate(419.2 190.1) rotate(-22)">
+      <path d="M0 -34 L22 18 L0 8 L-22 18 Z" fill="#f6b44b"/>
+    </g>
+  </g>
+  <text x="340" y="192" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-size="128" font-weight="700" letter-spacing="14">
+    <tspan fill="#e2e8f0">ANKI</tspan><tspan fill="#f6b44b" dx="36">AERO</tspan>
+  </text>
+  <text x="342" y="248" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-size="34" font-weight="500" letter-spacing="16" fill="#64748b">REVISÃO ESPAÇADA PARA PILOTOS</text>
+</svg>

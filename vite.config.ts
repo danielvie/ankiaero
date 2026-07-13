@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
@@ -7,7 +8,8 @@ const base = "./";
 export default defineConfig({
   base,
   plugins: [
-    react(),
+      tailwindcss(),
+      react(),
     VitePWA({
       registerType: "prompt",
       includeAssets: ["favicon.svg"],

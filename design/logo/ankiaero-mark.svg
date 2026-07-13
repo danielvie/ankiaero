@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Anki Aero — transparent mark for use over app surfaces. -->
+  <circle cx="256" cy="256" r="176" fill="none" stroke="#334155" stroke-width="6"/>
+  <g fill="none" stroke="#f6b44b" stroke-width="20" stroke-linecap="round">
+    <path d="M286.6 429.3 A176 176 0 0 0 310.4 423.4"/>
+    <path d="M349.3 405.3 A176 176 0 0 0 382.6 378.3"/>
+    <path d="M408.4 344 A176 176 0 0 0 430.3 280.5"/>
+  </g>
+  <g transform="translate(419.2 190.1) rotate(-22)">
+    <path d="M0 -34 L22 18 L0 8 L-22 18 Z" fill="#f6b44b"/>
+  </g>
+</svg>

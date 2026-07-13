@@ -1,3 +1,4 @@
+import { Check, MessageSquareText, RotateCcw, Search, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 import { formatDueTime } from "../scheduler";
 import type { Card, CardProgress } from "../types";
@@ -52,15 +53,22 @@ export function Browse({ cards, progress, markedCardIds, cardNotes, showMarkedOn
       </header>
 
       <div className="relative mx-4 mb-1 mt-3">
-        <span className="pointer-events-none absolute left-3 top-2.5 text-cockpit-muted">⌕</span>
+        <Search className="pointer-events-none absolute left-3 top-2.5 text-cockpit-muted" size={16} />
         <input className="w-full rounded-md border border-cockpit-line bg-cockpit-panel py-2.5 pl-8 pr-9 text-[11px] text-cockpit-text placeholder:text-cockpit-muted" placeholder="BUSCAR ENUNCIADO / NOTA…" value={query} onChange={(event) => setQuery(event.target.value)} />
         {query && <button aria-label="Limpar Busca" className="absolute right-3 top-2.5 text-cockpit-muted transition hover:text-cockpit-bright" onClick={() => setQuery("")} type="button">×</button>}
       </div>
 
       <div className="flex flex-wrap gap-2 px-4 py-2 text-[9px] tracking-[0.06em]">
-        <button className={filterClass(showMarkedOnly)} onClick={() => setShowMarkedOnly(!showMarkedOnly)} type="button">★ MARCADOS ({markedCardIds.size})</button>
-        <button className={filterClass(showNotedOnly)} onClick={() => setShowNotedOnly(!showNotedOnly)} type="button">N NOTAS</button>
-        <button className="ml-auto rounded border border-cockpit-line px-2 py-1.5 text-cockpit-muted transition hover:border-cockpit-muted hover:text-cockpit-soft disabled:opacity-40" disabled={!visibleCards.length} onClick={() => confirmReset ? (resetCards(visibleCards.map((card) => card.id)), setConfirmReset(false)) : setConfirmReset(true)} type="button">
+        <button className={filterClass(showMarkedOnly)} onClick={() => setShowMarkedOnly(!showMarkedOnly)} type="button">
+          <Star size={15} fill={showMarkedOnly ? "currentColor" : "none"} />
+          MARCADOS ({markedCardIds.size})
+        </button>
+        <button className={filterClass(showNotedOnly)} onClick={() => setShowNotedOnly(!showNotedOnly)} type="button">
+          <MessageSquareText size={15} fill={showNotedOnly ? "currentColor" : "none"} />
+          NOTAS
+        </button>
+        <button className="ml-auto inline-flex items-center gap-2 rounded border border-cockpit-line px-2 py-1.5 text-cockpit-muted transition hover:border-cockpit-muted hover:text-cockpit-soft disabled:opacity-40" disabled={!visibleCards.length} onClick={() => confirmReset ? (resetCards(visibleCards.map((card) => card.id)), setConfirmReset(false)) : setConfirmReset(true)} type="button">
+          {confirmReset ? <Check size={15} /> : <RotateCcw size={15} />}
           {confirmReset ? "CONFIRMAR REINÍCIO" : "REINICIAR VISÍVEIS"}
         </button>
       </div>
@@ -77,9 +85,13 @@ export function Browse({ cards, progress, markedCardIds, cardNotes, showMarkedOn
               </div>
               <p className="mt-1.5 line-clamp-3 text-[10px] leading-relaxed tracking-[0.02em] text-cockpit-text">{card.question}</p>
               <div className="mt-2 flex items-center justify-between gap-2">
-                <div className="flex gap-2 text-[9px] text-cockpit-soft">
-                  <button aria-label={isMarked ? "Desmarcar Card" : "Marcar Card"} className="transition hover:text-cockpit-accent" onClick={() => toggleMarked(card.id)} type="button">[{isMarked ? "★ MARCADO" : "☆"}]</button>
-                  <button aria-label={hasNote ? "Abrir Nota" : "Adicionar Nota"} className="transition hover:text-cockpit-accent" onClick={() => openNote(card)} type="button">[{hasNote ? "N NOTA" : "+ NOTA"}]</button>
+                <div className="flex gap-2">
+                  <button aria-label={isMarked ? "Desmarcar Card" : "Marcar Card"} className={`rounded border px-3 py-2 transition ${isMarked ? "border-cockpit-accent text-cockpit-accent" : "border-cockpit-line text-cockpit-soft hover:border-cockpit-muted"}`} onClick={() => toggleMarked(card.id)} type="button">
+                    <Star size={16} fill={isMarked ? "currentColor" : "none"} />
+                  </button>
+                  <button aria-label={hasNote ? "Abrir Nota" : "Adicionar Nota"} className={`rounded border px-3 py-2 transition ${hasNote ? "border-cockpit-accent text-cockpit-accent" : "border-cockpit-line text-cockpit-muted hover:border-cockpit-muted"}`} onClick={() => openNote(card)} type="button">
+                    <MessageSquareText size={16} fill={hasNote ? "currentColor" : "none"} />
+                  </button>
                 </div>
                 <div className="flex gap-1.5">
                   <button className="rounded border border-cockpit-line px-2 py-1 text-[8px] tracking-[0.08em] text-cockpit-muted transition hover:border-cockpit-muted hover:text-cockpit-soft" onClick={() => resetCard(card.id)} type="button">REINICIAR</button>
@@ -110,7 +122,7 @@ export function Browse({ cards, progress, markedCardIds, cardNotes, showMarkedOn
 }
 
 function filterClass(active: boolean) {
-  return `rounded border px-2 py-1.5 transition ${active ? "border-cockpit-accent bg-cockpit-accent/10 text-cockpit-accent hover:brightness-125" : "border-cockpit-line text-cockpit-muted hover:border-cockpit-muted hover:text-cockpit-soft"}`;
+  return `inline-flex items-center gap-1.5 rounded border px-2 py-1.5 transition ${active ? "border-cockpit-accent bg-cockpit-accent/10 text-cockpit-accent hover:brightness-125" : "border-cockpit-line text-cockpit-muted hover:border-cockpit-muted hover:text-cockpit-soft"}`;
 }
 
 function shortCardId(card: Card) {

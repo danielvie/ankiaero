@@ -214,3 +214,69 @@
 - [x] Aumentar fontes pequenas e alvos de toque em viewport móvel
 - [x] Verificar `task check` e o fluxo de Revisão no navegador
 - [ ] `task build` continua bloqueado pela dependência pré-existente ausente `workbox-window`
+
+# TODO: Restaurar painel anterior de Matérias
+
+- [x] Localizar a implementação anterior no histórico do Git
+- [x] Restaurar cards com devidos, total, precisão, progresso e Revisar
+- [x] Verificar `task check` e o Painel em viewport móvel
+
+# TODO: Recolocar indicadores das Matérias
+
+- [x] Restaurar indicadores circulares de precisão e Cards devidos
+- [x] Verificar indicadores junto aos cards em viewport móvel
+
+# TODO: Restaurar header original
+
+- [x] Comparar o header atual com `_wt_main`
+- [x] Restaurar marca, ícones e navegação superior responsiva
+- [x] Verificar navegação no desktop e preservar o breakpoint mobile de `_wt_main`
+
+# TODO: Restaurar ícones dos Cards na Busca
+
+- [x] Recolocar ícones de Card marcado e Nota nos resultados
+- [x] Verificar ícones, dimensões e ausência de overflow na Busca
+
+# TODO: Melhorar controles superiores da Busca
+
+- [x] Trocar símbolos textuais por ícones SVG nos filtros e reinício
+- [x] Verificar controles e ausência de overflow na Busca
+
+# TODO: Token CSS para cor de destaque
+
+- [x] Mover o valor da cor de destaque para `--color-accent` em `src/index.css`
+- [x] Preservar as utilities Tailwind `cockpit-accent` e suas variantes de opacidade
+- [x] Verificar `task check`
+
+# TODO: Converter token de destaque para OKLCH
+
+- [x] Definir `--color-accent` como valor `oklch(...)`
+- [x] Preservar brilho, outline e variants de opacidade do Tailwind
+- [x] Verificar `task check`
+
+# TODO: Migrar Tailwind CSS v3 para v4
+
+- [x] Confirmar requisitos oficiais e inspecionar a configuração atual
+- [x] Atualizar dependências e integração com Vite
+- [x] Migrar tokens para `@theme` em `src/index.css`
+- [x] Preservar utilities existentes e habilitar `bg-accent`
+- [x] Verificar `task check`, `task build` e CSS gerado
+
+# TODO: Logo do aplicativo
+
+- [x] Criar conceito de logo com a identidade do app (slate escuro + accent dourado)
+- [x] Gerar `design/logo/ankiaero-icon.svg`, `ankiaero-mark.svg` e `ankiaero-lockup.svg`
+- [ ] Decidir se a logo substitui os ícones do PWA e o header
+
+# TODO: 7 conceitos de logo (prova + aviacao)
+
+- [x] Criar 7 conceitos em `design/logo/concepts/` unindo avaliacao e aviacao
+- [ ] Usuario escolher o conceito vencedor para refinar
+
+# TODO: Integrar logo C8 ao app
+
+- [x] Substituir `public/favicon.svg`, `pwa-192.svg` e `pwa-512.svg` pela arte do C8
+- [x] Adicionar `<link rel="icon">` no `index.html`
+- [x] Criar `src/components/Logo.tsx` e exibir a marca no Header
+- [x] Verificar `task check` e o header no navegador
+- [x] Trocar o icone para o conceito C1 (breve + check) por legibilidade em tamanhos pequenos

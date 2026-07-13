@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- C3: Checkmark que vira rastro de subida do avião -->
+  <rect width="512" height="512" rx="112" fill="#0f172a"/>
+  <path d="M120 278 L210 368 L360 193" fill="none" stroke="#f6b44b" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+  <g stroke="#f6b44b" stroke-width="20" stroke-linecap="round" fill="none">
+    <path d="M374 175 l10 -12"/>
+    <path d="M396 149 l16 -19"/>
+  </g>
+  <g transform="translate(444 92) rotate(40)">
+    <path d="M0 -32 L20 16 L0 7 L-20 16 Z" fill="#f6b44b"/>
+  </g>
+</svg>
